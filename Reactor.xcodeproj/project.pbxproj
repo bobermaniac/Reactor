@@ -7,6 +7,17 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E7440E501F4AB5D700807C48 /* Transport.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7440E4F1F4AB5D700807C48 /* Transport.swift */; };
+		E7440E521F4AB5EE00807C48 /* Pulse.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7440E511F4AB5EE00807C48 /* Pulse.swift */; };
+		E7440E541F4AB60000807C48 /* Source.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7440E531F4AB60000807C48 /* Source.swift */; };
+		E7440E561F4AB61500807C48 /* Monitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7440E551F4AB61500807C48 /* Monitor.swift */; };
+		E7440E581F4B655F00807C48 /* Monitor_fmap.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7440E571F4B655F00807C48 /* Monitor_fmap.swift */; };
+		E7440E5A1F4B6E0700807C48 /* Monitor_queue.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7440E591F4B6E0700807C48 /* Monitor_queue.swift */; };
+		E7440E601F4CBC4600807C48 /* Monitor_tie.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7440E5F1F4CBC4600807C48 /* Monitor_tie.swift */; };
+		E7440E621F4CC3E100807C48 /* Monitor_warp.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7440E611F4CC3E100807C48 /* Monitor_warp.swift */; };
+		E7440E641F4DFE3000807C48 /* SignalKind.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7440E631F4DFE3000807C48 /* SignalKind.swift */; };
+		E7440E661F50BFC000807C48 /* Enumerable_all.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7440E651F50BFC000807C48 /* Enumerable_all.swift */; };
+		E7440E681F51450400807C48 /* Optional_else.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7440E671F51450400807C48 /* Optional_else.swift */; };
 		E7F9102C1F1802CE00E55373 /* Reactor.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E7F910221F1802CE00E55373 /* Reactor.framework */; };
 		E7F910311F1802CE00E55373 /* ReactorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7F910301F1802CE00E55373 /* ReactorTests.swift */; };
 		E7F910331F1802CE00E55373 /* Reactor.h in Headers */ = {isa = PBXBuildFile; fileRef = E7F910251F1802CE00E55373 /* Reactor.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -23,6 +34,17 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		E7440E4F1F4AB5D700807C48 /* Transport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Transport.swift; sourceTree = "<group>"; };
+		E7440E511F4AB5EE00807C48 /* Pulse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pulse.swift; sourceTree = "<group>"; };
+		E7440E531F4AB60000807C48 /* Source.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Source.swift; sourceTree = "<group>"; };
+		E7440E551F4AB61500807C48 /* Monitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Monitor.swift; sourceTree = "<group>"; };
+		E7440E571F4B655F00807C48 /* Monitor_fmap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Monitor_fmap.swift; sourceTree = "<group>"; };
+		E7440E591F4B6E0700807C48 /* Monitor_queue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Monitor_queue.swift; sourceTree = "<group>"; };
+		E7440E5F1F4CBC4600807C48 /* Monitor_tie.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Monitor_tie.swift; sourceTree = "<group>"; };
+		E7440E611F4CC3E100807C48 /* Monitor_warp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Monitor_warp.swift; sourceTree = "<group>"; };
+		E7440E631F4DFE3000807C48 /* SignalKind.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignalKind.swift; sourceTree = "<group>"; };
+		E7440E651F50BFC000807C48 /* Enumerable_all.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Enumerable_all.swift; sourceTree = "<group>"; };
+		E7440E671F51450400807C48 /* Optional_else.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Optional_else.swift; sourceTree = "<group>"; };
 		E7F910221F1802CE00E55373 /* Reactor.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Reactor.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E7F910251F1802CE00E55373 /* Reactor.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Reactor.h; sourceTree = "<group>"; };
 		E7F910261F1802CE00E55373 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -50,6 +72,24 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		E727D9FB1F350C9E003D6BCB /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				E7440E4F1F4AB5D700807C48 /* Transport.swift */,
+				E7440E511F4AB5EE00807C48 /* Pulse.swift */,
+				E7440E531F4AB60000807C48 /* Source.swift */,
+				E7440E551F4AB61500807C48 /* Monitor.swift */,
+				E7440E571F4B655F00807C48 /* Monitor_fmap.swift */,
+				E7440E591F4B6E0700807C48 /* Monitor_queue.swift */,
+				E7440E5F1F4CBC4600807C48 /* Monitor_tie.swift */,
+				E7440E611F4CC3E100807C48 /* Monitor_warp.swift */,
+				E7440E631F4DFE3000807C48 /* SignalKind.swift */,
+				E7440E651F50BFC000807C48 /* Enumerable_all.swift */,
+				E7440E671F51450400807C48 /* Optional_else.swift */,
+			);
+			path = Core;
+			sourceTree = "<group>";
+		};
 		E7F910181F1802CE00E55373 = {
 			isa = PBXGroup;
 			children = (
@@ -71,6 +111,7 @@
 		E7F910241F1802CE00E55373 /* Reactor */ = {
 			isa = PBXGroup;
 			children = (
+				E727D9FB1F350C9E003D6BCB /* Core */,
 				E7F910251F1802CE00E55373 /* Reactor.h */,
 				E7F910261F1802CE00E55373 /* Info.plist */,
 			);
@@ -148,6 +189,7 @@
 				TargetAttributes = {
 					E7F910211F1802CE00E55373 = {
 						CreatedOnToolsVersion = 9.0;
+						LastSwiftMigration = 0900;
 					};
 					E7F9102A1F1802CE00E55373 = {
 						CreatedOnToolsVersion = 9.0;
@@ -194,6 +236,17 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E7440E581F4B655F00807C48 /* Monitor_fmap.swift in Sources */,
+				E7440E681F51450400807C48 /* Optional_else.swift in Sources */,
+				E7440E561F4AB61500807C48 /* Monitor.swift in Sources */,
+				E7440E621F4CC3E100807C48 /* Monitor_warp.swift in Sources */,
+				E7440E521F4AB5EE00807C48 /* Pulse.swift in Sources */,
+				E7440E641F4DFE3000807C48 /* SignalKind.swift in Sources */,
+				E7440E501F4AB5D700807C48 /* Transport.swift in Sources */,
+				E7440E601F4CBC4600807C48 /* Monitor_tie.swift in Sources */,
+				E7440E661F50BFC000807C48 /* Enumerable_all.swift in Sources */,
+				E7440E5A1F4B6E0700807C48 /* Monitor_queue.swift in Sources */,
+				E7440E541F4AB60000807C48 /* Source.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -328,6 +381,7 @@
 		E7F910371F1802CE00E55373 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = Q9A75UDV4B;
@@ -340,6 +394,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = ru.virtualmind.Reactor;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -348,6 +403,7 @@
 		E7F910381F1802CE00E55373 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = Q9A75UDV4B;
@@ -368,6 +424,7 @@
 		E7F9103A1F1802CE00E55373 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				DEVELOPMENT_TEAM = Q9A75UDV4B;
 				INFOPLIST_FILE = ReactorTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
@@ -381,6 +438,7 @@
 		E7F9103B1F1802CE00E55373 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				DEVELOPMENT_TEAM = Q9A75UDV4B;
 				INFOPLIST_FILE = ReactorTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
@@ -410,6 +468,7 @@
 				E7F910381F1802CE00E55373 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		E7F910391F1802CE00E55373 /* Build configuration list for PBXNativeTarget "ReactorTests" */ = {
 			isa = XCConfigurationList;
@@ -418,6 +477,7 @@
 				E7F9103B1F1802CE00E55373 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
