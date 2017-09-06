@@ -1,9 +1,9 @@
 import Foundation
 
-class ContinuousMonitor<Payload: Pulse>: Monitor {
+class ContinuousSignal<Payload: Pulse>: Signal {
     typealias PayloadType = Payload
     
-    private let impl = MonitorImpl<Payload>()
+    private let impl = SignalCore<Payload>()
     
     private(set) public var value: Payload
     
@@ -11,8 +11,8 @@ class ContinuousMonitor<Payload: Pulse>: Monitor {
         value = initialValue
     }
     
-    static func create(attachedTo transport: Transport<Payload>, initialValue: Payload) -> ContinuousMonitor {
-        let monitor = ContinuousMonitor(initialValue: initialValue)
+    static func create(attachedTo transport: Pipeline<Payload>, initialValue: Payload) -> ContinuousSignal {
+        let monitor = ContinuousSignal(initialValue: initialValue)
         transport.receiver = monitor.receive
         return monitor
     }
@@ -23,9 +23,9 @@ class ContinuousMonitor<Payload: Pulse>: Monitor {
     }
     
     @discardableResult
-    func observe(with handler: @escaping (Payload) -> Void) -> Observation {
+    func observe(with handler: @escaping (Payload) -> Void) -> Subscription {
         let observation = impl.add(observer: handler)
-        if !value.terminal { handler(value) }
+        if !value.obsolete { handler(value) }
         return observation
     }
 }

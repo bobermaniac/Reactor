@@ -1,11 +1,11 @@
 import Foundation
 
 class MutableValue<T> {
-    private let emitter: Emitter<ContinuousMonitor<Event<T>>>
+    private let emitter: Emitter<ContinuousSignal<Event<T>>>
     public let observable: ObservableValue<T>
     
     init(initial value: T) {
-        emitter = Emitter(monitorFactory: { ContinuousMonitor.create(attachedTo: $0, initialValue: .changed(value)) })
+        emitter = Emitter(monitorFactory: { ContinuousSignal.create(attachedTo: $0, initialValue: .changed(value)) })
         observable = ObservableValue(on: emitter.monitor)
         self.value = value
     }

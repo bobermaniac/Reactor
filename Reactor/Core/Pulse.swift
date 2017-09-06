@@ -1,5 +1,5 @@
 import Foundation
 
 protocol Pulse {
-    var terminal: Bool { get }
+    var obsolete: Bool { get }
 }

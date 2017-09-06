@@ -5,7 +5,7 @@ enum Event<T>: Pulse {
     case depleted
     case faulted(Error)
     
-    var terminal: Bool {
+    var obsolete: Bool {
         if case .changed(_) = self { return false }
         return true
     }
@@ -32,8 +32,8 @@ enum Event<T>: Pulse {
     }
 }
 func terminal<T1, T2, TResult>(_ left: Event<T1>, _ right: Event<T2>) -> Event<TResult> {
-    if left.terminal { return left.cast() }
-    if right.terminal { return right.cast() }
+    if left.obsolete { return left.cast() }
+    if right.obsolete { return right.cast() }
     fatalError("None is terminal")
 }
 

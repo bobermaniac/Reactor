@@ -1,6 +1,6 @@
 import Foundation
 
-public class Transport<Payload> {
+public class Pipeline<Payload> {
     func send(_ payload: Payload) {
         receiver?(payload)
     }

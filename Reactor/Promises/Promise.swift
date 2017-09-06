@@ -1,11 +1,11 @@
 import Foundation
 
 class Promise<T> {
-    private let emitter: Emitter<DiscreteMonitor<Result<T>>>
+    private let emitter: Emitter<ContinuousSignal<Result<T>>>
     public let future: Future<T>
     
     init() {
-        emitter = Emitter(monitorFactory: { DiscreteMonitor.create(attachedTo: $0) })
+        emitter = Emitter(monitorFactory: { ContinuousSignal.create(attachedTo: $0, initialValue: Result<T>.nothing) })
         future = Future(on: emitter.monitor)
     }
     
@@ -19,9 +19,9 @@ class Promise<T> {
 }
 
 class Future<T> {
-    fileprivate let monitor: DiscreteMonitor<Result<T>>
+    fileprivate let monitor: ContinuousSignal<Result<T>>
     
-    init(on monitor: DiscreteMonitor<Result<T>>) {
+    init(on monitor: ContinuousSignal<Result<T>>) {
         self.monitor = monitor
     }
     
@@ -43,9 +43,9 @@ class Future<T> {
 }
 
 func all<T>(_ futures: [ Future<T> ]) -> Future<[ T ]> {
-    return Future(on: mix(futures.map { $0.monitor }, all))
+    return Future(on: tie(futures.map { $0.monitor }, all))
 }
 
 func any<T>(_ futures: [ Future<T> ]) -> Future<T> {
-    return Future(on: mix(futures.map { $0.monitor }, any))
+    return Future(on: tie(futures.map { $0.monitor }, any))
 }

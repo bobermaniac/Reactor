@@ -5,12 +5,12 @@ private class TerminalGuard2<Left: Pulse, Right: Pulse> {
     var right: Right?
     
     func update(left: Left) -> (Left?, Right?) {
-        if left.terminal { self.left = left }
+        if left.obsolete { self.left = left }
         return (left, self.right)
     }
     
     func update(right: Right) -> (Left?, Right?) {
-        if right.terminal { self.right = right }
+        if right.obsolete { self.right = right }
         return (self.left, right)
     }
 }
@@ -23,20 +23,20 @@ private class TerminalGuardM<T: Pulse> {
     }
     
     func update(_ object: T, at index: Int) -> [ T? ] {
-        if object.terminal { content[index] = object }
+        if object.obsolete { content[index] = object }
         return content
     }
 }
 
 func mixCheck(input: [ Pulse? ], result: Pulse?) {
-    if input.filter({ $0?.terminal ?? false }).count == input.count {
-        guard result?.terminal ?? false else { fatalError() }
+    if input.filter({ $0?.obsolete ?? false }).count == input.count {
+        guard result?.obsolete ?? false else { fatalError() }
     }
 }
 
-func mix<M1: Monitor, M2: Monitor, Result>(_ monitors: (M1, M2), _ transform: @escaping (M1.PayloadType?, M2.PayloadType?) -> Result?) -> DiscreteMonitor<Result> {
-    let transport = Transport<Result>()
-    let monitor = DiscreteMonitor.create(attachedTo: transport)
+func mix<M1: Signal, M2: Signal, Result>(_ monitors: (M1, M2), _ transform: @escaping (M1.PayloadType?, M2.PayloadType?) -> Result?) -> DiscreteSignal<Result> {
+    let transport = Pipeline<Result>()
+    let monitor = DiscreteSignal.create(attachedTo: transport)
     
     let terminalGuard = TerminalGuard2<M1.PayloadType, M2.PayloadType>()
     let transformAndSend = { (input: (M1.PayloadType?, M2.PayloadType?)) -> Void in
@@ -55,9 +55,9 @@ func mix<M1: Monitor, M2: Monitor, Result>(_ monitors: (M1, M2), _ transform: @e
     return monitor
 }
 
-func mix<M: Monitor, Result>(_ monitors: [ M ], _ transform: @escaping ([ M.PayloadType? ]) -> Result?) -> DiscreteMonitor<Result> {
-    let transport = Transport<Result>()
-    let monitor = DiscreteMonitor.create(attachedTo: transport)
+func mix<M: Signal, Result>(_ monitors: [ M ], _ transform: @escaping ([ M.PayloadType? ]) -> Result?) -> DiscreteSignal<Result> {
+    let transport = Pipeline<Result>()
+    let monitor = DiscreteSignal.create(attachedTo: transport)
     
     let terminalGuard = TerminalGuardM<M.PayloadType>(count: monitors.count)
     let transformAndSend = { (input: [ M.PayloadType? ]) -> Void in

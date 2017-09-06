@@ -1,13 +1,13 @@
 import Foundation
 
-class Emitter<ResultMonitor: Monitor> {
+class Emitter<ResultMonitor: Signal> {
     typealias Payload = ResultMonitor.PayloadType
     
-    private let transport: Transport<Payload>
+    private let transport: Pipeline<Payload>
     let monitor: ResultMonitor
     
-    init(monitorFactory: (Transport<Payload>) -> ResultMonitor) {
-        transport = Transport<Payload>()
+    init(monitorFactory: (Pipeline<Payload>) -> ResultMonitor) {
+        transport = Pipeline<Payload>()
         monitor = monitorFactory(transport)
     }
     

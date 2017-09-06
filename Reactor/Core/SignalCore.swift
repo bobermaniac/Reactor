@@ -1,7 +1,7 @@
 import Foundation
 
-class MonitorImpl<Payload: Pulse> {
-    class Subscriber : Observation {
+class SignalCore<Payload: Pulse> {
+    class Subscriber : Subscription {
         public let notify: (Payload) -> Void
         
         public func cancel() {
@@ -27,7 +27,7 @@ class MonitorImpl<Payload: Pulse> {
         apply(update: state.updated(with: payload))
     }
     
-    func add(observer: @escaping (Payload) -> Void) -> Observation {
+    func add(observer: @escaping (Payload) -> Void) -> Subscription {
         let subscriber = Subscriber(notify: observer, canceler: self.remove)
         apply(update: state.added(subscriber: subscriber))
         return subscriber
@@ -60,7 +60,7 @@ class MonitorImpl<Payload: Pulse> {
         
         func updated(with payload: Payload) -> Update {
             guard case .active(let subscribers) = self else { return unchanged() }
-            if payload.terminal { return update(.terminated(payload), andInvoke: subscribers, with: payload) }
+            if payload.obsolete { return update(.terminated(payload), andInvoke: subscribers, with: payload) }
             return invoke(subscribers, with: payload)
         }
         

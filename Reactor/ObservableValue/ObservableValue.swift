@@ -21,13 +21,13 @@ extension Bool: SupportsLogicalOperations {
 }
 
 class ObservableValue<T> {
-    fileprivate let monitor: ContinuousMonitor<Event<T>>
+    fileprivate let monitor: ContinuousSignal<Event<T>>
     
-    init(on monitor: ContinuousMonitor<Event<T>>) {
+    init(on monitor: ContinuousSignal<Event<T>>) {
         self.monitor = monitor
     }
     
-    func subscribe(onChange handler: @escaping (Event<T>) -> Void) -> Observation {
+    func subscribe(onChange handler: @escaping (Event<T>) -> Void) -> Subscription {
         return monitor.observe(with: handler)
     }
 }
