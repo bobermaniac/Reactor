@@ -1,5 +1,5 @@
 import Foundation
 
-public protocol Pulse {
+protocol Pulse {
     var terminal: Bool { get }
 }

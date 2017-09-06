@@ -1,6 +1,9 @@
 import Foundation
 
-public class Transport<T> {
-    public var collector: ((T) -> Void)?
-    public func emit(_ value: T) { collector?(value) }
+public class Transport<Payload> {
+    func send(_ payload: Payload) {
+        receiver?(payload)
+    }
+    
+    var receiver: ((Payload) -> Void)?
 }

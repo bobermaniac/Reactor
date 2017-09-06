@@ -7,17 +7,26 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		E7440E501F4AB5D700807C48 /* Transport.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7440E4F1F4AB5D700807C48 /* Transport.swift */; };
-		E7440E521F4AB5EE00807C48 /* Pulse.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7440E511F4AB5EE00807C48 /* Pulse.swift */; };
-		E7440E541F4AB60000807C48 /* Source.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7440E531F4AB60000807C48 /* Source.swift */; };
-		E7440E561F4AB61500807C48 /* Monitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7440E551F4AB61500807C48 /* Monitor.swift */; };
-		E7440E581F4B655F00807C48 /* Monitor_fmap.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7440E571F4B655F00807C48 /* Monitor_fmap.swift */; };
-		E7440E5A1F4B6E0700807C48 /* Monitor_queue.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7440E591F4B6E0700807C48 /* Monitor_queue.swift */; };
-		E7440E601F4CBC4600807C48 /* Monitor_tie.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7440E5F1F4CBC4600807C48 /* Monitor_tie.swift */; };
-		E7440E621F4CC3E100807C48 /* Monitor_warp.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7440E611F4CC3E100807C48 /* Monitor_warp.swift */; };
-		E7440E641F4DFE3000807C48 /* SignalKind.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7440E631F4DFE3000807C48 /* SignalKind.swift */; };
-		E7440E661F50BFC000807C48 /* Enumerable_all.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7440E651F50BFC000807C48 /* Enumerable_all.swift */; };
-		E7440E681F51450400807C48 /* Optional_else.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7440E671F51450400807C48 /* Optional_else.swift */; };
+		E7440E6A1F52B49800807C48 /* Pulse.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7440E691F52B49800807C48 /* Pulse.swift */; };
+		E7440E6C1F52B4CF00807C48 /* Transport.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7440E6B1F52B4CF00807C48 /* Transport.swift */; };
+		E7440E6E1F52B67500807C48 /* Emitter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7440E6D1F52B67500807C48 /* Emitter.swift */; };
+		E7440E701F52B6BE00807C48 /* Monitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7440E6F1F52B6BE00807C48 /* Monitor.swift */; };
+		E7440E721F52D0F100807C48 /* MonitorImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7440E711F52D0F100807C48 /* MonitorImpl.swift */; };
+		E7440E761F530DF700807C48 /* DiscreteMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7440E751F530DF700807C48 /* DiscreteMonitor.swift */; };
+		E7440E781F531C3800807C48 /* ContinuousMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7440E771F531C3800807C48 /* ContinuousMonitor.swift */; };
+		E7440E7A1F53312D00807C48 /* Monitor+fmap.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7440E791F53312D00807C48 /* Monitor+fmap.swift */; };
+		E7440E7C1F533EBC00807C48 /* Monitor+filter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7440E7B1F533EBC00807C48 /* Monitor+filter.swift */; };
+		E7440E7E1F5341ED00807C48 /* Monitor+mix.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7440E7D1F5341ED00807C48 /* Monitor+mix.swift */; };
+		E7440E801F535C3900807C48 /* ContinuousMonitor+tie.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7440E7F1F535C3900807C48 /* ContinuousMonitor+tie.swift */; };
+		E7440E821F5491F300807C48 /* Monitor+reduce.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7440E811F5491F300807C48 /* Monitor+reduce.swift */; };
+		E7440E851F589AF200807C48 /* Promise.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7440E841F589AF200807C48 /* Promise.swift */; };
+		E7BF7F601F5F2471006C1BFC /* ObservableValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7BF7F5F1F5F2471006C1BFC /* ObservableValue.swift */; };
+		E7CEF29E1F5B04E60098E0ED /* Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7CEF29D1F5B04E60098E0ED /* Result.swift */; };
+		E7CEF2A01F5B2ADC0098E0ED /* ResultC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7CEF29F1F5B2ADC0098E0ED /* ResultC.swift */; };
+		E7CEF2A21F5B2BA20098E0ED /* CompositeError.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7CEF2A11F5B2BA20098E0ED /* CompositeError.swift */; };
+		E7CEF2A71F5B56CF0098E0ED /* MutableValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7CEF2A61F5B56CF0098E0ED /* MutableValue.swift */; };
+		E7CEF2A91F5B56FA0098E0ED /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7CEF2A81F5B56FA0098E0ED /* Event.swift */; };
+		E7CEF2AB1F5C72130098E0ED /* PromiseC.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7CEF2AA1F5C72130098E0ED /* PromiseC.swift */; };
 		E7F9102C1F1802CE00E55373 /* Reactor.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E7F910221F1802CE00E55373 /* Reactor.framework */; };
 		E7F910311F1802CE00E55373 /* ReactorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7F910301F1802CE00E55373 /* ReactorTests.swift */; };
 		E7F910331F1802CE00E55373 /* Reactor.h in Headers */ = {isa = PBXBuildFile; fileRef = E7F910251F1802CE00E55373 /* Reactor.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -34,17 +43,26 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		E7440E4F1F4AB5D700807C48 /* Transport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Transport.swift; sourceTree = "<group>"; };
-		E7440E511F4AB5EE00807C48 /* Pulse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pulse.swift; sourceTree = "<group>"; };
-		E7440E531F4AB60000807C48 /* Source.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Source.swift; sourceTree = "<group>"; };
-		E7440E551F4AB61500807C48 /* Monitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Monitor.swift; sourceTree = "<group>"; };
-		E7440E571F4B655F00807C48 /* Monitor_fmap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Monitor_fmap.swift; sourceTree = "<group>"; };
-		E7440E591F4B6E0700807C48 /* Monitor_queue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Monitor_queue.swift; sourceTree = "<group>"; };
-		E7440E5F1F4CBC4600807C48 /* Monitor_tie.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Monitor_tie.swift; sourceTree = "<group>"; };
-		E7440E611F4CC3E100807C48 /* Monitor_warp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Monitor_warp.swift; sourceTree = "<group>"; };
-		E7440E631F4DFE3000807C48 /* SignalKind.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignalKind.swift; sourceTree = "<group>"; };
-		E7440E651F50BFC000807C48 /* Enumerable_all.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Enumerable_all.swift; sourceTree = "<group>"; };
-		E7440E671F51450400807C48 /* Optional_else.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Optional_else.swift; sourceTree = "<group>"; };
+		E7440E691F52B49800807C48 /* Pulse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Pulse.swift; sourceTree = "<group>"; };
+		E7440E6B1F52B4CF00807C48 /* Transport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Transport.swift; sourceTree = "<group>"; };
+		E7440E6D1F52B67500807C48 /* Emitter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Emitter.swift; sourceTree = "<group>"; };
+		E7440E6F1F52B6BE00807C48 /* Monitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Monitor.swift; sourceTree = "<group>"; };
+		E7440E711F52D0F100807C48 /* MonitorImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MonitorImpl.swift; sourceTree = "<group>"; };
+		E7440E751F530DF700807C48 /* DiscreteMonitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscreteMonitor.swift; sourceTree = "<group>"; };
+		E7440E771F531C3800807C48 /* ContinuousMonitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContinuousMonitor.swift; sourceTree = "<group>"; };
+		E7440E791F53312D00807C48 /* Monitor+fmap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Monitor+fmap.swift"; sourceTree = "<group>"; };
+		E7440E7B1F533EBC00807C48 /* Monitor+filter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Monitor+filter.swift"; sourceTree = "<group>"; };
+		E7440E7D1F5341ED00807C48 /* Monitor+mix.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Monitor+mix.swift"; sourceTree = "<group>"; };
+		E7440E7F1F535C3900807C48 /* ContinuousMonitor+tie.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ContinuousMonitor+tie.swift"; sourceTree = "<group>"; };
+		E7440E811F5491F300807C48 /* Monitor+reduce.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Monitor+reduce.swift"; sourceTree = "<group>"; };
+		E7440E841F589AF200807C48 /* Promise.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Promise.swift; sourceTree = "<group>"; };
+		E7BF7F5F1F5F2471006C1BFC /* ObservableValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObservableValue.swift; sourceTree = "<group>"; };
+		E7CEF29D1F5B04E60098E0ED /* Result.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Result.swift; sourceTree = "<group>"; };
+		E7CEF29F1F5B2ADC0098E0ED /* ResultC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResultC.swift; sourceTree = "<group>"; };
+		E7CEF2A11F5B2BA20098E0ED /* CompositeError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompositeError.swift; sourceTree = "<group>"; };
+		E7CEF2A61F5B56CF0098E0ED /* MutableValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MutableValue.swift; sourceTree = "<group>"; };
+		E7CEF2A81F5B56FA0098E0ED /* Event.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Event.swift; sourceTree = "<group>"; };
+		E7CEF2AA1F5C72130098E0ED /* PromiseC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PromiseC.swift; sourceTree = "<group>"; };
 		E7F910221F1802CE00E55373 /* Reactor.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Reactor.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E7F910251F1802CE00E55373 /* Reactor.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Reactor.h; sourceTree = "<group>"; };
 		E7F910261F1802CE00E55373 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -75,19 +93,42 @@
 		E727D9FB1F350C9E003D6BCB /* Core */ = {
 			isa = PBXGroup;
 			children = (
-				E7440E4F1F4AB5D700807C48 /* Transport.swift */,
-				E7440E511F4AB5EE00807C48 /* Pulse.swift */,
-				E7440E531F4AB60000807C48 /* Source.swift */,
-				E7440E551F4AB61500807C48 /* Monitor.swift */,
-				E7440E571F4B655F00807C48 /* Monitor_fmap.swift */,
-				E7440E591F4B6E0700807C48 /* Monitor_queue.swift */,
-				E7440E5F1F4CBC4600807C48 /* Monitor_tie.swift */,
-				E7440E611F4CC3E100807C48 /* Monitor_warp.swift */,
-				E7440E631F4DFE3000807C48 /* SignalKind.swift */,
-				E7440E651F50BFC000807C48 /* Enumerable_all.swift */,
-				E7440E671F51450400807C48 /* Optional_else.swift */,
+				E7440E691F52B49800807C48 /* Pulse.swift */,
+				E7440E6B1F52B4CF00807C48 /* Transport.swift */,
+				E7440E6D1F52B67500807C48 /* Emitter.swift */,
+				E7440E6F1F52B6BE00807C48 /* Monitor.swift */,
+				E7440E711F52D0F100807C48 /* MonitorImpl.swift */,
+				E7440E751F530DF700807C48 /* DiscreteMonitor.swift */,
+				E7440E771F531C3800807C48 /* ContinuousMonitor.swift */,
+				E7440E791F53312D00807C48 /* Monitor+fmap.swift */,
+				E7440E811F5491F300807C48 /* Monitor+reduce.swift */,
+				E7440E7B1F533EBC00807C48 /* Monitor+filter.swift */,
+				E7440E7D1F5341ED00807C48 /* Monitor+mix.swift */,
+				E7440E7F1F535C3900807C48 /* ContinuousMonitor+tie.swift */,
 			);
 			path = Core;
+			sourceTree = "<group>";
+		};
+		E7440E831F589ADE00807C48 /* Promises */ = {
+			isa = PBXGroup;
+			children = (
+				E7440E841F589AF200807C48 /* Promise.swift */,
+				E7CEF29D1F5B04E60098E0ED /* Result.swift */,
+				E7CEF2AA1F5C72130098E0ED /* PromiseC.swift */,
+				E7CEF29F1F5B2ADC0098E0ED /* ResultC.swift */,
+				E7CEF2A11F5B2BA20098E0ED /* CompositeError.swift */,
+			);
+			path = Promises;
+			sourceTree = "<group>";
+		};
+		E7CEF2A31F5B560F0098E0ED /* ObservableValue */ = {
+			isa = PBXGroup;
+			children = (
+				E7CEF2A61F5B56CF0098E0ED /* MutableValue.swift */,
+				E7CEF2A81F5B56FA0098E0ED /* Event.swift */,
+				E7BF7F5F1F5F2471006C1BFC /* ObservableValue.swift */,
+			);
+			path = ObservableValue;
 			sourceTree = "<group>";
 		};
 		E7F910181F1802CE00E55373 = {
@@ -111,6 +152,8 @@
 		E7F910241F1802CE00E55373 /* Reactor */ = {
 			isa = PBXGroup;
 			children = (
+				E7CEF2A31F5B560F0098E0ED /* ObservableValue */,
+				E7440E831F589ADE00807C48 /* Promises */,
 				E727D9FB1F350C9E003D6BCB /* Core */,
 				E7F910251F1802CE00E55373 /* Reactor.h */,
 				E7F910261F1802CE00E55373 /* Info.plist */,
@@ -236,17 +279,26 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E7440E581F4B655F00807C48 /* Monitor_fmap.swift in Sources */,
-				E7440E681F51450400807C48 /* Optional_else.swift in Sources */,
-				E7440E561F4AB61500807C48 /* Monitor.swift in Sources */,
-				E7440E621F4CC3E100807C48 /* Monitor_warp.swift in Sources */,
-				E7440E521F4AB5EE00807C48 /* Pulse.swift in Sources */,
-				E7440E641F4DFE3000807C48 /* SignalKind.swift in Sources */,
-				E7440E501F4AB5D700807C48 /* Transport.swift in Sources */,
-				E7440E601F4CBC4600807C48 /* Monitor_tie.swift in Sources */,
-				E7440E661F50BFC000807C48 /* Enumerable_all.swift in Sources */,
-				E7440E5A1F4B6E0700807C48 /* Monitor_queue.swift in Sources */,
-				E7440E541F4AB60000807C48 /* Source.swift in Sources */,
+				E7440E701F52B6BE00807C48 /* Monitor.swift in Sources */,
+				E7440E781F531C3800807C48 /* ContinuousMonitor.swift in Sources */,
+				E7440E7A1F53312D00807C48 /* Monitor+fmap.swift in Sources */,
+				E7440E721F52D0F100807C48 /* MonitorImpl.swift in Sources */,
+				E7CEF29E1F5B04E60098E0ED /* Result.swift in Sources */,
+				E7440E6A1F52B49800807C48 /* Pulse.swift in Sources */,
+				E7BF7F601F5F2471006C1BFC /* ObservableValue.swift in Sources */,
+				E7CEF2A91F5B56FA0098E0ED /* Event.swift in Sources */,
+				E7440E6C1F52B4CF00807C48 /* Transport.swift in Sources */,
+				E7440E6E1F52B67500807C48 /* Emitter.swift in Sources */,
+				E7440E851F589AF200807C48 /* Promise.swift in Sources */,
+				E7CEF2A01F5B2ADC0098E0ED /* ResultC.swift in Sources */,
+				E7440E7E1F5341ED00807C48 /* Monitor+mix.swift in Sources */,
+				E7440E801F535C3900807C48 /* ContinuousMonitor+tie.swift in Sources */,
+				E7CEF2A21F5B2BA20098E0ED /* CompositeError.swift in Sources */,
+				E7CEF2AB1F5C72130098E0ED /* PromiseC.swift in Sources */,
+				E7440E761F530DF700807C48 /* DiscreteMonitor.swift in Sources */,
+				E7440E821F5491F300807C48 /* Monitor+reduce.swift in Sources */,
+				E7CEF2A71F5B56CF0098E0ED /* MutableValue.swift in Sources */,
+				E7440E7C1F533EBC00807C48 /* Monitor+filter.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
