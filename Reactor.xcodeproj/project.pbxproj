@@ -14,17 +14,30 @@
 		E7440E721F52D0F100807C48 /* SignalCore.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7440E711F52D0F100807C48 /* SignalCore.swift */; };
 		E7440E7A1F53312D00807C48 /* Signal+fmap.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7440E791F53312D00807C48 /* Signal+fmap.swift */; };
 		E7440E7C1F533EBC00807C48 /* Signal+filter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7440E7B1F533EBC00807C48 /* Signal+filter.swift */; };
-		E7440E7E1F5341ED00807C48 /* Signal+mix.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7440E7D1F5341ED00807C48 /* Signal+mix.swift */; };
 		E7440E801F535C3900807C48 /* ContinuousSignal+tie.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7440E7F1F535C3900807C48 /* ContinuousSignal+tie.swift */; };
 		E7440E821F5491F300807C48 /* Signal+reduce.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7440E811F5491F300807C48 /* Signal+reduce.swift */; };
+		E74D23D71F646A380097C543 /* CollectionEventBatch.swift in Sources */ = {isa = PBXBuildFile; fileRef = E74D23D61F646A380097C543 /* CollectionEventBatch.swift */; };
+		E74D23D91F654DC60097C543 /* CollectionEventTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E74D23D81F654DC60097C543 /* CollectionEventTests.swift */; };
+		E74D23DB1F67194B0097C543 /* CollectionEventBatch.swift in Sources */ = {isa = PBXBuildFile; fileRef = E74D23DA1F67194B0097C543 /* CollectionEventBatch.swift */; };
+		E74D23DD1F68667F0097C543 /* CollectionEvent+Apply.swift in Sources */ = {isa = PBXBuildFile; fileRef = E74D23DC1F68667F0097C543 /* CollectionEvent+Apply.swift */; };
+		E74D23DF1F6866E00097C543 /* CollectionEvent+Update.swift in Sources */ = {isa = PBXBuildFile; fileRef = E74D23DE1F6866E00097C543 /* CollectionEvent+Update.swift */; };
 		E7BF7F601F5F2471006C1BFC /* ObservableValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7BF7F5F1F5F2471006C1BFC /* ObservableValue.swift */; };
 		E7CEF2A01F5B2ADC0098E0ED /* Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7CEF29F1F5B2ADC0098E0ED /* Result.swift */; };
-		E7CEF2A21F5B2BA20098E0ED /* CompositeError.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7CEF2A11F5B2BA20098E0ED /* CompositeError.swift */; };
 		E7CEF2A71F5B56CF0098E0ED /* MutableValue.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7CEF2A61F5B56CF0098E0ED /* MutableValue.swift */; };
 		E7CEF2A91F5B56FA0098E0ED /* Event.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7CEF2A81F5B56FA0098E0ED /* Event.swift */; };
 		E7CEF2AB1F5C72130098E0ED /* Promise.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7CEF2AA1F5C72130098E0ED /* Promise.swift */; };
 		E7E0C2021F607C5600A00D28 /* DiscreteSignal.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7E0C2011F607C2D00A00D28 /* DiscreteSignal.swift */; };
 		E7E0C2041F607C7700A00D28 /* ContinuousSignal.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7E0C2031F607C7500A00D28 /* ContinuousSignal.swift */; };
+		E7E0C2061F607FA800A00D28 /* DiscreteSignalFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7E0C2051F607FA800A00D28 /* DiscreteSignalFactory.swift */; };
+		E7E0C2081F6080A400A00D28 /* ContinuousSignalFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7E0C2071F6080A400A00D28 /* ContinuousSignalFactory.swift */; };
+		E7E0C20A1F6081A100A00D28 /* SignalFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7E0C2091F6081A100A00D28 /* SignalFactory.swift */; };
+		E7E0C20D1F61CF9800A00D28 /* Bool.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7E0C20C1F61CF9800A00D28 /* Bool.swift */; };
+		E7E0C20F1F61DA5C00A00D28 /* Sequence.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7E0C20E1F61DA5C00A00D28 /* Sequence.swift */; };
+		E7E0C2111F61F32E00A00D28 /* ObservableValue+LogicalOperations.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7E0C2101F61F32E00A00D28 /* ObservableValue+LogicalOperations.swift */; };
+		E7E0C2141F63D45400A00D28 /* Timer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7E0C2131F63D45400A00D28 /* Timer.swift */; };
+		E7E0C2171F6413A900A00D28 /* MutableCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7E0C2161F6413A900A00D28 /* MutableCollection.swift */; };
+		E7E0C2191F6413B700A00D28 /* CollectionEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7E0C2181F6413B700A00D28 /* CollectionEvent.swift */; };
+		E7E0C21B1F64603500A00D28 /* MutableCollectionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7E0C21A1F64603500A00D28 /* MutableCollectionTests.swift */; };
 		E7F9102C1F1802CE00E55373 /* Reactor.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E7F910221F1802CE00E55373 /* Reactor.framework */; };
 		E7F910311F1802CE00E55373 /* ReactorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7F910301F1802CE00E55373 /* ReactorTests.swift */; };
 		E7F910331F1802CE00E55373 /* Reactor.h in Headers */ = {isa = PBXBuildFile; fileRef = E7F910251F1802CE00E55373 /* Reactor.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -48,17 +61,30 @@
 		E7440E711F52D0F100807C48 /* SignalCore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignalCore.swift; sourceTree = "<group>"; };
 		E7440E791F53312D00807C48 /* Signal+fmap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Signal+fmap.swift"; sourceTree = "<group>"; };
 		E7440E7B1F533EBC00807C48 /* Signal+filter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Signal+filter.swift"; sourceTree = "<group>"; };
-		E7440E7D1F5341ED00807C48 /* Signal+mix.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Signal+mix.swift"; sourceTree = "<group>"; };
 		E7440E7F1F535C3900807C48 /* ContinuousSignal+tie.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ContinuousSignal+tie.swift"; sourceTree = "<group>"; };
 		E7440E811F5491F300807C48 /* Signal+reduce.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Signal+reduce.swift"; sourceTree = "<group>"; };
+		E74D23D61F646A380097C543 /* CollectionEventBatch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionEventBatch.swift; sourceTree = "<group>"; };
+		E74D23D81F654DC60097C543 /* CollectionEventTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionEventTests.swift; sourceTree = "<group>"; };
+		E74D23DA1F67194B0097C543 /* CollectionEventBatch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionEventBatch.swift; sourceTree = "<group>"; };
+		E74D23DC1F68667F0097C543 /* CollectionEvent+Apply.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CollectionEvent+Apply.swift"; sourceTree = "<group>"; };
+		E74D23DE1F6866E00097C543 /* CollectionEvent+Update.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CollectionEvent+Update.swift"; sourceTree = "<group>"; };
 		E7BF7F5F1F5F2471006C1BFC /* ObservableValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObservableValue.swift; sourceTree = "<group>"; };
 		E7CEF29F1F5B2ADC0098E0ED /* Result.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Result.swift; sourceTree = "<group>"; };
-		E7CEF2A11F5B2BA20098E0ED /* CompositeError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompositeError.swift; sourceTree = "<group>"; };
 		E7CEF2A61F5B56CF0098E0ED /* MutableValue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MutableValue.swift; sourceTree = "<group>"; };
 		E7CEF2A81F5B56FA0098E0ED /* Event.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Event.swift; sourceTree = "<group>"; };
 		E7CEF2AA1F5C72130098E0ED /* Promise.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Promise.swift; sourceTree = "<group>"; };
 		E7E0C2011F607C2D00A00D28 /* DiscreteSignal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscreteSignal.swift; sourceTree = "<group>"; };
 		E7E0C2031F607C7500A00D28 /* ContinuousSignal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContinuousSignal.swift; sourceTree = "<group>"; };
+		E7E0C2051F607FA800A00D28 /* DiscreteSignalFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscreteSignalFactory.swift; sourceTree = "<group>"; };
+		E7E0C2071F6080A400A00D28 /* ContinuousSignalFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContinuousSignalFactory.swift; sourceTree = "<group>"; };
+		E7E0C2091F6081A100A00D28 /* SignalFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignalFactory.swift; sourceTree = "<group>"; };
+		E7E0C20C1F61CF9800A00D28 /* Bool.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bool.swift; sourceTree = "<group>"; };
+		E7E0C20E1F61DA5C00A00D28 /* Sequence.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sequence.swift; sourceTree = "<group>"; };
+		E7E0C2101F61F32E00A00D28 /* ObservableValue+LogicalOperations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ObservableValue+LogicalOperations.swift"; sourceTree = "<group>"; };
+		E7E0C2131F63D45400A00D28 /* Timer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Timer.swift; sourceTree = "<group>"; };
+		E7E0C2161F6413A900A00D28 /* MutableCollection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MutableCollection.swift; sourceTree = "<group>"; };
+		E7E0C2181F6413B700A00D28 /* CollectionEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionEvent.swift; sourceTree = "<group>"; };
+		E7E0C21A1F64603500A00D28 /* MutableCollectionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MutableCollectionTests.swift; sourceTree = "<group>"; };
 		E7F910221F1802CE00E55373 /* Reactor.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Reactor.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E7F910251F1802CE00E55373 /* Reactor.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Reactor.h; sourceTree = "<group>"; };
 		E7F910261F1802CE00E55373 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -89,17 +115,21 @@
 		E727D9FB1F350C9E003D6BCB /* Core */ = {
 			isa = PBXGroup;
 			children = (
+				E7E0C20C1F61CF9800A00D28 /* Bool.swift */,
+				E7E0C20E1F61DA5C00A00D28 /* Sequence.swift */,
 				E7440E691F52B49800807C48 /* Pulse.swift */,
 				E7440E6B1F52B4CF00807C48 /* Pipeline.swift */,
 				E7440E6D1F52B67500807C48 /* Emitter.swift */,
 				E7440E6F1F52B6BE00807C48 /* Signal.swift */,
+				E7E0C2091F6081A100A00D28 /* SignalFactory.swift */,
 				E7440E711F52D0F100807C48 /* SignalCore.swift */,
 				E7E0C2011F607C2D00A00D28 /* DiscreteSignal.swift */,
+				E7E0C2051F607FA800A00D28 /* DiscreteSignalFactory.swift */,
 				E7E0C2031F607C7500A00D28 /* ContinuousSignal.swift */,
+				E7E0C2071F6080A400A00D28 /* ContinuousSignalFactory.swift */,
 				E7440E791F53312D00807C48 /* Signal+fmap.swift */,
 				E7440E811F5491F300807C48 /* Signal+reduce.swift */,
 				E7440E7B1F533EBC00807C48 /* Signal+filter.swift */,
-				E7440E7D1F5341ED00807C48 /* Signal+mix.swift */,
 				E7440E7F1F535C3900807C48 /* ContinuousSignal+tie.swift */,
 			);
 			path = Core;
@@ -110,7 +140,6 @@
 			children = (
 				E7CEF29F1F5B2ADC0098E0ED /* Result.swift */,
 				E7CEF2AA1F5C72130098E0ED /* Promise.swift */,
-				E7CEF2A11F5B2BA20098E0ED /* CompositeError.swift */,
 			);
 			path = Promises;
 			sourceTree = "<group>";
@@ -121,8 +150,29 @@
 				E7CEF2A81F5B56FA0098E0ED /* Event.swift */,
 				E7CEF2A61F5B56CF0098E0ED /* MutableValue.swift */,
 				E7BF7F5F1F5F2471006C1BFC /* ObservableValue.swift */,
+				E7E0C2101F61F32E00A00D28 /* ObservableValue+LogicalOperations.swift */,
 			);
 			path = ObservableValue;
+			sourceTree = "<group>";
+		};
+		E7E0C2121F63D43B00A00D28 /* Timer */ = {
+			isa = PBXGroup;
+			children = (
+				E7E0C2131F63D45400A00D28 /* Timer.swift */,
+			);
+			path = Timer;
+			sourceTree = "<group>";
+		};
+		E7E0C2151F64139B00A00D28 /* ObservableCollection */ = {
+			isa = PBXGroup;
+			children = (
+				E7E0C2161F6413A900A00D28 /* MutableCollection.swift */,
+				E7E0C2181F6413B700A00D28 /* CollectionEvent.swift */,
+				E74D23D61F646A380097C543 /* CollectionEventBatch.swift */,
+				E74D23DC1F68667F0097C543 /* CollectionEvent+Apply.swift */,
+				E74D23DE1F6866E00097C543 /* CollectionEvent+Update.swift */,
+			);
+			path = ObservableCollection;
 			sourceTree = "<group>";
 		};
 		E7F910181F1802CE00E55373 = {
@@ -146,6 +196,8 @@
 		E7F910241F1802CE00E55373 /* Reactor */ = {
 			isa = PBXGroup;
 			children = (
+				E7E0C2151F64139B00A00D28 /* ObservableCollection */,
+				E7E0C2121F63D43B00A00D28 /* Timer */,
 				E7CEF2A31F5B560F0098E0ED /* ObservableValue */,
 				E7440E831F589ADE00807C48 /* Promises */,
 				E727D9FB1F350C9E003D6BCB /* Core */,
@@ -160,6 +212,9 @@
 			children = (
 				E7F910301F1802CE00E55373 /* ReactorTests.swift */,
 				E7F910321F1802CE00E55373 /* Info.plist */,
+				E7E0C21A1F64603500A00D28 /* MutableCollectionTests.swift */,
+				E74D23D81F654DC60097C543 /* CollectionEventTests.swift */,
+				E74D23DA1F67194B0097C543 /* CollectionEventBatch.swift */,
 			);
 			path = ReactorTests;
 			sourceTree = "<group>";
@@ -274,23 +329,33 @@
 			buildActionMask = 2147483647;
 			files = (
 				E7440E701F52B6BE00807C48 /* Signal.swift in Sources */,
+				E7E0C20F1F61DA5C00A00D28 /* Sequence.swift in Sources */,
+				E74D23D71F646A380097C543 /* CollectionEventBatch.swift in Sources */,
 				E7440E7A1F53312D00807C48 /* Signal+fmap.swift in Sources */,
 				E7440E721F52D0F100807C48 /* SignalCore.swift in Sources */,
+				E7E0C2061F607FA800A00D28 /* DiscreteSignalFactory.swift in Sources */,
 				E7E0C2021F607C5600A00D28 /* DiscreteSignal.swift in Sources */,
 				E7440E6A1F52B49800807C48 /* Pulse.swift in Sources */,
 				E7BF7F601F5F2471006C1BFC /* ObservableValue.swift in Sources */,
 				E7CEF2A91F5B56FA0098E0ED /* Event.swift in Sources */,
 				E7440E6C1F52B4CF00807C48 /* Pipeline.swift in Sources */,
+				E74D23DF1F6866E00097C543 /* CollectionEvent+Update.swift in Sources */,
 				E7440E6E1F52B67500807C48 /* Emitter.swift in Sources */,
 				E7E0C2041F607C7700A00D28 /* ContinuousSignal.swift in Sources */,
 				E7CEF2A01F5B2ADC0098E0ED /* Result.swift in Sources */,
-				E7440E7E1F5341ED00807C48 /* Signal+mix.swift in Sources */,
 				E7440E801F535C3900807C48 /* ContinuousSignal+tie.swift in Sources */,
-				E7CEF2A21F5B2BA20098E0ED /* CompositeError.swift in Sources */,
+				E7E0C2141F63D45400A00D28 /* Timer.swift in Sources */,
 				E7CEF2AB1F5C72130098E0ED /* Promise.swift in Sources */,
 				E7440E821F5491F300807C48 /* Signal+reduce.swift in Sources */,
+				E7E0C2191F6413B700A00D28 /* CollectionEvent.swift in Sources */,
+				E7E0C20D1F61CF9800A00D28 /* Bool.swift in Sources */,
+				E7E0C2081F6080A400A00D28 /* ContinuousSignalFactory.swift in Sources */,
+				E7E0C2171F6413A900A00D28 /* MutableCollection.swift in Sources */,
 				E7CEF2A71F5B56CF0098E0ED /* MutableValue.swift in Sources */,
+				E7E0C20A1F6081A100A00D28 /* SignalFactory.swift in Sources */,
+				E7E0C2111F61F32E00A00D28 /* ObservableValue+LogicalOperations.swift in Sources */,
 				E7440E7C1F533EBC00807C48 /* Signal+filter.swift in Sources */,
+				E74D23DD1F68667F0097C543 /* CollectionEvent+Apply.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -298,6 +363,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E7E0C21B1F64603500A00D28 /* MutableCollectionTests.swift in Sources */,
+				E74D23DB1F67194B0097C543 /* CollectionEventBatch.swift in Sources */,
+				E74D23D91F654DC60097C543 /* CollectionEventTests.swift in Sources */,
 				E7F910311F1802CE00E55373 /* ReactorTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -1,21 +1,44 @@
 import Foundation
 
-class Emitter<ResultMonitor: Signal> {
-    typealias Payload = ResultMonitor.PayloadType
+public struct CollectionEvent<T>: CustomDebugStringConvertible {
+    public typealias IndexType = Int
     
-    private let transport: Pipeline<Payload>
-    let monitor: ResultMonitor
+    public let index: IndexType
+    public let payload: T
+    public let kind: Kind
     
-    init<FactoryType: SignalFactory>(factory: FactoryType) where FactoryType.SignalType == ResultMonitor {
-        transport = Pipeline<Payload>()
-        monitor = factory.create(on: transport)
+    public indirect enum Kind {
+        case added
+        case removed
+        case updated(T)
     }
     
-    func emit(_ payload: Payload) {
-        transport.receive(payload)
-        if payload.obsolete {
-            transport.reset()
+    init(_ kind: Kind, payload: T, index: IndexType) {
+        self.kind = kind
+        self.payload = payload
+        self.index = index
+    }
+    
+    static func added(_ payload: T, index: IndexType) -> CollectionEvent<T> {
+        return CollectionEvent<T>(.added, payload: payload, index: index)
+    }
+    
+    static func removed(_ payload: T, index: IndexType) -> CollectionEvent<T> {
+        return CollectionEvent<T>(.removed, payload: payload, index: index)
+    }
+    
+    static func updated(_ previous: T, with payload: T, index: IndexType) -> CollectionEvent<T> {
+        return CollectionEvent<T>(.updated(previous), payload: payload, index: index)
+    }
+    
+    public var debugDescription: String {
+        switch kind {
+        case .updated(let old):
+            return "updated from \(old) to \(payload) at \(index)"
+        default:
+            return "\(kind) \(payload) at \(index)"
         }
+
     }
 }
 

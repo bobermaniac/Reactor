@@ -1,25 +1,5 @@
 import Foundation
 
-protocol SupportsLogicalOperations {
-    static func and(_ lhs: Self, _ rhs: Self) -> Self
-    static func or(_ lhs: Self, _ rhs: Self) -> Self
-    static func not(_ param: Self) -> Self
-}
-
-extension Bool: SupportsLogicalOperations {
-    static func not(_ param: Bool) -> Bool {
-        return !param
-    }
-    
-    static func and(_ lhs: Bool, _ rhs: Bool) -> Bool {
-        return lhs && rhs
-    }
-    
-    static func or(_ lhs: Bool, _ rhs: Bool) -> Bool {
-        return lhs || rhs
-    }
-}
-
 class ObservableValue<T> {
     fileprivate let monitor: ContinuousSignal<Event<T>>
     
@@ -32,14 +12,26 @@ class ObservableValue<T> {
     }
 }
 
-func &&<T>(_ lhs: ObservableValue<T>, _ rhs: ObservableValue<T>) -> ObservableValue<T> where T: SupportsLogicalOperations {
-    return ObservableValue(on: tie((lhs.monitor, rhs.monitor), { tie($0, $1, T.and) }))
+func unwrap<T>(_ value: ObservableValue<T>) -> ContinuousSignal<Event<T>> {
+    return value.monitor
 }
 
-func ||<T>(_ lhs: ObservableValue<T>, _ rhs: ObservableValue<T>) -> ObservableValue<T> where T: SupportsLogicalOperations {
-    return ObservableValue(on: tie((lhs.monitor, rhs.monitor), { tie($0, $1, T.or) }))
-}
-
-prefix func !<T>(_ observable: ObservableValue<T>) -> ObservableValue<T> where T: SupportsLogicalOperations {
-    return ObservableValue(on: observable.monitor.fmap { $0.fmap(T.not) })
-}
+// Copyright (c) 2017 Victor Bryksin <vbryksin@virtualmind.ru>
+//
+// Permission is hereby granted, free of charge, to any person obtaining a copy
+// of this software and associated documentation files (the "Software"), to deal
+// in the Software without restriction, including without limitation the rights
+// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+// copies of the Software, and to permit persons to whom the Software is
+// furnished to do so, subject to the following conditions:
+//
+// The above copyright notice and this permission notice shall be included in all
+// copies or substantial portions of the Software.
+//
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+// SOFTWARE.

@@ -1,20 +1,18 @@
 import Foundation
 
-class Emitter<ResultMonitor: Signal> {
-    typealias Payload = ResultMonitor.PayloadType
-    
-    private let transport: Pipeline<Payload>
-    let monitor: ResultMonitor
-    
-    init<FactoryType: SignalFactory>(factory: FactoryType) where FactoryType.SignalType == ResultMonitor {
-        transport = Pipeline<Payload>()
-        monitor = factory.create(on: transport)
-    }
-    
-    func emit(_ payload: Payload) {
-        transport.receive(payload)
-        if payload.obsolete {
-            transport.reset()
+extension CollectionEvent {
+    func apply(array: inout [ T ]) {
+        switch self.kind {
+        case .added:
+            if array.count == index - 1 {
+                array.append(payload)
+            } else {
+                array.insert(payload, at: index)
+            }
+        case .removed:
+            array.remove(at: index)
+        case .updated(_):
+            array[index] = payload
         }
     }
 }
@@ -38,3 +36,4 @@ class Emitter<ResultMonitor: Signal> {
 // LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
+

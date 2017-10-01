@@ -1,21 +1,16 @@
 import Foundation
 
-class Emitter<ResultMonitor: Signal> {
-    typealias Payload = ResultMonitor.PayloadType
+struct ContinuousSignalFactory<T: Pulse>: SignalFactory {
+    typealias SignalType = ContinuousSignal<T>
     
-    private let transport: Pipeline<Payload>
-    let monitor: ResultMonitor
+    private let initialValue: T
     
-    init<FactoryType: SignalFactory>(factory: FactoryType) where FactoryType.SignalType == ResultMonitor {
-        transport = Pipeline<Payload>()
-        monitor = factory.create(on: transport)
+    init(initialValue: T) {
+        self.initialValue = initialValue
     }
     
-    func emit(_ payload: Payload) {
-        transport.receive(payload)
-        if payload.obsolete {
-            transport.reset()
-        }
+    func create(on transport: Pipeline<T>) -> ContinuousSignal<T> {
+        return ContinuousSignal.create(attachedTo: transport, initialValue: initialValue)
     }
 }
 

@@ -1,37 +1,39 @@
 import Foundation
 
-func accumulateCheck(input: Pulse, accumulator: Pulse) {
-    if input.obsolete {
-        guard accumulator.obsolete else { fatalError() }
-    }
-}
-
 extension Signal {
-    fileprivate func reduceImpl<ResultMonitorType: Signal>(initial: ResultMonitorType.PayloadType, _ aggregate: @escaping (PayloadType, ResultMonitorType.PayloadType) -> ResultMonitorType.PayloadType, factory: (Pipeline<ResultMonitorType.PayloadType>) -> ResultMonitorType) -> ResultMonitorType {
-        let transport = Pipeline<ResultMonitorType.PayloadType>()
-        let monitor = factory(transport)
+    func reduce<Accumulator>(initial: Accumulator, _ aggregate: @escaping (PayloadType, Accumulator) -> Accumulator) -> ContinuousSignal<Accumulator> {
+        func _checked(input: Pulse, output: Accumulator) -> Accumulator {
+            guard input.obsolete => output.obsolete else { fatalError() }
+            return output
+        }
+        let (transport, signal) = ContinuousSignalFactory(initialValue: initial).createBound()
         
         var accumulator = initial
         self.observe { payload in
-            accumulator = aggregate(payload, accumulator)
-            accumulateCheck(input: payload, accumulator: accumulator)
-            transport.send(accumulator)
+            accumulator = _checked(input: payload, output: aggregate(payload, accumulator))
+            transport.receive(accumulator)
         }
         
-        return monitor
-    }
-    
-    func reduce<Accumulator>(initial: Accumulator, _ aggregate: @escaping (PayloadType, Accumulator) -> Accumulator) -> DiscreteSignal<Accumulator> {
-        return reduceImpl(initial: initial, aggregate, factory: { transport in
-            return DiscreteSignal<Accumulator>.create(attachedTo: transport)
-        })
+        return signal
     }
 }
 
-extension ContinuousSignal {
-    func reduce<Accumulator>(initial: Accumulator, _ aggregate: @escaping (PayloadType, Accumulator) -> Accumulator) -> ContinuousSignal<Accumulator> {
-        return reduceImpl(initial: initial, aggregate, factory: { transport in
-            return ContinuousSignal<Accumulator>.create(attachedTo: transport, initialValue: initial)
-        })
-    }
-}
+// Copyright (c) 2017 Victor Bryksin <vbryksin@virtualmind.ru>
+//
+// Permission is hereby granted, free of charge, to any person obtaining a copy
+// of this software and associated documentation files (the "Software"), to deal
+// in the Software without restriction, including without limitation the rights
+// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+// copies of the Software, and to permit persons to whom the Software is
+// furnished to do so, subject to the following conditions:
+//
+// The above copyright notice and this permission notice shall be included in all
+// copies or substantial portions of the Software.
+//
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+// SOFTWARE.

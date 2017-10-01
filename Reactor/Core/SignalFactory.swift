@@ -1,21 +1,16 @@
 import Foundation
 
-class Emitter<ResultMonitor: Signal> {
-    typealias Payload = ResultMonitor.PayloadType
+protocol SignalFactory {
+    associatedtype SignalType: Signal
     
-    private let transport: Pipeline<Payload>
-    let monitor: ResultMonitor
-    
-    init<FactoryType: SignalFactory>(factory: FactoryType) where FactoryType.SignalType == ResultMonitor {
-        transport = Pipeline<Payload>()
-        monitor = factory.create(on: transport)
-    }
-    
-    func emit(_ payload: Payload) {
-        transport.receive(payload)
-        if payload.obsolete {
-            transport.reset()
-        }
+    func create(on transport: Pipeline<SignalType.PayloadType>) -> SignalType
+}
+
+extension SignalFactory {
+    func createBound() -> (Pipeline<SignalType.PayloadType>, SignalType) {
+        let transport = Pipeline<SignalType.PayloadType>()
+        let signal = create(on: transport)
+        return (transport, signal)
     }
 }
 

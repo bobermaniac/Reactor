@@ -1,37 +1,44 @@
 import Foundation
 
-private func fmapCheck(input: Pulse, output: Pulse) {
-    if input.obsolete {
-        guard output.obsolete else { fatalError() }
-    }
-}
-
 extension Signal {
-    fileprivate func fmapImpl<ResultMonitorType: Signal>(_ transform: @escaping (PayloadType) -> ResultMonitorType.PayloadType, factory: (Pipeline<ResultMonitorType.PayloadType>) -> ResultMonitorType) -> ResultMonitorType {
-        let transport = Pipeline<ResultMonitorType.PayloadType>()
-        let monitor = factory(transport)
-        
-        self.observe { payload in
-            let tr = transform(payload)
-            fmapCheck(input: payload, output: tr)
-            transport.send(tr)
+    fileprivate func _fmap<SF: SignalFactory>(_ transform: @escaping (PayloadType) -> SF.SignalType.PayloadType, factory: SF) -> SF.SignalType {
+        func _checked(input: Pulse, output: SF.SignalType.PayloadType) -> SF.SignalType.PayloadType {
+            guard input.obsolete => output.obsolete else { fatalError() }
+            return output
         }
         
-        return monitor
+        let (transport, signal) = factory.createBound()
+        self.observe { transport.receive(_checked(input: $0, output: transform($0))) }
+        return signal
     }
     
     func fmap<ResultType>(_ transform: @escaping (PayloadType) -> ResultType) -> DiscreteSignal<ResultType> {
-        return fmapImpl(transform, factory: { transport in
-            return DiscreteSignal<ResultType>.create(attachedTo: transport)
-        })
+        return _fmap(transform, factory: DiscreteSignalFactory())
     }
 }
 
 extension ContinuousSignal {
     func fmap<ResultType>(_ transform: @escaping (Payload) -> ResultType) -> ContinuousSignal<ResultType> {
-        let initialValue = transform(self.value)
-        return fmapImpl(transform, factory: { transport in
-            return ContinuousSignal<ResultType>.create(attachedTo: transport, initialValue: initialValue)
-        })
+        return _fmap(transform, factory: ContinuousSignalFactory(initialValue: transform(self.value)))
     }
 }
+
+// Copyright (c) 2017 Victor Bryksin <vbryksin@virtualmind.ru>
+//
+// Permission is hereby granted, free of charge, to any person obtaining a copy
+// of this software and associated documentation files (the "Software"), to deal
+// in the Software without restriction, including without limitation the rights
+// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+// copies of the Software, and to permit persons to whom the Software is
+// furnished to do so, subject to the following conditions:
+//
+// The above copyright notice and this permission notice shall be included in all
+// copies or substantial portions of the Software.
+//
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+// SOFTWARE.

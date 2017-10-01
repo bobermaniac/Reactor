@@ -1,21 +1,22 @@
 import Foundation
 
-class Emitter<ResultMonitor: Signal> {
-    typealias Payload = ResultMonitor.PayloadType
-    
-    private let transport: Pipeline<Payload>
-    let monitor: ResultMonitor
-    
-    init<FactoryType: SignalFactory>(factory: FactoryType) where FactoryType.SignalType == ResultMonitor {
-        transport = Pipeline<Payload>()
-        monitor = factory.create(on: transport)
+extension Sequence {
+    func any(_ predicate: (Element) -> Bool) -> Bool {
+        for item in self {
+            if predicate(item) {
+                return true
+            }
+        }
+        return false
     }
     
-    func emit(_ payload: Payload) {
-        transport.receive(payload)
-        if payload.obsolete {
-            transport.reset()
+    func all(_ predicate: (Element) -> Bool) -> Bool {
+        for item in self {
+            if !predicate(item) {
+                return false
+            }
         }
+        return true
     }
 }
 

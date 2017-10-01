@@ -1,22 +1,8 @@
 import Foundation
 
-class Emitter<ResultMonitor: Signal> {
-    typealias Payload = ResultMonitor.PayloadType
-    
-    private let transport: Pipeline<Payload>
-    let monitor: ResultMonitor
-    
-    init<FactoryType: SignalFactory>(factory: FactoryType) where FactoryType.SignalType == ResultMonitor {
-        transport = Pipeline<Payload>()
-        monitor = factory.create(on: transport)
-    }
-    
-    func emit(_ payload: Payload) {
-        transport.receive(payload)
-        if payload.obsolete {
-            transport.reset()
-        }
-    }
+infix operator =>: ComparisonPrecedence
+func =>(_ lhs: @autoclosure () throws -> Bool, _ rhs: Bool) rethrows -> Bool {
+    return try rhs || !lhs()
 }
 
 // Copyright (c) 2017 Victor Bryksin <vbryksin@virtualmind.ru>

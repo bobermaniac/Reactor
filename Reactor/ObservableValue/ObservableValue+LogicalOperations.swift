@@ -1,32 +1,39 @@
 import Foundation
 
-class ContinuousSignal<Payload: Pulse>: Signal {
-    typealias PayloadType = Payload
-    
-    private let impl = SignalCore<Payload>()
-    
-    private(set) public var value: Payload
-    
-    init(initialValue: Payload) {
-        value = initialValue
+protocol SupportsLogicalOperations {
+    static func ||(lhs: Self, rhs: @autoclosure () throws -> Self) rethrows -> Self
+    static func &&(lhs: Self, rhs: @autoclosure () throws -> Self) rethrows -> Self
+    prefix static func !(a: Self) -> Self
+}
+
+private extension SupportsLogicalOperations {
+    static func _and(_ lhs: Self, _ rhs: Self) -> Self {
+        return lhs && rhs
     }
     
-    static func create(attachedTo transport: Pipeline<Payload>, initialValue: Payload) -> ContinuousSignal {
-        let monitor = ContinuousSignal(initialValue: initialValue)
-        transport.receive = monitor.receive
-        return monitor
+    static func _or(_ lhs: Self, _ rhs: Self) -> Self {
+        return lhs || rhs
     }
     
-    private func receive(_ payload: Payload) {
-        value = payload
-        impl.consume(payload)
+    static func _not(_ rhs: Self) -> Self {
+        return !rhs;
+    }
+}
+
+extension Bool: SupportsLogicalOperations {
+}
+
+extension ObservableValue where T: SupportsLogicalOperations {
+    static func &&(_ lhs: ObservableValue<T>, _ rhs: ObservableValue<T>) -> ObservableValue<T> {
+        return ObservableValue(on: tie(unwrap(lhs), unwrap(rhs), with: { tie($0, $1, T._and) }))
     }
     
-    @discardableResult
-    func observe(with handler: @escaping (Payload) -> Void) -> Subscription {
-        let observation = impl.add(observer: handler)
-        if !value.obsolete { handler(value) }
-        return observation
+    static func ||(_ lhs: ObservableValue<T>, _ rhs: ObservableValue<T>) -> ObservableValue<T> {
+        return ObservableValue(on: tie(unwrap(lhs), unwrap(rhs), with: { tie($0, $1, T._or) }))
+    }
+    
+    static prefix func !(_ observable: ObservableValue<T>) -> ObservableValue<T> {
+        return ObservableValue(on: unwrap(observable).fmap { $0.fmap(T._not) })
     }
 }
 

@@ -1,42 +1,51 @@
 import Foundation
 
-func tieCheck(input: [ Pulse ], result: Pulse) {
-    if input.first(where: { !$0.obsolete }) != nil {
-        guard result.obsolete else { fatalError() }
-    }
+private func _checked<Result: Pulse>(input: [ Pulse ], result: Result) -> Result {
+    guard input.all({ $0.obsolete }) => result.obsolete else { fatalError() }
+    return result
 }
 
-func tie<Left, Right, Result>(_ input: (ContinuousSignal<Left>, ContinuousSignal<Right>), _ transform: @escaping (Left, Right) -> Result) -> ContinuousSignal<Result> {
-    let transport = Pipeline<Result>()
-    let initial = transform(input.0.value, input.1.value)
-    let monitor = ContinuousSignal.create(attachedTo: transport, initialValue: initial)
+func tie<Left, Right, Result>(_ lhs: ContinuousSignal<Left>, _ rhs: ContinuousSignal<Right>, with transform: @escaping (Left, Right) -> Result) -> ContinuousSignal<Result> {
+    let (transport, monitor) = ContinuousSignalFactory(initialValue: transform(lhs.value, rhs.value)).createBound()
     
-    let transformAndSend: ((Left, Right)) -> Void = { pair in
-        let result = transform(pair.0, pair.1)
-        tieCheck(input: [ pair.0, pair.1 ], result: result)
-        transport.send(result)
+    func _sendTransformedChecked(_ lhs: Left, _ rhs: Right) {
+        transport.receive(_checked(input: [ lhs, rhs ], result: transform(lhs, rhs)))
     }
     
-    input.0.observe { payload in transformAndSend((payload, input.1.value)) }
-    input.1.observe { payload in transformAndSend((input.0.value, payload)) }
+    lhs.observe { payload in _sendTransformedChecked(payload, rhs.value) }
+    rhs.observe { payload in _sendTransformedChecked(lhs.value, payload) }
     
     return monitor
 }
 
-func tie<T, Result>(_ input: [ ContinuousSignal<T> ], _ transform: @escaping ([ T ]) -> Result) -> ContinuousSignal<Result> {
-    let transport = Pipeline<Result>()
-    let initial = transform(input.map { $0.value })
-    let monitor = ContinuousSignal.create(attachedTo: transport, initialValue: initial)
+func tie<T, Result>(_ input: [ ContinuousSignal<T> ], with transform: @escaping ([ T ]) -> Result) -> ContinuousSignal<Result> {
+    let (transport, monitor) = ContinuousSignalFactory(initialValue: transform(input.map { $0.value })).createBound()
     
-    let transformAndSend: ([ T ]) -> Void = { input in
-        let result = transform(input)
-        tieCheck(input: input, result: result)
-        transport.send(result)
+    func _sendTransformedChecked(_ values: [ T ]) {
+        transport.receive(_checked(input: values, result: transform(values)))
     }
     
-    input.forEach { monitor in
-        monitor.observe { payload in transformAndSend(input.map { $0.value }) }
-    }
+    input.forEach { $0.observe { payload in _sendTransformedChecked(input.map { $0.value }) } }
     
     return monitor
 }
+
+// Copyright (c) 2017 Victor Bryksin <vbryksin@virtualmind.ru>
+//
+// Permission is hereby granted, free of charge, to any person obtaining a copy
+// of this software and associated documentation files (the "Software"), to deal
+// in the Software without restriction, including without limitation the rights
+// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+// copies of the Software, and to permit persons to whom the Software is
+// furnished to do so, subject to the following conditions:
+//
+// The above copyright notice and this permission notice shall be included in all
+// copies or substantial portions of the Software.
+//
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+// SOFTWARE.

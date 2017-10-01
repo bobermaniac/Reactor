@@ -1,21 +1,10 @@
 import Foundation
 
-class Emitter<ResultMonitor: Signal> {
-    typealias Payload = ResultMonitor.PayloadType
+struct DiscreteSignalFactory<T: Pulse>: SignalFactory {
+    typealias SignalType = DiscreteSignal<T>
     
-    private let transport: Pipeline<Payload>
-    let monitor: ResultMonitor
-    
-    init<FactoryType: SignalFactory>(factory: FactoryType) where FactoryType.SignalType == ResultMonitor {
-        transport = Pipeline<Payload>()
-        monitor = factory.create(on: transport)
-    }
-    
-    func emit(_ payload: Payload) {
-        transport.receive(payload)
-        if payload.obsolete {
-            transport.reset()
-        }
+    func create(on transport: Pipeline<T>) -> DiscreteSignal<T> {
+        return DiscreteSignal.create(attachedTo: transport)
     }
 }
 
