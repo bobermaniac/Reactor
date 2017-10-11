@@ -1,8 +1,49 @@
 import Foundation
 
-class Timer {
+/*public class Timer : Disposable {
+    public enum Event {
+        case tick
+        case disposed
+    }
     
-}
+    public class TimerEvents : Disposable, SignalProviding {
+        public func dispose() {
+            
+        }
+        
+        public typealias SignalType = Timer.Event
+        
+        public let signal: Timer.Event
+    }
+    
+    public init(interval: TimeInterval, on queue: DispatchQueue = .main) {
+        _timer = DispatchSource.makeTimerSource(flags: .strict, queue: queue)
+        _interval = interval
+        _disposed = false
+    }
+    
+    deinit {
+        dispose()
+    }
+    
+    public func dispose() {
+        guard !_disposed else { return }
+        _timer.cancel()
+        _disposed = true
+    }
+    
+    public func start() -> TimerEvents {
+        _timer.schedule(deadline: .seconds(_interval), repeating: .seconds(_interval))
+    }
+    
+    private func _stop(events: TimerEvents) {
+        
+    }
+    
+    private let _timer: DispatchSourceTimer
+    private let _interval: TimeInterval
+    private var _disposed: Bool
+}*/
 
 // Copyright (c) 2017 Victor Bryksin <vbryksin@virtualmind.ru>
 //

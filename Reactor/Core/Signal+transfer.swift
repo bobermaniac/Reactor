@@ -1,22 +1,20 @@
 import Foundation
 
-public extension Sequence {
-    public func any(_ predicate: (Element) -> Bool) -> Bool {
-        for item in self {
-            if predicate(item) {
-                return true
-            }
-        }
-        return false
+public extension Signal {
+    fileprivate func _transfer<SF: SignalFactory>(to queue: DispatchQueue, factory: SF) -> SF.SignalType where SF.SignalType.PayloadType == Self.PayloadType {
+        let (transport, signal) = factory.createBound()
+        self.observe { payload in queue.async { transport.receive(payload) } }
+        return signal
     }
     
-    public func all(_ predicate: (Element) -> Bool) -> Bool {
-        for item in self {
-            if !predicate(item) {
-                return false
-            }
-        }
-        return true
+    public func transfer(to queue: DispatchQueue) -> DiscreteSignal<PayloadType> {
+        return _transfer(to: queue, factory: DiscreteSignalFactory())
+    }
+}
+
+public extension ContinuousSignal {
+    public func transfer(to queue: DispatchQueue) -> ContinuousSignal<PayloadType> {
+        return _transfer(to: queue, factory: ContinuousSignalFactory(initialValue: self.value))
     }
 }
 

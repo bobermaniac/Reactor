@@ -1,14 +1,19 @@
 import Foundation
 
-class ContinuousSignal<Payload: Pulse>: Signal {
-    typealias PayloadType = Payload
+public class ContinuousSignal<Payload: Pulse>: Signal {
+    public typealias PayloadType = Payload
     
-    private let impl = SignalCore<Payload>()
+    private let impl: SignalCore<Payload>
     
     private(set) public var value: Payload
     
-    init(initialValue: Payload) {
+    public init(initialValue: Payload) {
         value = initialValue
+        if value.obsolete {
+            impl = SignalCore(payload: initialValue)
+        } else {
+            impl = SignalCore()
+        }
     }
     
     static func create(attachedTo transport: Pipeline<Payload>, initialValue: Payload) -> ContinuousSignal {
@@ -23,7 +28,7 @@ class ContinuousSignal<Payload: Pulse>: Signal {
     }
     
     @discardableResult
-    func observe(with handler: @escaping (Payload) -> Void) -> Subscription {
+    public func observe(with handler: @escaping (Payload) -> Void) -> Subscription {
         let observation = impl.add(observer: handler)
         if !value.obsolete { handler(value) }
         return observation

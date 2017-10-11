@@ -1,9 +1,17 @@
 import Foundation
 
 public class DiscreteSignal<Payload: Pulse>: Signal {
-    typealias PayloadType = Payload
+    public typealias PayloadType = Payload
     
-    private let impl = SignalCore<Payload>()
+    private let impl: SignalCore<Payload>
+    
+    public init(payload: Payload) {
+        impl = SignalCore(payload: payload)
+    }
+    
+    private init() {
+        impl = SignalCore()
+    }
     
     static func create(attachedTo transport: Pipeline<Payload>) -> DiscreteSignal {
         let monitor = DiscreteSignal()
@@ -16,7 +24,7 @@ public class DiscreteSignal<Payload: Pulse>: Signal {
     }
     
     @discardableResult
-    func observe(with handler: @escaping (Payload) -> Void) -> Subscription {
+    public func observe(with handler: @escaping (Payload) -> Void) -> Subscription {
         return impl.add(observer: handler)
     }
 }

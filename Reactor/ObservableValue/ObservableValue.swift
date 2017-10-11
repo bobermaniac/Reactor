@@ -10,6 +10,10 @@ class ObservableValue<T> {
     func subscribe(onChange handler: @escaping (Event<T>) -> Void) -> Subscription {
         return monitor.observe(with: handler)
     }
+    
+    func fmap<U>(_ transform: @escaping (T) throws -> U) -> ObservableValue<U> {
+        return ObservableValue<U>(on: monitor.fmap { $0.fmap(transform) })
+    }
 }
 
 func unwrap<T>(_ value: ObservableValue<T>) -> ContinuousSignal<Event<T>> {

@@ -1,7 +1,37 @@
 import Foundation
 
 class SignalCore<Payload: Pulse> {
-    class Subscriber : Subscription {
+    private var state: State
+    
+    init(payload: Payload) {
+        guard payload.obsolete else { fatalError() }
+        state = .terminated(payload)
+    }
+    
+    init() {
+        state = .initial()
+    }
+    
+    func consume(_ payload: Payload) {
+        apply(update: state.updated(with: payload))
+    }
+    
+    func add(observer: @escaping (Payload) -> Void) -> Subscription {
+        let subscriber = Subscriber(notify: observer, canceler: self.remove)
+        apply(update: state.added(subscriber: subscriber))
+        return subscriber
+    }
+    
+    private func apply(update: State.Update) {
+        self.state = update.state
+        update.invocation?()
+    }
+    
+    private func remove(subscriber: Subscriber) {
+        apply(update: state.removed(subscriber: subscriber))
+    }
+    
+    private class Subscriber : Subscription {
         public let notify: (Payload) -> Void
         
         public func cancel() {
@@ -16,28 +46,7 @@ class SignalCore<Payload: Pulse> {
         let canceler: (Subscriber) -> Void
     }
     
-    private var state: State = State.initial()
-    
-    private func apply(update: State.Update) {
-        self.state = update.state
-        update.invocation?()
-    }
-    
-    func consume(_ payload: Payload) {
-        apply(update: state.updated(with: payload))
-    }
-    
-    func add(observer: @escaping (Payload) -> Void) -> Subscription {
-        let subscriber = Subscriber(notify: observer, canceler: self.remove)
-        apply(update: state.added(subscriber: subscriber))
-        return subscriber
-    }
-    
-    private func remove(subscriber: Subscriber) {
-        apply(update: state.removed(subscriber: subscriber))
-    }
-    
-    indirect enum State {
+    private indirect enum State {
         case active([ Subscriber ])
         case terminated(Payload)
         

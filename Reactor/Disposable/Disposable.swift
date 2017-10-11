@@ -1,23 +1,14 @@
 import Foundation
 
-public extension Sequence {
-    public func any(_ predicate: (Element) -> Bool) -> Bool {
-        for item in self {
-            if predicate(item) {
-                return true
-            }
-        }
-        return false
-    }
-    
-    public func all(_ predicate: (Element) -> Bool) -> Bool {
-        for item in self {
-            if !predicate(item) {
-                return false
-            }
-        }
-        return true
-    }
+public protocol Disposable: class {
+    func dispose()
+}
+
+public func using<T: Disposable, U>(_ disposable: @autoclosure () -> T, do action: (T) throws -> U) rethrows -> U {
+    let d = disposable()
+    let result = try action(d)
+    d.dispose()
+    return result
 }
 
 // Copyright (c) 2017 Victor Bryksin <vbryksin@virtualmind.ru>

@@ -1,11 +1,11 @@
 import Foundation
 
-enum Result<T> : Pulse {
+public enum Result<T> : Pulse {
     case nothing
     case payload(T)
     case error(Error)
     
-    var obsolete: Bool {
+    public var obsolete: Bool {
         if case .nothing = self { return false }
         return true
     }
@@ -20,9 +20,10 @@ enum Result<T> : Pulse {
         receiver(error)
     }
     
-    func fmap<U>(_ transform: (T) -> U) -> Result<U> {
+    func fmap<U>(_ transform: (T) throws -> U) -> Result<U> {
         guard case let .payload(object) = self else { return cast() }
-        return .payload(transform(object))
+        do { return .payload(try transform(object)) }
+        catch (let error) { return .error(error) }
     }
     
     func cast<U>() -> Result<U> {
@@ -36,9 +37,21 @@ enum Result<T> : Pulse {
         }
     }
     
-    func fail(transform: (Error) -> T) -> Result<T> {
+    func extend<U>(_ transform: (T) -> ContinuousSignal<Result<U>>) -> ContinuousSignal<Result<U>> {
+        switch self {
+        case .nothing:
+            fatalError("Non-terminal states of Result can't be extended")
+        case let .payload(payload):
+            return transform(payload)
+        case let .error(error):
+            return ContinuousSignal(initialValue: .error(error))
+        }
+    }
+    
+    func fail(transform: (Error) throws -> T) -> Result<T> {
         guard case let .error(error) = self else { return self }
-        return .payload(transform(error))
+        do { return .payload(try transform(error)) }
+        catch (let error) { return .error(error) }
     }
     
     static func concat<T>(_ lhs: Result<[ T ]>, _ rhs: Result<T>) -> Result<[ T ]> {

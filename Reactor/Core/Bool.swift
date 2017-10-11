@@ -1,7 +1,7 @@
 import Foundation
 
 infix operator =>: ComparisonPrecedence
-func =>(_ lhs: @autoclosure () throws -> Bool, _ rhs: Bool) rethrows -> Bool {
+public func =>(_ lhs: @autoclosure () throws -> Bool, _ rhs: Bool) rethrows -> Bool {
     return try rhs || !lhs()
 }
 

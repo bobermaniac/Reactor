@@ -1,10 +1,10 @@
 import Foundation
 
-protocol Subscription {
+public protocol Subscription {
     func cancel()
 }
 
-protocol Signal {
+public protocol Signal {
     associatedtype PayloadType: Pulse
     
     @discardableResult

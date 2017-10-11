@@ -1,5 +1,11 @@
 import Foundation
 
+private var logGroup = "Reactor::Bubbling"
+
+private func _log(_ string: @autoclosure () -> String) {
+    log(string, group: logGroup, level: .debug)
+}
+
 extension CollectionEvent {
     func update(index update: (IndexType) -> IndexType) -> CollectionEvent<T> {
         return CollectionEvent(kind, payload: payload, index: update(index))
@@ -13,82 +19,82 @@ extension CollectionEvent {
         func _debugPrint(events: [ CollectionEvent<T> ]) -> String {
             return events.reduce("", { "\($0) [\($1.debugDescription)]" })
         }
-        print("Bubbling [\(self)] through \(_debugPrint(events: events))")
+        _log("Bubbling [\(self)] through \(_debugPrint(events: events))")
         var result: [ CollectionEvent<T> ] = []
         var bubble = self as CollectionEvent<T>?
         
         events.reversed().forEach { item in
-            print("Bubbling [\(bubble.map { $0.debugDescription } ?? "empty")] through [\(item)]")
-            switch _fall(event: bubble, through: item) {
-            case let .update(append: replacement, fall: next):
+            _log("Bubbling [\(bubble.map { $0.debugDescription } ?? "empty")] through [\(item)]")
+            switch _bubble(event: bubble, through: item) {
+            case let .update(append: replacement, bubble: next):
                 replacement.map {
-                    print("Appending [\($0)]")
+                    _log("Appending [\($0)]")
                     result.append($0)
                 }
                 bubble = next
                 bubble.map { print("[\($0)] bubbles") }
             case .insert:
-                print("[\(bubble!)] founds its place before [\(item)]")
+                _log("[\(bubble!)] founds its place before [\(item)]")
                 result += [ bubble!, item ]
                 bubble = nil
             }
         }
         
         bubble.map {
-            print("[\($0)] goes to the end")
+            _log("[\($0)] goes to the end")
             result.append($0)
         }
         
         let returnValue = result.reversed() as [ CollectionEvent<T> ]
-        print("Result is \(_debugPrint(events: returnValue))")
+        _log("Result is \(_debugPrint(events: returnValue))")
         return returnValue
     }
 }
 
-private enum _FallResult<T> {
-    case update(append: CollectionEvent<T>?, fall: CollectionEvent<T>?)
+private enum _BubbleResult<T> {
+    case update(append: CollectionEvent<T>?, bubble: CollectionEvent<T>?)
     case insert
 }
 
-private func _fall<T>(event: CollectionEvent<T>?, through prev: CollectionEvent<T>) -> _FallResult<T> {
-    guard let candidate = event else { return .update(append: prev, fall: nil) }
+private func _bubble<T>(event: CollectionEvent<T>?, through prev: CollectionEvent<T>) -> _BubbleResult<T> {
+    guard let candidate = event else { return .update(append: prev, bubble: nil) }
     switch candidate.kind {
     case .added:
         switch prev.kind {
         case .added where prev.index >= candidate.index:
-            return .update(append: prev.update(index: { $0 + 1 }), fall: candidate)
+            return .update(append: prev.update(index: { $0 + 1 }), bubble: candidate)
         default:
             break
         }
     case .updated(_):
         switch prev.kind {
         case .added where prev.index < candidate.index:
-            return .update(append: prev, fall: candidate.update(index: { $0 - 1 }))
+            return .update(append: prev, bubble: candidate.update(index: { $0 - 1 }))
         case .added where prev.index == candidate.index:
-            return .update(append: prev.update(payload: candidate.payload), fall: nil)
+            return .update(append: prev.update(payload: candidate.payload), bubble: nil)
         case .added:
-            return .update(append: prev, fall: candidate)
+            return .update(append: prev, bubble: candidate)
         case .updated(_) where prev.index > candidate.index:
-            return .update(append: prev, fall: candidate)
+            return .update(append: prev, bubble: candidate)
         case .updated(_) where prev.index == candidate.index:
-            return .update(append: prev.update(payload: candidate.payload), fall: nil)
+            return .update(append: prev.update(payload: candidate.payload), bubble: nil)
         default:
             break
         }
     case .removed:
         switch prev.kind {
         case .added where prev.index < candidate.index:
-            return .update(append: prev, fall: candidate.update(index: { $0 - 1 }))
+            return .update(append: prev, bubble: candidate.update(index: { $0 - 1 }))
         case .added where prev.index == candidate.index:
-            return .update(append: nil, fall: nil)
+            return .update(append: nil, bubble: nil)
         case .added:
-            return .update(append: prev.update(index: { $0 - 1 }), fall: candidate)
+            return .update(append: prev.update(index: { $0 - 1 }), bubble: candidate)
         case .updated(_) where prev.index == candidate.index:
-            return .update(append: nil, fall: candidate)
+            return .update(append: nil, bubble: candidate)
         case .updated(_):
-            return .update(append: prev.update(index: { $0 - 1}), fall: candidate)
+            return .update(append: prev.update(index: { $0 - 1}), bubble: candidate)
         case .removed where prev.index <= candidate.index:
-            return .update(append: prev, fall: candidate.update(index: { $0 + 1 }))
+            return .update(append: prev, bubble: candidate.update(index: { $0 + 1 }))
         case .removed:
             break
         }

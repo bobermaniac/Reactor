@@ -25,6 +25,14 @@ class Future<T> {
         self.monitor = monitor
     }
     
+    init(resolvedWith payload: T) {
+        self.monitor = ContinuousSignal(initialValue: .payload(payload))
+    }
+    
+    init(rejectedWith error: Error) {
+        self.monitor = ContinuousSignal(initialValue: .error(error))
+    }
+    
     func resolved(_ handler: @escaping (T) -> Void) {
         monitor.observe { $0.unwrap(handler) }
     }
@@ -33,12 +41,23 @@ class Future<T> {
         monitor.observe { $0.unwrap(handler) }
     }
     
-    func then<U>(_ transform: @escaping (T) -> U) -> Future<U> {
+    func then<U>(_ transform: @escaping (T) throws -> U) -> Future<U> {
         return Future<U>(on: monitor.fmap { $0.fmap(transform) })
     }
     
-    func handle(_ transform: @escaping (Error) -> T) -> Future<T> {
-        return Future<T>(on: monitor.fmap { $0.fail(transform: transform) })
+    func then<U>(_ transform: @escaping (T) -> Future<U>) -> Future<U> {
+        func lift(_ val: Result<T>) -> ContinuousSignal<Result<U>> {
+            return val.extend(unwrap(f: transform))
+        }
+        return Future<U>(on: monitor.extend(intermediateTransform: { _ in .nothing }, finalTransform: lift))
+    }
+    
+    func handle(_ transform: @escaping (Error) throws -> T) -> Future<T> {
+        return Future(on: monitor.fmap { $0.fail(transform: transform) })
+    }
+    
+    func transfer(to queue: DispatchQueue) -> Future<T> {
+        return Future(on: monitor.transfer(to: queue))
     }
 }
 
@@ -52,6 +71,13 @@ func any<T>(_ futures: [ Future<T> ]) -> Future<T> {
 
 func unwrap<T>(_ future: Future<T>) -> ContinuousSignal<Result<T>> {
     return future.monitor
+}
+
+func unwrap<T, U>(f: @escaping (T) -> Future<U>) -> (T) -> ContinuousSignal<Result<U>> {
+    func unwrapper(_ payload: T) -> ContinuousSignal<Result<U>> {
+        return unwrap(f(payload))
+    }
+    return unwrapper
 }
 
 // Copyright (c) 2017 Victor Bryksin <vbryksin@virtualmind.ru>

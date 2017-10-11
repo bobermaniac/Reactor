@@ -28,6 +28,15 @@ class ReactorTests: XCTestCase {
         right.value = true
         left.value = false
         token.cancel()
+        let url = URL(fileURLWithPath: "/Users/bober_maniac/Yandex.Disk.localized/Загрузки/Fallout_Bible_full_(0-9)_1.01.pdf")
+        
+        let d = Date()
+        let file = File(url: url)
+        let readop = try! file.read()
+        readop.signal.observe { (chunk) in
+            print(Date().timeIntervalSince(d), chunk)
+        }
+    
     }
     
     func testPerformanceExample() {

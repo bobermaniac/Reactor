@@ -1,6 +1,6 @@
 import Foundation
 
-protocol SignalFactory {
+public protocol SignalFactory {
     associatedtype SignalType: Signal
     
     func create(on transport: Pipeline<SignalType.PayloadType>) -> SignalType

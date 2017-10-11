@@ -1,7 +1,7 @@
 import Foundation
 
 extension CollectionEvent {
-    func apply(array: inout [ T ]) {
+    func apply(to array: inout [ T ]) {
         switch self.kind {
         case .added:
             if array.count == index - 1 {

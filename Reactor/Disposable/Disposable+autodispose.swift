@@ -1,23 +1,16 @@
 import Foundation
 
-public extension Sequence {
-    public func any(_ predicate: (Element) -> Bool) -> Bool {
-        for item in self {
-            if predicate(item) {
-                return true
-            }
-        }
-        return false
-    }
+public protocol SignalProviding {
+    associatedtype SignalType: Signal
     
-    public func all(_ predicate: (Element) -> Bool) -> Bool {
-        for item in self {
-            if !predicate(item) {
-                return false
-            }
-        }
-        return true
+    var signal: SignalType { get }
+}
+
+public func autodispose<T: SignalProviding & Disposable>(_ object: T) -> T {
+    object.signal.observe { [unowned object] signal in
+        if signal.obsolete { object.dispose() }
     }
+    return object
 }
 
 // Copyright (c) 2017 Victor Bryksin <vbryksin@virtualmind.ru>

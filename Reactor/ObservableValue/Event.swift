@@ -10,9 +10,13 @@ enum Event<T>: Pulse {
         return true
     }
     
-    func fmap<U>(_ transform: (T) -> U) -> Event<U> {
+    func fmap<U>(_ transform: (T) throws -> U) -> Event<U> {
         guard case let .changed(payload) = self else { return cast() }
-        return .changed(transform(payload))
+        do {
+            return .changed(try transform(payload))
+        } catch(let error) {
+            return .faulted(error)
+        }
     }
     
     func cast<U>() -> Event<U> {
