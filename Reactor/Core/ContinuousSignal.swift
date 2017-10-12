@@ -1,6 +1,6 @@
 import Foundation
 
-public class ContinuousSignal<Payload: Pulse>: Signal {
+public final class ContinuousSignal<Payload: Pulse>: Signal {
     public typealias PayloadType = Payload
     
     private let impl: SignalCore<Payload>

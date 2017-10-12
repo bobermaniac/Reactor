@@ -1,6 +1,6 @@
 import Foundation
 
-class SignalCore<Payload: Pulse> {
+final class SignalCore<Payload: Pulse> {
     private var state: State
     
     init(payload: Payload) {

@@ -30,15 +30,15 @@ enum Event<T>: Pulse {
         }
     }
 }
-func terminal<T1, T2, TResult>(_ left: Event<T1>, _ right: Event<T2>) -> Event<TResult> {
+func obsolete<T1, T2, TResult>(_ left: Event<T1>, or right: Event<T2>) -> Event<TResult> {
     if left.obsolete { return left.cast() }
     if right.obsolete { return right.cast() }
     fatalError("None is terminal")
 }
 
 func tie<T1, T2, TResult>(_ left: Event<T1>, _ right: Event<T2>, _ transform: (T1, T2) -> TResult) -> Event<TResult> {
-    guard case let .changed(leftPayload) = left else { return terminal(left, right) }
-    guard case let .changed(rightPayload) = right else { return terminal(left, right) }
+    guard case let .changed(leftPayload) = left else { return obsolete(left, or: right) }
+    guard case let .changed(rightPayload) = right else { return obsolete(left, or: right) }
     return .changed(transform(leftPayload, rightPayload))
 }
 

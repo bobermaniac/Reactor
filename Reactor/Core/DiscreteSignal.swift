@@ -1,6 +1,6 @@
 import Foundation
 
-public class DiscreteSignal<Payload: Pulse>: Signal {
+public final class DiscreteSignal<Payload: Pulse>: Signal {
     public typealias PayloadType = Payload
     
     private let impl: SignalCore<Payload>

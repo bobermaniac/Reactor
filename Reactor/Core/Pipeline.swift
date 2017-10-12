@@ -1,6 +1,6 @@
 import Foundation
 
-public class Pipeline<Payload> {
+public final class Pipeline<Payload> {
     var receive: (Payload) -> Void = Pipeline.null
     
     func reset() {

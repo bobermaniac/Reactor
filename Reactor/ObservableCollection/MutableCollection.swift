@@ -1,6 +1,9 @@
 import Foundation
 
-public class MutableCollection<T> : Sequence {
+public class MutableCollection<T> : Sequence, ExpressibleByArrayLiteral {
+    public typealias ArrayLiteralElement = T
+    public typealias Iterator = Array<T>.Iterator
+    
     private let _emitter: Emitter<DiscreteSignal<CollectionEventBatch<T>>>
     private var _array: [ T ]
     
@@ -13,7 +16,10 @@ public class MutableCollection<T> : Sequence {
         _array = array
     }
     
-    public typealias Iterator = Array<T>.Iterator
+    public required init(arrayLiteral elements: T...) {
+        _emitter = Emitter(factory: DiscreteSignalFactory())
+        _array = elements
+    }
     
     public func makeIterator() -> MutableCollection<T>.Iterator {
         return _array.makeIterator()

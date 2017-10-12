@@ -1,6 +1,6 @@
 import Foundation
 
-public class Emitter<ResultMonitor: Signal> {
+public final class Emitter<ResultMonitor: Signal> {
     public typealias PayloadType = ResultMonitor.PayloadType
     
     private let transport: Pipeline<PayloadType>

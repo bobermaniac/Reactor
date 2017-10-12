@@ -1,71 +1,71 @@
 import Foundation
 
-class Promise<T> {
+public final class Promise<T> {
     private let emitter: Emitter<ContinuousSignal<Result<T>>>
     public let future: Future<T>
     
-    init() {
+    public init() {
         emitter = Emitter(factory: ContinuousSignalFactory(initialValue: Result<T>.nothing))
         future = Future(on: emitter.monitor)
     }
     
-    func resolve(_ payload: T) {
+    public func resolve(_ payload: T) {
         emitter.emit(.payload(payload))
     }
     
-    func reject(_ error: Error) {
+    public func reject(_ error: Error) {
         emitter.emit(.error(error))
     }
 }
 
-class Future<T> {
+public final class Future<T> {
     fileprivate let monitor: ContinuousSignal<Result<T>>
     
     init(on monitor: ContinuousSignal<Result<T>>) {
         self.monitor = monitor
     }
     
-    init(resolvedWith payload: T) {
+    public init(resolvedWith payload: T) {
         self.monitor = ContinuousSignal(initialValue: .payload(payload))
     }
     
-    init(rejectedWith error: Error) {
+    public init(rejectedWith error: Error) {
         self.monitor = ContinuousSignal(initialValue: .error(error))
     }
     
-    func resolved(_ handler: @escaping (T) -> Void) {
+    public func resolved(_ handler: @escaping (T) -> Void) {
         monitor.observe { $0.unwrap(handler) }
     }
     
-    func rejected(_ handler: @escaping (Error) -> Void) {
+    public func rejected(_ handler: @escaping (Error) -> Void) {
         monitor.observe { $0.unwrap(handler) }
     }
     
-    func then<U>(_ transform: @escaping (T) throws -> U) -> Future<U> {
+    public func then<U>(_ transform: @escaping (T) throws -> U) -> Future<U> {
         return Future<U>(on: monitor.fmap { $0.fmap(transform) })
     }
     
-    func then<U>(_ transform: @escaping (T) -> Future<U>) -> Future<U> {
+    public func then<U>(_ transform: @escaping (T) -> Future<U>) -> Future<U> {
         func lift(_ val: Result<T>) -> ContinuousSignal<Result<U>> {
             return val.extend(unwrap(f: transform))
         }
-        return Future<U>(on: monitor.extend(intermediateTransform: { _ in .nothing }, finalTransform: lift))
+        return Future<U>(on: monitor.extend(intermediateTransform: { $0.cast() }, finalTransform: lift))
     }
     
-    func handle(_ transform: @escaping (Error) throws -> T) -> Future<T> {
+    public func handle(_ transform: @escaping (Error) throws -> T) -> Future<T> {
         return Future(on: monitor.fmap { $0.fail(transform: transform) })
     }
     
-    func transfer(to queue: DispatchQueue) -> Future<T> {
+    public func transfer(to queue: DispatchQueue) -> Future<T> {
         return Future(on: monitor.transfer(to: queue))
     }
 }
 
-func all<T>(_ futures: [ Future<T> ]) -> Future<[ T ]> {
+public func all<T>(_ futures: [ Future<T> ]) -> Future<[ T ]> {
     return Future(on: tie(futures.map { $0.monitor }, with: all))
 }
 
-func any<T>(_ futures: [ Future<T> ]) -> Future<T> {
+public func any<T>(_ futures: [ Future<T> ]) -> Future<T> {
     return Future(on: tie(futures.map { $0.monitor }, with: any))
 }
 
