@@ -1,23 +1,19 @@
 import Foundation
 
-public extension Sequence {
-    public func any(_ predicate: (Element) throws -> Bool) rethrows -> Bool {
-        for item in self {
-            if try predicate(item) {
-                return true
-            }
-        }
-        return false
+public class ContinuousSignalEmitter<T: Pulse> {
+    public var signal: ContinuousSignal<T> {
+        return _emitter.monitor
     }
     
-    public func all(_ predicate: (Element) throws -> Bool) rethrows -> Bool {
-        for item in self {
-            if try !predicate(item) {
-                return false
-            }
-        }
-        return true
+    public init(initialValue: T) {
+        _emitter = Emitter(factory: ContinuousSignalFactory<T>(initialValue: initialValue))
     }
+    
+    public func emit(_ payload: T) {
+        _emitter.emit(payload)
+    }
+    
+    private let _emitter: Emitter<ContinuousSignal<T>>
 }
 
 // Copyright (c) 2017 Victor Bryksin <vbryksin@virtualmind.ru>
@@ -39,3 +35,4 @@ public extension Sequence {
 // LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 // SOFTWARE.
+

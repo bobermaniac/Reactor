@@ -1,22 +1,14 @@
 import Foundation
 
-public extension Sequence {
-    public func any(_ predicate: (Element) throws -> Bool) rethrows -> Bool {
-        for item in self {
-            if try predicate(item) {
-                return true
-            }
-        }
-        return false
+public struct DropIntermediateStrategy<T: Pulse>: SafetyStrategy {
+    public typealias PulseType = T
+    
+    public func requiresMerge(forEuqueuedNumberOfPulses numberOfPulses: Int) -> Bool {
+        return numberOfPulses > 1
     }
     
-    public func all(_ predicate: (Element) throws -> Bool) rethrows -> Bool {
-        for item in self {
-            if try !predicate(item) {
-                return false
-            }
-        }
-        return true
+    public func merge(objects: [T]) -> [T] {
+        return [ objects.first! ]
     }
 }
 

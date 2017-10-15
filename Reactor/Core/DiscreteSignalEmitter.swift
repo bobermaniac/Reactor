@@ -1,23 +1,19 @@
 import Foundation
 
-public extension Sequence {
-    public func any(_ predicate: (Element) throws -> Bool) rethrows -> Bool {
-        for item in self {
-            if try predicate(item) {
-                return true
-            }
-        }
-        return false
+public class DiscreteSignalEmitter<T: Pulse> {
+    public var signal: DiscreteSignal<T> {
+        return _emitter.monitor
     }
     
-    public func all(_ predicate: (Element) throws -> Bool) rethrows -> Bool {
-        for item in self {
-            if try !predicate(item) {
-                return false
-            }
-        }
-        return true
+    public init() {
+        _emitter = Emitter(factory: DiscreteSignalFactory<T>())
     }
+    
+    public func emit(_ payload: T) {
+        _emitter.emit(payload)
+    }
+    
+    private let _emitter: Emitter<DiscreteSignal<T>>
 }
 
 // Copyright (c) 2017 Victor Bryksin <vbryksin@virtualmind.ru>

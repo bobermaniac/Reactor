@@ -22,10 +22,13 @@
 		E7440E821F5491F300807C48 /* Signal+reduce.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7440E811F5491F300807C48 /* Signal+reduce.swift */; };
 		E7481EA01F8A83BA000810A4 /* Signal+transfer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7481E9F1F8A83BA000810A4 /* Signal+transfer.swift */; };
 		E74D23D71F646A380097C543 /* CollectionEventBatch.swift in Sources */ = {isa = PBXBuildFile; fileRef = E74D23D61F646A380097C543 /* CollectionEventBatch.swift */; };
-		E74D23D91F654DC60097C543 /* CollectionEventTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E74D23D81F654DC60097C543 /* CollectionEventTests.swift */; };
-		E74D23DB1F67194B0097C543 /* CollectionEventBatch.swift in Sources */ = {isa = PBXBuildFile; fileRef = E74D23DA1F67194B0097C543 /* CollectionEventBatch.swift */; };
 		E74D23DD1F68667F0097C543 /* CollectionEvent+Apply.swift in Sources */ = {isa = PBXBuildFile; fileRef = E74D23DC1F68667F0097C543 /* CollectionEvent+Apply.swift */; };
 		E74D23DF1F6866E00097C543 /* CollectionEvent+Update.swift in Sources */ = {isa = PBXBuildFile; fileRef = E74D23DE1F6866E00097C543 /* CollectionEvent+Update.swift */; };
+		E780A32C1F93E4A300D20DCF /* BoolTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E780A32B1F93E4A300D20DCF /* BoolTests.swift */; };
+		E780A32E1F93E5CF00D20DCF /* SequenceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E780A32D1F93E5CF00D20DCF /* SequenceTests.swift */; };
+		E780A3301F93E84F00D20DCF /* DiscreteSignalTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E780A32F1F93E84F00D20DCF /* DiscreteSignalTests.swift */; };
+		E780A3351F93E9F400D20DCF /* DiscreteSignalEmitter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E780A3341F93E9F400D20DCF /* DiscreteSignalEmitter.swift */; };
+		E780A3371F93EA7F00D20DCF /* ContinuousSignalEmitter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E780A3361F93EA7F00D20DCF /* ContinuousSignalEmitter.swift */; };
 		E7824E5B1F93A23F00A401F7 /* SafetyValve.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7824E5A1F93A23F00A401F7 /* SafetyValve.swift */; };
 		E7824E5D1F93B67500A401F7 /* SafetyStrategy.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7824E5C1F93B67500A401F7 /* SafetyStrategy.swift */; };
 		E7824E5F1F93B6A300A401F7 /* TransferStrategy.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7824E5E1F93B6A300A401F7 /* TransferStrategy.swift */; };
@@ -35,8 +38,8 @@
 		E7824E671F93B93500A401F7 /* DirectTransferStrategyFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7824E661F93B93500A401F7 /* DirectTransferStrategyFactory.swift */; };
 		E7824E691F93BAEA00A401F7 /* SafetyValveTransferStrategyFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7824E681F93BAEA00A401F7 /* SafetyValveTransferStrategyFactory.swift */; };
 		E7824E6B1F93BED000A401F7 /* MergeQueueProviding.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7824E6A1F93BED000A401F7 /* MergeQueueProviding.swift */; };
+		E7824E6E1F93C5A500A401F7 /* DropIntermediateStrategy.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7824E6D1F93C5A500A401F7 /* DropIntermediateStrategy.swift */; };
 		E78770891F8E957B000321EB /* Signal+extend.swift in Sources */ = {isa = PBXBuildFile; fileRef = E78770881F8E957B000321EB /* Signal+extend.swift */; };
-		E787708F1F8F3042000321EB /* PromisesTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E787708E1F8F3042000321EB /* PromisesTests.swift */; };
 		E7AAAD6B1F817FEC003AE5EC /* Log.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7AAAD6A1F817FEC003AE5EC /* Log.swift */; };
 		E7B4544B1F82D9EB003DFF75 /* Disposable.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7B4544A1F82D9EB003DFF75 /* Disposable.swift */; };
 		E7B4544E1F841473003DFF75 /* File.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7B4544D1F841473003DFF75 /* File.swift */; };
@@ -57,9 +60,7 @@
 		E7E0C2141F63D45400A00D28 /* Timer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7E0C2131F63D45400A00D28 /* Timer.swift */; };
 		E7E0C2171F6413A900A00D28 /* MutableCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7E0C2161F6413A900A00D28 /* MutableCollection.swift */; };
 		E7E0C2191F6413B700A00D28 /* CollectionEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7E0C2181F6413B700A00D28 /* CollectionEvent.swift */; };
-		E7E0C21B1F64603500A00D28 /* MutableCollectionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7E0C21A1F64603500A00D28 /* MutableCollectionTests.swift */; };
 		E7F9102C1F1802CE00E55373 /* Reactor.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E7F910221F1802CE00E55373 /* Reactor.framework */; };
-		E7F910311F1802CE00E55373 /* ReactorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7F910301F1802CE00E55373 /* ReactorTests.swift */; };
 		E7F910331F1802CE00E55373 /* Reactor.h in Headers */ = {isa = PBXBuildFile; fileRef = E7F910251F1802CE00E55373 /* Reactor.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E7FC848A1F84AA9C008449E1 /* File+ReadOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7FC84891F84AA9C008449E1 /* File+ReadOperation.swift */; };
 /* End PBXBuildFile section */
@@ -90,10 +91,14 @@
 		E7440E811F5491F300807C48 /* Signal+reduce.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Signal+reduce.swift"; sourceTree = "<group>"; };
 		E7481E9F1F8A83BA000810A4 /* Signal+transfer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Signal+transfer.swift"; sourceTree = "<group>"; };
 		E74D23D61F646A380097C543 /* CollectionEventBatch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionEventBatch.swift; sourceTree = "<group>"; };
-		E74D23D81F654DC60097C543 /* CollectionEventTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionEventTests.swift; sourceTree = "<group>"; };
-		E74D23DA1F67194B0097C543 /* CollectionEventBatch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionEventBatch.swift; sourceTree = "<group>"; };
 		E74D23DC1F68667F0097C543 /* CollectionEvent+Apply.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CollectionEvent+Apply.swift"; sourceTree = "<group>"; };
 		E74D23DE1F6866E00097C543 /* CollectionEvent+Update.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CollectionEvent+Update.swift"; sourceTree = "<group>"; };
+		E780A32A1F93E4A200D20DCF /* ReactorTests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ReactorTests-Bridging-Header.h"; sourceTree = "<group>"; };
+		E780A32B1F93E4A300D20DCF /* BoolTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoolTests.swift; sourceTree = "<group>"; };
+		E780A32D1F93E5CF00D20DCF /* SequenceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SequenceTests.swift; sourceTree = "<group>"; };
+		E780A32F1F93E84F00D20DCF /* DiscreteSignalTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscreteSignalTests.swift; sourceTree = "<group>"; };
+		E780A3341F93E9F400D20DCF /* DiscreteSignalEmitter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscreteSignalEmitter.swift; sourceTree = "<group>"; };
+		E780A3361F93EA7F00D20DCF /* ContinuousSignalEmitter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContinuousSignalEmitter.swift; sourceTree = "<group>"; };
 		E7824E5A1F93A23F00A401F7 /* SafetyValve.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafetyValve.swift; sourceTree = "<group>"; };
 		E7824E5C1F93B67500A401F7 /* SafetyStrategy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafetyStrategy.swift; sourceTree = "<group>"; };
 		E7824E5E1F93B6A300A401F7 /* TransferStrategy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransferStrategy.swift; sourceTree = "<group>"; };
@@ -103,8 +108,8 @@
 		E7824E661F93B93500A401F7 /* DirectTransferStrategyFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DirectTransferStrategyFactory.swift; sourceTree = "<group>"; };
 		E7824E681F93BAEA00A401F7 /* SafetyValveTransferStrategyFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafetyValveTransferStrategyFactory.swift; sourceTree = "<group>"; };
 		E7824E6A1F93BED000A401F7 /* MergeQueueProviding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MergeQueueProviding.swift; sourceTree = "<group>"; };
+		E7824E6D1F93C5A500A401F7 /* DropIntermediateStrategy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropIntermediateStrategy.swift; sourceTree = "<group>"; };
 		E78770881F8E957B000321EB /* Signal+extend.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Signal+extend.swift"; sourceTree = "<group>"; };
-		E787708E1F8F3042000321EB /* PromisesTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PromisesTests.swift; sourceTree = "<group>"; };
 		E7AAAD6A1F817FEC003AE5EC /* Log.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Log.swift; sourceTree = "<group>"; };
 		E7B4544A1F82D9EB003DFF75 /* Disposable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Disposable.swift; sourceTree = "<group>"; };
 		E7B4544D1F841473003DFF75 /* File.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = File.swift; sourceTree = "<group>"; };
@@ -125,12 +130,10 @@
 		E7E0C2131F63D45400A00D28 /* Timer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Timer.swift; sourceTree = "<group>"; };
 		E7E0C2161F6413A900A00D28 /* MutableCollection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MutableCollection.swift; sourceTree = "<group>"; };
 		E7E0C2181F6413B700A00D28 /* CollectionEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionEvent.swift; sourceTree = "<group>"; };
-		E7E0C21A1F64603500A00D28 /* MutableCollectionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MutableCollectionTests.swift; sourceTree = "<group>"; };
 		E7F910221F1802CE00E55373 /* Reactor.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Reactor.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E7F910251F1802CE00E55373 /* Reactor.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Reactor.h; sourceTree = "<group>"; };
 		E7F910261F1802CE00E55373 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E7F9102B1F1802CE00E55373 /* ReactorTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ReactorTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		E7F910301F1802CE00E55373 /* ReactorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReactorTests.swift; sourceTree = "<group>"; };
 		E7F910321F1802CE00E55373 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E7FC84891F84AA9C008449E1 /* File+ReadOperation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "File+ReadOperation.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -157,15 +160,16 @@
 		E72109F51F921FBE0041EF56 /* Backpressure */ = {
 			isa = PBXGroup;
 			children = (
-				E7824E5A1F93A23F00A401F7 /* SafetyValve.swift */,
 				E7824E5C1F93B67500A401F7 /* SafetyStrategy.swift */,
+				E7824E6A1F93BED000A401F7 /* MergeQueueProviding.swift */,
 				E7824E5E1F93B6A300A401F7 /* TransferStrategy.swift */,
 				E7824E641F93B77E00A401F7 /* TransferStrategyFactory.swift */,
+				E7824E5A1F93A23F00A401F7 /* SafetyValve.swift */,
+				E7824E6D1F93C5A500A401F7 /* DropIntermediateStrategy.swift */,
 				E7824E601F93B6E100A401F7 /* DirectTransferStrategy.swift */,
 				E7824E661F93B93500A401F7 /* DirectTransferStrategyFactory.swift */,
 				E7824E621F93B70600A401F7 /* SafetyValveTransferStrategy.swift */,
 				E7824E681F93BAEA00A401F7 /* SafetyValveTransferStrategyFactory.swift */,
-				E7824E6A1F93BED000A401F7 /* MergeQueueProviding.swift */,
 			);
 			path = Backpressure;
 			sourceTree = "<group>";
@@ -179,6 +183,8 @@
 				E7440E691F52B49800807C48 /* Pulse.swift */,
 				E7440E6B1F52B4CF00807C48 /* Pipeline.swift */,
 				E7440E6D1F52B67500807C48 /* Emitter.swift */,
+				E780A3341F93E9F400D20DCF /* DiscreteSignalEmitter.swift */,
+				E780A3361F93EA7F00D20DCF /* ContinuousSignalEmitter.swift */,
 				E7440E6F1F52B6BE00807C48 /* Signal.swift */,
 				E7E0C2091F6081A100A00D28 /* SignalFactory.swift */,
 				E7440E711F52D0F100807C48 /* SignalCore.swift */,
@@ -207,6 +213,17 @@
 				E71351F91F9168BC00D9D8B7 /* Future+transfering.swift */,
 			);
 			path = Promises;
+			sourceTree = "<group>";
+		};
+		E780A3291F93E48800D20DCF /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				E780A32B1F93E4A300D20DCF /* BoolTests.swift */,
+				E780A32D1F93E5CF00D20DCF /* SequenceTests.swift */,
+				E780A32F1F93E84F00D20DCF /* DiscreteSignalTests.swift */,
+				E780A32A1F93E4A200D20DCF /* ReactorTests-Bridging-Header.h */,
+			);
+			path = Core;
 			sourceTree = "<group>";
 		};
 		E7AAAD691F817FDC003AE5EC /* Log */ = {
@@ -304,12 +321,8 @@
 		E7F9102F1F1802CE00E55373 /* ReactorTests */ = {
 			isa = PBXGroup;
 			children = (
-				E7F910301F1802CE00E55373 /* ReactorTests.swift */,
+				E780A3291F93E48800D20DCF /* Core */,
 				E7F910321F1802CE00E55373 /* Info.plist */,
-				E7E0C21A1F64603500A00D28 /* MutableCollectionTests.swift */,
-				E74D23D81F654DC60097C543 /* CollectionEventTests.swift */,
-				E74D23DA1F67194B0097C543 /* CollectionEventBatch.swift */,
-				E787708E1F8F3042000321EB /* PromisesTests.swift */,
 			);
 			path = ReactorTests;
 			sourceTree = "<group>";
@@ -380,6 +393,7 @@
 					};
 					E7F9102A1F1802CE00E55373 = {
 						CreatedOnToolsVersion = 9.0;
+						LastSwiftMigration = 0900;
 					};
 				};
 			};
@@ -429,6 +443,7 @@
 				E7E0C20F1F61DA5C00A00D28 /* Sequence.swift in Sources */,
 				E74D23D71F646A380097C543 /* CollectionEventBatch.swift in Sources */,
 				E7440E7A1F53312D00807C48 /* Signal+fmap.swift in Sources */,
+				E780A3371F93EA7F00D20DCF /* ContinuousSignalEmitter.swift in Sources */,
 				E7824E631F93B70600A401F7 /* SafetyValveTransferStrategy.swift in Sources */,
 				E7440E721F52D0F100807C48 /* SignalCore.swift in Sources */,
 				E7E0C2061F607FA800A00D28 /* DiscreteSignalFactory.swift in Sources */,
@@ -462,11 +477,13 @@
 				E7E0C2081F6080A400A00D28 /* ContinuousSignalFactory.swift in Sources */,
 				E7824E5D1F93B67500A401F7 /* SafetyStrategy.swift in Sources */,
 				E7B454521F8414F7003DFF75 /* Disposable+autodispose.swift in Sources */,
+				E7824E6E1F93C5A500A401F7 /* DropIntermediateStrategy.swift in Sources */,
 				E7E0C2171F6413A900A00D28 /* MutableCollection.swift in Sources */,
 				E71351F81F91684C00D9D8B7 /* Future+grouping.swift in Sources */,
 				E7CEF2A71F5B56CF0098E0ED /* MutableValue.swift in Sources */,
 				E7E0C20A1F6081A100A00D28 /* SignalFactory.swift in Sources */,
 				E7824E6B1F93BED000A401F7 /* MergeQueueProviding.swift in Sources */,
+				E780A3351F93E9F400D20DCF /* DiscreteSignalEmitter.swift in Sources */,
 				E7E0C2111F61F32E00A00D28 /* ObservableValue+LogicalOperations.swift in Sources */,
 				E7440E7C1F533EBC00807C48 /* Signal+filter.swift in Sources */,
 				E74D23DD1F68667F0097C543 /* CollectionEvent+Apply.swift in Sources */,
@@ -478,11 +495,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E787708F1F8F3042000321EB /* PromisesTests.swift in Sources */,
-				E7E0C21B1F64603500A00D28 /* MutableCollectionTests.swift in Sources */,
-				E74D23DB1F67194B0097C543 /* CollectionEventBatch.swift in Sources */,
-				E74D23D91F654DC60097C543 /* CollectionEventTests.swift in Sources */,
-				E7F910311F1802CE00E55373 /* ReactorTests.swift in Sources */,
+				E780A32E1F93E5CF00D20DCF /* SequenceTests.swift in Sources */,
+				E780A3301F93E84F00D20DCF /* DiscreteSignalTests.swift in Sources */,
+				E780A32C1F93E4A300D20DCF /* BoolTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -653,11 +668,14 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CLANG_ENABLE_MODULES = YES;
 				DEVELOPMENT_TEAM = Q9A75UDV4B;
 				INFOPLIST_FILE = ReactorTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = ru.virtualmind.ReactorTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "ReactorTests/Core/ReactorTests-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -667,11 +685,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CLANG_ENABLE_MODULES = YES;
 				DEVELOPMENT_TEAM = Q9A75UDV4B;
 				INFOPLIST_FILE = ReactorTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = ru.virtualmind.ReactorTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "ReactorTests/Core/ReactorTests-Bridging-Header.h";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
