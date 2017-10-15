@@ -1,7 +1,9 @@
 import Foundation
 
-public class DiscreteSignalEmitter<T: Pulse> {
-    public var signal: DiscreteSignal<T> {
+public class DiscreteSignalEmitter<T: Pulse>: Emitting {
+    public typealias SignalType = DiscreteSignal<T>
+    
+    public var monitor: DiscreteSignal<T> {
         return _emitter.monitor
     }
     

@@ -1,22 +1,11 @@
 import Foundation
 
-public final class Emitter<ResultMonitor: Signal>: Emitting {
-    public typealias PayloadType = ResultMonitor.PayloadType
+public protocol Emitting {
+    associatedtype SignalType: Signal
     
-    private let transport: Pipeline<PayloadType>
-    public let monitor: ResultMonitor
+    func emit(_ payload: SignalType.PayloadType)
     
-    public init<FactoryType: SignalFactory>(factory: FactoryType) where FactoryType.SignalType == ResultMonitor {
-        transport = Pipeline<PayloadType>()
-        monitor = factory.create(on: transport)
-    }
-    
-    public func emit(_ payload: PayloadType) {
-        transport.receive(payload)
-        if payload.obsolete {
-            transport.reset()
-        }
-    }
+    var monitor: SignalType { get }
 }
 
 // Copyright (c) 2017 Victor Bryksin <vbryksin@virtualmind.ru>

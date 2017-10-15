@@ -1,7 +1,9 @@
 import Foundation
 
-public class ContinuousSignalEmitter<T: Pulse> {
-    public var signal: ContinuousSignal<T> {
+public class ContinuousSignalEmitter<T: Pulse>: Emitting {
+    public typealias SignalType = ContinuousSignal<T>
+    
+    public var monitor: ContinuousSignal<T> {
         return _emitter.monitor
     }
     

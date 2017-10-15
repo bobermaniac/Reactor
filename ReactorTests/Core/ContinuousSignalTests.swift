@@ -9,12 +9,13 @@
 import XCTest
 import Reactor
 
-class DiscreteSignalTests: XCTestCase {
-    private var emitter: DiscreteSignalEmitter<IntPulse>! = nil
+class ContinuousSignalTests: XCTestCase {
+    public let initialPulse = IntPulse(integerLiteral: 10)
+    private var emitter: ContinuousSignalEmitter<IntPulse>! = nil
     
     override func setUp() {
         super.setUp()
-        emitter = DiscreteSignalEmitter()
+        emitter = ContinuousSignalEmitter(initialValue: initialPulse)
     }
     
     override func tearDown() {
@@ -22,12 +23,22 @@ class DiscreteSignalTests: XCTestCase {
         super.tearDown()
     }
     
+    func testInitialPayloadTransfersToObserver() {
+        let observer = SignalObserver<IntPulse>()
+        observer.attach(to: emitter)
+        emitter.emit(1)
+        XCTAssertEqual(observer.pulses.count, 2)
+        XCTAssertEqual(observer.pulses[0], initialPulse)
+        XCTAssertEqual(observer.pulses[1], 1)
+    }
+    
     func testEmittedPayloadImmediatelyTransferedToObserver() {
         let observer = SignalObserver<IntPulse>()
         observer.attach(to: emitter)
         emitter.emit(1)
-        XCTAssertEqual(observer.pulses.count, 1)
-        XCTAssertEqual(observer.pulses[0], 1)
+        XCTAssertEqual(observer.pulses.count, 2)
+        XCTAssertEqual(observer.pulses[0], initialPulse)
+        XCTAssertEqual(observer.pulses[1], 1)
     }
     
     func testAllObserversReceivesAllSamePulses() {
@@ -44,8 +55,9 @@ class DiscreteSignalTests: XCTestCase {
         observer.attach(to: emitter)
         emitter.emit(0)
         emitter.emit(5)
-        XCTAssertEqual(observer.pulses.count, 1)
-        XCTAssertEqual(observer.pulses[0], 0)
+        XCTAssertEqual(observer.pulses.count, 2)
+        XCTAssertEqual(observer.pulses[0], initialPulse)
+        XCTAssertEqual(observer.pulses[1], 0)
     }
     
     func testObserverReceivesObsoletePulseOnSubscription() {
@@ -56,11 +68,12 @@ class DiscreteSignalTests: XCTestCase {
         XCTAssertEqual(observer.pulses[0], 0)
     }
     
-    func testObserverDoesNotReceiveNonObsoletePulseOnSubscription() {
+    func testObserverReceivesLastNonObsoletePulseOnSubscription() {
         emitter.emit(5)
         let observer = SignalObserver<IntPulse>()
         observer.attach(to: emitter)
-        XCTAssertEqual(observer.pulses.count, 0)
+        XCTAssertEqual(observer.pulses.count, 1)
+        XCTAssertEqual(observer.pulses[0], 5)
     }
     
     func testCancelObservingStopsReceivingPulses() {
@@ -69,7 +82,9 @@ class DiscreteSignalTests: XCTestCase {
         emitter.emit(5)
         subscribtion.cancel()
         emitter.emit(10)
-        XCTAssertEqual(observer.pulses.count, 1)
-        XCTAssertEqual(observer.pulses[0], 5)
+        XCTAssertEqual(observer.pulses.count, 2)
+        XCTAssertEqual(observer.pulses[0], initialPulse)
+        XCTAssertEqual(observer.pulses[1], 5)
     }
 }
+
