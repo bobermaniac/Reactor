@@ -1,21 +1,17 @@
 import Foundation
 
-public final class Promise<T> {
-    private let emitter: Emitter<ContinuousSignal<Result<T>>>
-    public let future: Future<T>
+public class DirectTransferStrategy<T: Pulse>: TransferStrategy {
+    public typealias PulseType = T
     
-    public init() {
-        emitter = Emitter(factory: ContinuousSignalFactory(initialValue: Result<T>.nothing))
-        future = Future(on: emitter.monitor)
+    public init(destination: Pipeline<PulseType>) {
+        _destination = destination
     }
     
-    public func resolve(_ payload: T) {
-        emitter.emit(.payload(payload))
+    public func transfer(pulse: PulseType, on queue: DispatchQueue) {
+        queue.async { self._destination.receive(pulse) }
     }
     
-    public func reject(_ error: Error) {
-        emitter.emit(.error(error))
-    }
+    private let _destination: Pipeline<PulseType>
 }
 
 // Copyright (c) 2017 Victor Bryksin <vbryksin@virtualmind.ru>

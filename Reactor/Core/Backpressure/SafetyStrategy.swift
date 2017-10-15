@@ -1,21 +1,10 @@
 import Foundation
 
-public final class Promise<T> {
-    private let emitter: Emitter<ContinuousSignal<Result<T>>>
-    public let future: Future<T>
+public protocol SafetyStrategy {
+    associatedtype PulseType: Pulse
     
-    public init() {
-        emitter = Emitter(factory: ContinuousSignalFactory(initialValue: Result<T>.nothing))
-        future = Future(on: emitter.monitor)
-    }
-    
-    public func resolve(_ payload: T) {
-        emitter.emit(.payload(payload))
-    }
-    
-    public func reject(_ error: Error) {
-        emitter.emit(.error(error))
-    }
+    func requiresMerge(forEuqueuedNumberOfPulses numberOfPulses: Int) -> Bool
+    func merge(objects: [ PulseType ]) -> [ PulseType ]
 }
 
 // Copyright (c) 2017 Victor Bryksin <vbryksin@virtualmind.ru>

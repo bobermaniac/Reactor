@@ -1,23 +1,59 @@
 import Foundation
 
-class ObservableValue<T> {
+public final class ObservableValue<T> {
     fileprivate let monitor: ContinuousSignal<Event<T>>
     
-    init(on monitor: ContinuousSignal<Event<T>>) {
+    public init(on monitor: ContinuousSignal<Event<T>>) {
         self.monitor = monitor
     }
     
-    func subscribe(onChange handler: @escaping (Event<T>) -> Void) -> Subscription {
+    public func subscribe(onChange handler: @escaping (Event<T>) -> Void) -> Subscription {
         return monitor.observe(with: handler)
     }
     
-    func fmap<U>(_ transform: @escaping (T) throws -> U) -> ObservableValue<U> {
+    public func fmap<U>(_ transform: @escaping (T) throws -> U) -> ObservableValue<U> {
         return ObservableValue<U>(on: monitor.fmap { $0.fmap(transform) })
+    }
+    
+    public func filter(initial: T, _ predicate: @escaping (T) -> Bool) -> ObservableValue<T> {
+        return ObservableValue(on: monitor.filter(initial: .changed(initial), { $0.satisfies(predicate) }))
+    }
+    
+    public func reduce<A>(initial accumulator: A, _ reducer: @escaping (A, T) -> A) -> ObservableValue<A> {
+        func collect(next event: Event<T>, to accumulator: Event<A>) -> Event<A> {
+            return accumulator.apply(to: event, reducer)
+        }
+        
+        return ObservableValue<A>(on: monitor.reduce(initial: .changed(accumulator), collect))
+    }
+    
+    public func zip<U, R>(with: ObservableValue<U>, _ zipper: @escaping (T, U) -> R) -> ObservableValue<R> {
+        func zip(_ lhs: Event<T>, rhs: Event<U>) -> Event<R> {
+            return lhs.apply(to: rhs, zipper)
+        }
+        return ObservableValue<R>(on: tie(monitor, with.monitor, with: zip))
+    }
+    
+    public func follow(with factory: @escaping () -> ObservableValue<T>) -> ObservableValue<T> {
+        func follower(_ event: Event<T>) -> ContinuousSignal<Event<T>> {
+            return unwrap(factory())
+        }
+        return ObservableValue<T>(on: monitor.extend(with: follower))
+    }
+    
+    public func transfer(to queue: DispatchQueue) -> ObservableValue<T> {
+        return ObservableValue<T>(on: monitor.transfer(to: queue))
     }
 }
 
+@inline(__always)
 func unwrap<T>(_ value: ObservableValue<T>) -> ContinuousSignal<Event<T>> {
     return value.monitor
+}
+
+@inline(__always)
+func unwrap<T, U>(f: @escaping (T) -> ObservableValue<U>) -> (T) -> ContinuousSignal<Event<U>> {
+    return { unwrap(f($0)) }
 }
 
 // Copyright (c) 2017 Victor Bryksin <vbryksin@virtualmind.ru>

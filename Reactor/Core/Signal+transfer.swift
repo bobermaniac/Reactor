@@ -1,20 +1,39 @@
 import Foundation
 
 public extension Signal {
-    fileprivate func _transfer<SF: SignalFactory>(to queue: DispatchQueue, factory: SF) -> SF.SignalType where SF.SignalType.PayloadType == Self.PayloadType {
-        let (transport, signal) = factory.createBound()
-        self.observe { payload in queue.async { transport.receive(payload) } }
+    fileprivate func _transfer<SF: SignalFactory, TF: TransferStrategyFactory>(to queue: DispatchQueue, signalFactory: SF, transferStrategyFactory: TF) -> SF.SignalType where SF.SignalType.PayloadType == Self.PayloadType, TF.TransferStrategyType.PulseType == Self.PayloadType {
+        let (transport, signal) = signalFactory.createBound()
+        let transferStrategy = transferStrategyFactory.create(destination: transport)
+        transferStrategy.transfer(from: self, on: queue)
         return signal
     }
     
     public func transfer(to queue: DispatchQueue) -> DiscreteSignal<PayloadType> {
-        return _transfer(to: queue, factory: DiscreteSignalFactory())
+        return _transfer(to: queue, signalFactory: DiscreteSignalFactory(), transferStrategyFactory: DirectTransferStrategyFactory())
+    }
+    
+    public func transfer<SS: SafetyStrategy & MergeQueueProviding>(to queue: DispatchQueue, safetyStrategy: SS) -> DiscreteSignal<PayloadType> where SS.PulseType == PayloadType {
+        return transfer(to: queue, safetyStrategy: safetyStrategy, mergeQueue: safetyStrategy.mergeQueue)
+    }
+    
+    public func transfer<SS: SafetyStrategy>(to queue: DispatchQueue, safetyStrategy: SS, mergeQueue: DispatchQueue) -> DiscreteSignal<PayloadType> where SS.PulseType == PayloadType {
+        let transferStrategyFactory = SafetyValveTransferStrategyFactory(mergeQueue: mergeQueue, strategy: safetyStrategy)
+        return _transfer(to: queue, signalFactory: DiscreteSignalFactory(), transferStrategyFactory: transferStrategyFactory)
     }
 }
 
 public extension ContinuousSignal {
     public func transfer(to queue: DispatchQueue) -> ContinuousSignal<PayloadType> {
-        return _transfer(to: queue, factory: ContinuousSignalFactory(initialValue: self.value))
+        return _transfer(to: queue, signalFactory: ContinuousSignalFactory(initialValue: self.value), transferStrategyFactory: DirectTransferStrategyFactory())
+    }
+    
+    public func transfer<SS: SafetyStrategy & MergeQueueProviding>(to queue: DispatchQueue, safetyStrategy: SS) -> ContinuousSignal<PayloadType> where SS.PulseType == PayloadType {
+        return transfer(to: queue, safetyStrategy: safetyStrategy, mergeQueue: safetyStrategy.mergeQueue)
+    }
+    
+    public func transfer<SS: SafetyStrategy>(to queue: DispatchQueue, safetyStrategy: SS, mergeQueue: DispatchQueue) -> ContinuousSignal<PayloadType> where SS.PulseType == PayloadType {
+        let transferStrategyFactory = SafetyValveTransferStrategyFactory(mergeQueue: mergeQueue, strategy: safetyStrategy)
+        return _transfer(to: queue, signalFactory: ContinuousSignalFactory(initialValue: self.value), transferStrategyFactory: transferStrategyFactory)
     }
 }
 

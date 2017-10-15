@@ -1,20 +1,10 @@
 import Foundation
 
-public final class Promise<T> {
-    private let emitter: Emitter<ContinuousSignal<Result<T>>>
-    public let future: Future<T>
+public struct DirectTransferStrategyFactory<T: Pulse> : TransferStrategyFactory {
+    public typealias TransferStrategyType = DirectTransferStrategy<T>
     
-    public init() {
-        emitter = Emitter(factory: ContinuousSignalFactory(initialValue: Result<T>.nothing))
-        future = Future(on: emitter.monitor)
-    }
-    
-    public func resolve(_ payload: T) {
-        emitter.emit(.payload(payload))
-    }
-    
-    public func reject(_ error: Error) {
-        emitter.emit(.error(error))
+    public func create(destination: Pipeline<T>) -> DirectTransferStrategy<T> {
+        return DirectTransferStrategy(destination: destination)
     }
 }
 

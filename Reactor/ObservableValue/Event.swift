@@ -1,16 +1,16 @@
 import Foundation
 
-enum Event<T>: Pulse {
+public enum Event<T>: Pulse {
     case changed(T)
     case depleted
     case faulted(Error)
     
-    var obsolete: Bool {
+    public var obsolete: Bool {
         if case .changed(_) = self { return false }
         return true
     }
     
-    func fmap<U>(_ transform: (T) throws -> U) -> Event<U> {
+    public func fmap<U>(_ transform: (T) throws -> U) -> Event<U> {
         guard case let .changed(payload) = self else { return cast() }
         do {
             return .changed(try transform(payload))
@@ -19,7 +19,22 @@ enum Event<T>: Pulse {
         }
     }
     
-    func cast<U>() -> Event<U> {
+    public func satisfies(_ condition: (T) -> Bool) -> Bool {
+        guard case let .changed(payload) = self else { return true }
+        return condition(payload)
+    }
+    
+    public func apply<U, R>(to rhs: Event<U>, _ fun:(T, U) throws -> R) -> Event<R> {
+        guard case let .changed(payload) = self else { return cast() }
+        guard case let .changed(rhsPayload) = rhs else { return rhs.cast() }
+        do {
+            return .changed(try fun(payload, rhsPayload))
+        } catch (let error) {
+            return .faulted(error)
+        }
+    }
+    
+    public func cast<U>() -> Event<U> {
         switch self {
         case let .changed(payload):
             return .changed(payload as! U)

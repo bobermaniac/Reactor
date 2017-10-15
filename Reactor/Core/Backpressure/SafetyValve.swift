@@ -1,22 +1,37 @@
 import Foundation
 
-public final class Promise<T> {
-    private let emitter: Emitter<ContinuousSignal<Result<T>>>
-    public let future: Future<T>
+public class SafetyValve<T: SafetyStrategy> {
+    public typealias StrategyType = T
+    public typealias PulseType = StrategyType.PulseType
     
-    public init() {
-        emitter = Emitter(factory: ContinuousSignalFactory(initialValue: Result<T>.nothing))
-        future = Future(on: emitter.monitor)
+    public init(mergeQueue: DispatchQueue, mergeStrategy: StrategyType) {
+        _mergeQueue = mergeQueue
+        _mergeStrategy = mergeStrategy
+        _pulses = []
     }
     
-    public func resolve(_ payload: T) {
-        emitter.emit(.payload(payload))
+    public func enqueue(_ object: PulseType) {
+        _mergeQueue.async { self._syncAppendAndMergeIfNeeded(object) }
     }
     
-    public func reject(_ error: Error) {
-        emitter.emit(.error(error))
+    public func dequeue() -> PulseType? {
+        return _mergeQueue.sync {
+            return self._pulses.count > 0 ? self._pulses.remove(at: 0) : nil
+        }
     }
+    
+    private func _syncAppendAndMergeIfNeeded(_ object: PulseType) {
+        _pulses.append(object)
+        if _mergeStrategy.requiresMerge(forEuqueuedNumberOfPulses: _pulses.count) {
+            _pulses = _mergeStrategy.merge(objects: _pulses)
+        }
+    }
+    
+    private let _mergeQueue: DispatchQueue
+    private let _mergeStrategy: StrategyType
+    private var _pulses: [ PulseType ]
 }
+
 
 // Copyright (c) 2017 Victor Bryksin <vbryksin@virtualmind.ru>
 //

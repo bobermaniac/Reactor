@@ -10,6 +10,15 @@ public enum Result<T> : Pulse {
         return true
     }
     
+    func unwrap(_ receiver: () -> Void) {
+        switch self {
+        case .nothing:
+            return
+        default:
+            receiver()
+        }
+    }
+    
     func unwrap(_ receiver: (T) -> Void) {
         guard case let .payload(object) = self else { return }
         receiver(object)
@@ -26,6 +35,17 @@ public enum Result<T> : Pulse {
         catch (let error) { return .error(error) }
     }
     
+    func fmap<U>(payload pt: (T) -> U, error et: (Error) -> U) -> U {
+        switch self {
+        case .nothing:
+            fatalError("Nothing can't be transformed")
+        case .payload(let payload):
+            return pt(payload)
+        case .error(let error):
+            return et(error)
+        }
+    }
+    
     func cast<U>() -> Result<U> {
         switch self {
         case .nothing:
@@ -34,17 +54,6 @@ public enum Result<T> : Pulse {
             return .error(error)
         case let .payload(payload):
             return .payload(payload as! U)
-        }
-    }
-    
-    func extend<U>(_ transform: (T) -> ContinuousSignal<Result<U>>) -> ContinuousSignal<Result<U>> {
-        switch self {
-        case .nothing:
-            fatalError("Non-terminal states of Result can't be extended")
-        case let .payload(payload):
-            return transform(payload)
-        case let .error(error):
-            return ContinuousSignal(initialValue: .error(error))
         }
     }
     
@@ -66,7 +75,6 @@ public enum Result<T> : Pulse {
         return rhs
     }
 }
-
 
 func all<T>(_ results: [ Result<T> ]) -> Result<[ T ]> {
     return results.reduce(Result<[ T ]>.payload([]), Result<T>.concat)

@@ -1,21 +1,22 @@
 import Foundation
 
-public final class Promise<T> {
-    private let emitter: Emitter<ContinuousSignal<Result<T>>>
-    public let future: Future<T>
+public class SafetyValveTransferStrategy<T: SafetyStrategy>: TransferStrategy {
+    public typealias PulseType = T.PulseType
     
-    public init() {
-        emitter = Emitter(factory: ContinuousSignalFactory(initialValue: Result<T>.nothing))
-        future = Future(on: emitter.monitor)
+    public init(destination: Pipeline<PulseType>, safetyStrategy: T, mergeQueue: DispatchQueue) {
+        _destination = destination
+        _safetyValve = SafetyValve(mergeQueue: mergeQueue, mergeStrategy: safetyStrategy)
     }
     
-    public func resolve(_ payload: T) {
-        emitter.emit(.payload(payload))
+    public func transfer(pulse: PulseType, on queue: DispatchQueue) {
+        let valve = _safetyValve
+        
+        valve.enqueue(pulse)
+        queue.async { valve.dequeue().map(self._destination.receive) }
     }
     
-    public func reject(_ error: Error) {
-        emitter.emit(.error(error))
-    }
+    private let _safetyValve: SafetyValve<T>
+    private let _destination: Pipeline<PulseType>
 }
 
 // Copyright (c) 2017 Victor Bryksin <vbryksin@virtualmind.ru>

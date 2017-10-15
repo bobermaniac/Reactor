@@ -1,21 +1,9 @@
 import Foundation
 
-public final class Promise<T> {
-    private let emitter: Emitter<ContinuousSignal<Result<T>>>
-    public let future: Future<T>
+public protocol TransferStrategyFactory {
+    associatedtype TransferStrategyType: TransferStrategy
     
-    public init() {
-        emitter = Emitter(factory: ContinuousSignalFactory(initialValue: Result<T>.nothing))
-        future = Future(on: emitter.monitor)
-    }
-    
-    public func resolve(_ payload: T) {
-        emitter.emit(.payload(payload))
-    }
-    
-    public func reject(_ error: Error) {
-        emitter.emit(.error(error))
-    }
+    func create(destination: Pipeline<TransferStrategyType.PulseType>) -> TransferStrategyType
 }
 
 // Copyright (c) 2017 Victor Bryksin <vbryksin@virtualmind.ru>

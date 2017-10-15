@@ -1,20 +1,14 @@
 import Foundation
 
-public final class Promise<T> {
-    private let emitter: Emitter<ContinuousSignal<Result<T>>>
-    public let future: Future<T>
+public protocol TransferStrategy {
+    associatedtype PulseType: Pulse
     
-    public init() {
-        emitter = Emitter(factory: ContinuousSignalFactory(initialValue: Result<T>.nothing))
-        future = Future(on: emitter.monitor)
-    }
-    
-    public func resolve(_ payload: T) {
-        emitter.emit(.payload(payload))
-    }
-    
-    public func reject(_ error: Error) {
-        emitter.emit(.error(error))
+    func transfer(pulse: PulseType, on queue: DispatchQueue)
+}
+
+public extension TransferStrategy {
+    public func transfer<T: Signal>(from signal: T, on queue: DispatchQueue) where T.PayloadType == PulseType {
+        signal.observe { self.transfer(pulse: $0, on: queue) }
     }
 }
 

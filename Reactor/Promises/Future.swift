@@ -1,21 +1,41 @@
 import Foundation
 
-public final class Promise<T> {
-    private let emitter: Emitter<ContinuousSignal<Result<T>>>
-    public let future: Future<T>
+public final class Future<T> {
+    fileprivate let monitor: ContinuousSignal<Result<T>>
     
-    public init() {
-        emitter = Emitter(factory: ContinuousSignalFactory(initialValue: Result<T>.nothing))
-        future = Future(on: emitter.monitor)
+    init(on monitor: ContinuousSignal<Result<T>>) {
+        self.monitor = monitor
     }
     
-    public func resolve(_ payload: T) {
-        emitter.emit(.payload(payload))
+    public init(resolvedWith payload: T) {
+        self.monitor = ContinuousSignal(initialValue: .payload(payload))
     }
     
-    public func reject(_ error: Error) {
-        emitter.emit(.error(error))
+    public init(rejectedWith error: Error) {
+        self.monitor = ContinuousSignal(initialValue: .error(error))
     }
+    
+    public func resolved(_ handler: @escaping (T) -> Void) {
+        monitor.observe { $0.unwrap(handler) }
+    }
+    
+    public func rejected(_ handler: @escaping (Error) -> Void) {
+        monitor.observe { $0.unwrap(handler) }
+    }
+    
+    public func fulfilled(_ handler: @escaping () -> Void) {
+        monitor.observe { $0.unwrap(handler) }
+    }
+}
+
+@inline(__always)
+func unwrap<T>(_ future: Future<T>) -> ContinuousSignal<Result<T>> {
+    return future.monitor
+}
+
+@inline(__always)
+func unwrap<T, U>(f: @escaping (T) -> Future<U>) -> (T) -> ContinuousSignal<Result<U>> {
+    return { payload in unwrap(f(payload)) }
 }
 
 // Copyright (c) 2017 Victor Bryksin <vbryksin@virtualmind.ru>

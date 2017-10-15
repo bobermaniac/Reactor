@@ -1,6 +1,10 @@
 import Foundation
 
 public extension Signal {
+    fileprivate func id(_ payload: PayloadType) -> PayloadType {
+        return payload
+    }
+    
     fileprivate func extend<SF: SignalFactory>(intermediateTransform: @escaping (PayloadType) -> SF.SignalType.PayloadType, finalTransform: @escaping (PayloadType) -> SF.SignalType, factory: SF) -> SF.SignalType {
         let (transport, signal) = factory.createBound()
         observe { pulse in
@@ -15,12 +19,28 @@ public extension Signal {
     public func extend<U>(intermediateTransform: @escaping (PayloadType) -> U, finalTransform: @escaping (PayloadType) -> DiscreteSignal<U>) -> DiscreteSignal<U> {
         return extend(intermediateTransform: intermediateTransform, finalTransform: finalTransform, factory: DiscreteSignalFactory())
     }
+    
+    public func extend<U>(intermediate value: @autoclosure @escaping () -> U, finalTransform: @escaping (PayloadType) -> DiscreteSignal<U>) -> DiscreteSignal<U> {
+        return extend(intermediateTransform: { _ in value() }, finalTransform: finalTransform, factory: DiscreteSignalFactory())
+    }
+    
+    public func extend(with signalFactory: @escaping (PayloadType) -> DiscreteSignal<PayloadType>) -> DiscreteSignal<PayloadType> {
+        return extend(intermediateTransform: id, finalTransform: signalFactory)
+    }
 }
 
 public extension ContinuousSignal {
     public func extend<U>(intermediateTransform: @escaping (PayloadType) -> U, finalTransform: @escaping (PayloadType) -> ContinuousSignal<U>) -> ContinuousSignal<U> {
         guard !value.obsolete else { return finalTransform(value) }
         return extend(intermediateTransform: intermediateTransform, finalTransform: finalTransform, factory: ContinuousSignalFactory(initialValue: intermediateTransform(value)))
+    }
+    
+    public func extend<U>(intermediate value: @autoclosure @escaping () -> U, finalTransform: @escaping (PayloadType) -> ContinuousSignal<U>) -> ContinuousSignal<U> {
+        return extend(intermediateTransform: { _ in value() }, finalTransform: finalTransform, factory: ContinuousSignalFactory(initialValue: value()))
+    }
+    
+    public func extend(with signalFactory: @escaping (PayloadType) -> ContinuousSignal<PayloadType>) -> ContinuousSignal<PayloadType> {
+        return extend(intermediateTransform: id, finalTransform: signalFactory)
     }
 }
 
