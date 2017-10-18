@@ -18,4 +18,11 @@ class SignalObserver<T: Pulse> {
             self.pulses.append(pulse)
         }
     }
+    
+    @discardableResult
+    public func attach<U: Signal>(to signal: U) -> Subscription where U.PayloadType == T {
+        return signal.observe { pulse in
+            self.pulses.append(pulse)
+        }
+    }
 }

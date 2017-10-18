@@ -9,6 +9,7 @@ public protocol Signal {
     
     @discardableResult
     func observe(with handler: @escaping (PayloadType) -> Void) -> Subscription
+    func observe(with handler: @escaping (PayloadType, Subscription) -> Void)
 }
 
 // Copyright (c) 2017 Victor Bryksin <vbryksin@virtualmind.ru>

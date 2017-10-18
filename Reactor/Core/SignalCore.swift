@@ -17,6 +17,12 @@ final class SignalCore<Payload: Pulse> {
     }
     
     func add(observer: @escaping (Payload) -> Void) -> Subscription {
+        let subscriber = Subscriber(notify: { (p, s) in observer(p) }, canceler: self.remove)
+        apply(update: state.added(subscriber: subscriber))
+        return subscriber
+    }
+    
+    func add(observer: @escaping (Payload, Subscription) -> Void) -> Subscription {
         let subscriber = Subscriber(notify: observer, canceler: self.remove)
         apply(update: state.added(subscriber: subscriber))
         return subscriber
@@ -32,14 +38,18 @@ final class SignalCore<Payload: Pulse> {
     }
     
     private class Subscriber : Subscription {
-        public let notify: (Payload) -> Void
+        public func notify(_ payload: Payload) {
+            notifyInternal(payload, self)
+        }
+        
+        private let notifyInternal: (Payload, Subscriber) -> Void
         
         public func cancel() {
             canceler(self)
         }
         
-        init(notify: @escaping (Payload) -> Void, canceler: @escaping (Subscriber) -> Void) {
-            self.notify = notify
+        init(notify: @escaping (Payload, Subscription) -> Void, canceler: @escaping (Subscriber) -> Void) {
+            notifyInternal = notify
             self.canceler = canceler
         }
         

@@ -24,6 +24,12 @@
 		E74D23D71F646A380097C543 /* CollectionEventBatch.swift in Sources */ = {isa = PBXBuildFile; fileRef = E74D23D61F646A380097C543 /* CollectionEventBatch.swift */; };
 		E74D23DD1F68667F0097C543 /* CollectionEvent+Apply.swift in Sources */ = {isa = PBXBuildFile; fileRef = E74D23DC1F68667F0097C543 /* CollectionEvent+Apply.swift */; };
 		E74D23DF1F6866E00097C543 /* CollectionEvent+Update.swift in Sources */ = {isa = PBXBuildFile; fileRef = E74D23DE1F6866E00097C543 /* CollectionEvent+Update.swift */; };
+		E767CF4E1F968D9E009EE48A /* GivenWhenThen.swift in Sources */ = {isa = PBXBuildFile; fileRef = E767CF4D1F968D9E009EE48A /* GivenWhenThen.swift */; };
+		E767CF501F969E89009EE48A /* Mapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = E767CF4F1F969E89009EE48A /* Mapper.swift */; };
+		E767CF541F969EEA009EE48A /* ContinuousSignalFmapTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E767CF531F969EEA009EE48A /* ContinuousSignalFmapTests.swift */; };
+		E767CF561F97DF5A009EE48A /* DiscreteSignalReduceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E767CF551F97DF5A009EE48A /* DiscreteSignalReduceTests.swift */; };
+		E767CF581F97DFC7009EE48A /* Reducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E767CF571F97DFC7009EE48A /* Reducer.swift */; };
+		E767CF5A1F97E699009EE48A /* ContinuousSignalReduceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E767CF591F97E699009EE48A /* ContinuousSignalReduceTests.swift */; };
 		E780A32C1F93E4A300D20DCF /* BoolTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E780A32B1F93E4A300D20DCF /* BoolTests.swift */; };
 		E780A32E1F93E5CF00D20DCF /* SequenceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E780A32D1F93E5CF00D20DCF /* SequenceTests.swift */; };
 		E780A3301F93E84F00D20DCF /* DiscreteSignalTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E780A32F1F93E84F00D20DCF /* DiscreteSignalTests.swift */; };
@@ -45,6 +51,8 @@
 		E7824E6E1F93C5A500A401F7 /* DropIntermediateStrategy.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7824E6D1F93C5A500A401F7 /* DropIntermediateStrategy.swift */; };
 		E78770891F8E957B000321EB /* Signal+extend.swift in Sources */ = {isa = PBXBuildFile; fileRef = E78770881F8E957B000321EB /* Signal+extend.swift */; };
 		E7AAAD6B1F817FEC003AE5EC /* Log.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7AAAD6A1F817FEC003AE5EC /* Log.swift */; };
+		E7ABC49B1F95516400D6CBE6 /* DiscreteSignalFmapTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7ABC49A1F95516400D6CBE6 /* DiscreteSignalFmapTests.swift */; };
+		E7ABC49E1F95544300D6CBE6 /* Contracts.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7ABC49D1F95544300D6CBE6 /* Contracts.swift */; };
 		E7B4544B1F82D9EB003DFF75 /* Disposable.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7B4544A1F82D9EB003DFF75 /* Disposable.swift */; };
 		E7B4544E1F841473003DFF75 /* File.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7B4544D1F841473003DFF75 /* File.swift */; };
 		E7B454521F8414F7003DFF75 /* Disposable+autodispose.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7B454511F8414F7003DFF75 /* Disposable+autodispose.swift */; };
@@ -97,6 +105,12 @@
 		E74D23D61F646A380097C543 /* CollectionEventBatch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionEventBatch.swift; sourceTree = "<group>"; };
 		E74D23DC1F68667F0097C543 /* CollectionEvent+Apply.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CollectionEvent+Apply.swift"; sourceTree = "<group>"; };
 		E74D23DE1F6866E00097C543 /* CollectionEvent+Update.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CollectionEvent+Update.swift"; sourceTree = "<group>"; };
+		E767CF4D1F968D9E009EE48A /* GivenWhenThen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GivenWhenThen.swift; sourceTree = "<group>"; };
+		E767CF4F1F969E89009EE48A /* Mapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Mapper.swift; sourceTree = "<group>"; };
+		E767CF531F969EEA009EE48A /* ContinuousSignalFmapTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContinuousSignalFmapTests.swift; sourceTree = "<group>"; };
+		E767CF551F97DF5A009EE48A /* DiscreteSignalReduceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscreteSignalReduceTests.swift; sourceTree = "<group>"; };
+		E767CF571F97DFC7009EE48A /* Reducer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reducer.swift; sourceTree = "<group>"; };
+		E767CF591F97E699009EE48A /* ContinuousSignalReduceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContinuousSignalReduceTests.swift; sourceTree = "<group>"; };
 		E780A32A1F93E4A200D20DCF /* ReactorTests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ReactorTests-Bridging-Header.h"; sourceTree = "<group>"; };
 		E780A32B1F93E4A300D20DCF /* BoolTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoolTests.swift; sourceTree = "<group>"; };
 		E780A32D1F93E5CF00D20DCF /* SequenceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SequenceTests.swift; sourceTree = "<group>"; };
@@ -119,6 +133,8 @@
 		E7824E6D1F93C5A500A401F7 /* DropIntermediateStrategy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropIntermediateStrategy.swift; sourceTree = "<group>"; };
 		E78770881F8E957B000321EB /* Signal+extend.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Signal+extend.swift"; sourceTree = "<group>"; };
 		E7AAAD6A1F817FEC003AE5EC /* Log.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Log.swift; sourceTree = "<group>"; };
+		E7ABC49A1F95516400D6CBE6 /* DiscreteSignalFmapTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscreteSignalFmapTests.swift; sourceTree = "<group>"; };
+		E7ABC49D1F95544300D6CBE6 /* Contracts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Contracts.swift; sourceTree = "<group>"; };
 		E7B4544A1F82D9EB003DFF75 /* Disposable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Disposable.swift; sourceTree = "<group>"; };
 		E7B4544D1F841473003DFF75 /* File.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = File.swift; sourceTree = "<group>"; };
 		E7B454511F8414F7003DFF75 /* Disposable+autodispose.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Disposable+autodispose.swift"; sourceTree = "<group>"; };
@@ -185,6 +201,7 @@
 		E727D9FB1F350C9E003D6BCB /* Core */ = {
 			isa = PBXGroup;
 			children = (
+				E7ABC49C1F95542D00D6CBE6 /* Contracts */,
 				E72109F51F921FBE0041EF56 /* Backpressure */,
 				E7E0C20C1F61CF9800A00D28 /* Bool.swift */,
 				E7E0C20E1F61DA5C00A00D28 /* Sequence.swift */,
@@ -231,8 +248,12 @@
 				E780A32B1F93E4A300D20DCF /* BoolTests.swift */,
 				E780A32D1F93E5CF00D20DCF /* SequenceTests.swift */,
 				E780A32F1F93E84F00D20DCF /* DiscreteSignalTests.swift */,
-				E780A32A1F93E4A200D20DCF /* ReactorTests-Bridging-Header.h */,
 				E780A33F1F93FA8B00D20DCF /* ContinuousSignalTests.swift */,
+				E7ABC49A1F95516400D6CBE6 /* DiscreteSignalFmapTests.swift */,
+				E767CF531F969EEA009EE48A /* ContinuousSignalFmapTests.swift */,
+				E767CF551F97DF5A009EE48A /* DiscreteSignalReduceTests.swift */,
+				E767CF591F97E699009EE48A /* ContinuousSignalReduceTests.swift */,
+				E780A32A1F93E4A200D20DCF /* ReactorTests-Bridging-Header.h */,
 			);
 			path = Core;
 			sourceTree = "<group>";
@@ -242,6 +263,9 @@
 			children = (
 				E780A3391F93F47F00D20DCF /* IntPulse.swift */,
 				E780A33B1F93F49C00D20DCF /* SignalObserver.swift */,
+				E767CF4D1F968D9E009EE48A /* GivenWhenThen.swift */,
+				E767CF4F1F969E89009EE48A /* Mapper.swift */,
+				E767CF571F97DFC7009EE48A /* Reducer.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -252,6 +276,14 @@
 				E7AAAD6A1F817FEC003AE5EC /* Log.swift */,
 			);
 			path = Log;
+			sourceTree = "<group>";
+		};
+		E7ABC49C1F95542D00D6CBE6 /* Contracts */ = {
+			isa = PBXGroup;
+			children = (
+				E7ABC49D1F95544300D6CBE6 /* Contracts.swift */,
+			);
+			path = Contracts;
 			sourceTree = "<group>";
 		};
 		E7B454491F82D9E1003DFF75 /* Disposable */ = {
@@ -497,6 +529,7 @@
 				E7E0C2081F6080A400A00D28 /* ContinuousSignalFactory.swift in Sources */,
 				E780A33E1F93F72C00D20DCF /* Emitting.swift in Sources */,
 				E7824E5D1F93B67500A401F7 /* SafetyStrategy.swift in Sources */,
+				E7ABC49E1F95544300D6CBE6 /* Contracts.swift in Sources */,
 				E7B454521F8414F7003DFF75 /* Disposable+autodispose.swift in Sources */,
 				E7824E6E1F93C5A500A401F7 /* DropIntermediateStrategy.swift in Sources */,
 				E7E0C2171F6413A900A00D28 /* MutableCollection.swift in Sources */,
@@ -516,12 +549,19 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E767CF4E1F968D9E009EE48A /* GivenWhenThen.swift in Sources */,
+				E767CF561F97DF5A009EE48A /* DiscreteSignalReduceTests.swift in Sources */,
+				E767CF581F97DFC7009EE48A /* Reducer.swift in Sources */,
+				E7ABC49B1F95516400D6CBE6 /* DiscreteSignalFmapTests.swift in Sources */,
 				E780A33C1F93F49C00D20DCF /* SignalObserver.swift in Sources */,
 				E780A32E1F93E5CF00D20DCF /* SequenceTests.swift in Sources */,
+				E767CF501F969E89009EE48A /* Mapper.swift in Sources */,
 				E780A3401F93FA8B00D20DCF /* ContinuousSignalTests.swift in Sources */,
+				E767CF541F969EEA009EE48A /* ContinuousSignalFmapTests.swift in Sources */,
 				E780A33A1F93F47F00D20DCF /* IntPulse.swift in Sources */,
 				E780A3301F93E84F00D20DCF /* DiscreteSignalTests.swift in Sources */,
 				E780A32C1F93E4A300D20DCF /* BoolTests.swift in Sources */,
+				E767CF5A1F97E699009EE48A /* ContinuousSignalReduceTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

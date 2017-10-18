@@ -2,19 +2,34 @@ import Foundation
 
 extension Signal {
     func reduce<Accumulator>(initial: Accumulator, _ aggregate: @escaping (PayloadType, Accumulator) -> Accumulator) -> ContinuousSignal<Accumulator> {
-        func _checked(input: Pulse, output: Accumulator) -> Accumulator {
-            guard input.obsolete => output.obsolete else { fatalError() }
-            return output
-        }
-        let (transport, signal) = ContinuousSignalFactory(initialValue: initial).createBound()
-        
+        let transport = Pipeline<Accumulator>()
         var accumulator = initial
-        self.observe { payload in
-            accumulator = _checked(input: payload, output: aggregate(payload, accumulator))
+        
+        self.observe { (payload, subscription) in
+            accumulator = aggregate(payload, accumulator)
+            Contract.verify(payload.obsolete => accumulator.obsolete, failureMessage: "Obsolete signals should generate obsolete accumulators")
             transport.receive(accumulator)
+            if accumulator.obsolete { subscription.cancel() }
         }
         
-        return signal
+        return ContinuousSignalFactory(initialValue: accumulator).create(on: transport)
+    }
+}
+
+extension ContinuousSignal {
+    func reduce(_ aggregate: @escaping (PayloadType, PayloadType) -> PayloadType) -> ContinuousSignal<PayloadType> {
+        let transport = Pipeline<PayloadType>()
+        var accumulator = value
+        
+        self.observe { (payload, subscription) in
+            guard !transport.muffed else { return }
+            accumulator = aggregate(payload, accumulator)
+            Contract.verify(payload.obsolete => accumulator.obsolete, failureMessage: "Obsolete signals should generate obsolete accumulators")
+            transport.receive(accumulator)
+            if accumulator.obsolete { subscription.cancel() }
+        }
+        
+        return ContinuousSignalFactory(initialValue: accumulator).create(on: transport)
     }
 }
 

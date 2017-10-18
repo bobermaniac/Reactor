@@ -23,68 +23,130 @@ class ContinuousSignalTests: XCTestCase {
         super.tearDown()
     }
     
+    func testContainsInitialPulseAtStart() {
+        XCTAssertEqual(emitter.monitor.value, initialPulse)
+    }
+    
     func testInitialPayloadTransfersToObserver() {
         let observer = SignalObserver<IntPulse>()
-        observer.attach(to: emitter)
-        emitter.emit(1)
-        XCTAssertEqual(observer.pulses.count, 2)
-        XCTAssertEqual(observer.pulses[0], initialPulse)
-        XCTAssertEqual(observer.pulses[1], 1)
+        given {
+
+        }
+        when {
+            observer.attach(to: emitter)
+        }
+        then {
+            XCTAssertEqual(observer.pulses, [ initialPulse ])
+        }
     }
     
     func testEmittedPayloadImmediatelyTransferedToObserver() {
         let observer = SignalObserver<IntPulse>()
-        observer.attach(to: emitter)
-        emitter.emit(1)
-        XCTAssertEqual(observer.pulses.count, 2)
-        XCTAssertEqual(observer.pulses[0], initialPulse)
-        XCTAssertEqual(observer.pulses[1], 1)
+        given {
+            observer.attach(to: emitter)
+        }
+        when {
+            emitter.emit(1)
+        }
+        then {
+            XCTAssertEqual(observer.pulses, [ initialPulse, 1 ])
+        }
+    }
+    
+    func testSignalChangesValueAfterEmitting() {
+        given {
+            
+        }
+        when {
+            emitter.emit(1)
+        }
+        then {
+            XCTAssertEqual(emitter.monitor.value, 1)
+        }
     }
     
     func testAllObserversReceivesAllSamePulses() {
         let firstObserver = SignalObserver<IntPulse>()
-        firstObserver.attach(to: emitter)
         let secondObserver = SignalObserver<IntPulse>()
-        secondObserver.attach(to: emitter)
-        emitter.emit(1)
-        XCTAssertEqual(firstObserver.pulses, secondObserver.pulses)
+        given {
+            firstObserver.attach(to: emitter)
+            secondObserver.attach(to: emitter)
+        }
+        when {
+            emitter.emit(1)
+        }
+        then {
+            XCTAssertEqual(firstObserver.pulses, secondObserver.pulses)
+        }
     }
     
     func testSignalDetachItsSubscribersOnObsoletePulse() {
         let observer = SignalObserver<IntPulse>()
-        observer.attach(to: emitter)
-        emitter.emit(0)
-        emitter.emit(5)
-        XCTAssertEqual(observer.pulses.count, 2)
-        XCTAssertEqual(observer.pulses[0], initialPulse)
-        XCTAssertEqual(observer.pulses[1], 0)
+        given {
+            observer.attach(to: emitter)
+        }
+        when {
+            emitter.emit(0)
+            emitter.emit(5)
+        }
+        then {
+            XCTAssertEqual(observer.pulses, [ initialPulse, 0 ])
+        }
+    }
+    
+    func testSignalValueDoesNotChangeAfterObsoletePulse() {
+        given {
+            
+        }
+        when {
+            emitter.emit(0)
+            emitter.emit(5)
+        }
+        then {
+            XCTAssertEqual(emitter.monitor.value, 0)
+        }
     }
     
     func testObserverReceivesObsoletePulseOnSubscription() {
-        emitter.emit(0)
         let observer = SignalObserver<IntPulse>()
-        observer.attach(to: emitter)
-        XCTAssertEqual(observer.pulses.count, 1)
-        XCTAssertEqual(observer.pulses[0], 0)
+        given {
+            emitter.emit(0)
+        }
+        when {
+            observer.attach(to: emitter)
+        }
+        then {
+            XCTAssertEqual(observer.pulses, [ 0 ])
+        }
     }
     
     func testObserverReceivesLastNonObsoletePulseOnSubscription() {
-        emitter.emit(5)
         let observer = SignalObserver<IntPulse>()
-        observer.attach(to: emitter)
-        XCTAssertEqual(observer.pulses.count, 1)
-        XCTAssertEqual(observer.pulses[0], 5)
+        given {
+            emitter.emit(5)
+        }
+        when {
+            observer.attach(to: emitter)
+        }
+        then {
+            XCTAssertEqual(observer.pulses, [ 5 ])
+        }
     }
     
     func testCancelObservingStopsReceivingPulses() {
         let observer = SignalObserver<IntPulse>()
-        let subscribtion = observer.attach(to: emitter)
-        emitter.emit(5)
-        subscribtion.cancel()
-        emitter.emit(10)
-        XCTAssertEqual(observer.pulses.count, 2)
-        XCTAssertEqual(observer.pulses[0], initialPulse)
-        XCTAssertEqual(observer.pulses[1], 5)
+        var subscribtion: Subscription!
+        given {
+            subscribtion = observer.attach(to: emitter)
+            emitter.emit(5)
+        }
+        when {
+            subscribtion.cancel()
+            emitter.emit(10)
+        }
+        then {
+            XCTAssertEqual(observer.pulses, [ initialPulse, 5 ])
+        }
     }
 }
 

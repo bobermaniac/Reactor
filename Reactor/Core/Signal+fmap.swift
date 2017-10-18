@@ -1,24 +1,26 @@
 import Foundation
 
-extension Signal {
+
+public extension Signal {
     fileprivate func _fmap<SF: SignalFactory>(_ transform: @escaping (PayloadType) -> SF.SignalType.PayloadType, factory: SF) -> SF.SignalType {
-        func _checked(input: Pulse, output: SF.SignalType.PayloadType) -> SF.SignalType.PayloadType {
-            guard input.obsolete => output.obsolete else { fatalError() }
-            return output
+        let transport = Pipeline<SF.SignalType.PayloadType>()
+        self.observe { (payload, subscription) in
+            guard !transport.muffed else { return }
+            let output = transform(payload)
+            Contract.verify(payload.obsolete => output.obsolete, failureMessage: "Obsolete signals should generate obsolete signals")
+            transport.receive(output)
+            if output.obsolete { subscription.cancel() }
         }
-        
-        let (transport, signal) = factory.createBound()
-        self.observe { transport.receive(_checked(input: $0, output: transform($0))) }
-        return signal
+        return factory.create(on: transport)
     }
     
-    func fmap<ResultType>(_ transform: @escaping (PayloadType) -> ResultType) -> DiscreteSignal<ResultType> {
+    public func fmap<ResultType>(_ transform: @escaping (PayloadType) -> ResultType) -> DiscreteSignal<ResultType> {
         return _fmap(transform, factory: DiscreteSignalFactory())
     }
 }
 
-extension ContinuousSignal {
-    func fmap<ResultType>(_ transform: @escaping (Payload) -> ResultType) -> ContinuousSignal<ResultType> {
+public extension ContinuousSignal {
+    public func fmap<ResultType>(_ transform: @escaping (Payload) -> ResultType) -> ContinuousSignal<ResultType> {
         return _fmap(transform, factory: ContinuousSignalFactory(initialValue: transform(self.value)))
     }
 }

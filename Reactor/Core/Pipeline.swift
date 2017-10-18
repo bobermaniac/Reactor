@@ -1,10 +1,17 @@
 import Foundation
 
 public final class Pipeline<Payload> {
-    var receive: (Payload) -> Void = Pipeline.null
+    var muffed: Bool = true
+    
+    var receive: (Payload) -> Void = Pipeline.null {
+        didSet {
+            muffed = false
+        }
+    }
     
     func reset() {
         receive = Pipeline.null
+        muffed = true
     }
     
     private static func null(_ unused: Payload) { }

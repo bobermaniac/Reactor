@@ -33,6 +33,11 @@ public final class ContinuousSignal<Payload: Pulse>: Signal {
         if !value.obsolete { handler(value) }
         return observation
     }
+    
+    public func observe(with handler: @escaping (Payload, Subscription) -> Void) {
+        let observation = impl.add(observer: handler)
+        if !value.obsolete { handler(value, observation) }
+    }
 }
 
 // Copyright (c) 2017 Victor Bryksin <vbryksin@virtualmind.ru>

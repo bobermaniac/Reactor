@@ -27,6 +27,10 @@ public final class DiscreteSignal<Payload: Pulse>: Signal {
     public func observe(with handler: @escaping (Payload) -> Void) -> Subscription {
         return impl.add(observer: handler)
     }
+    
+    public func observe(with handler: @escaping (Payload, Subscription) -> Void) {
+        _ = impl.add(observer: handler)
+    }
 }
 
 // Copyright (c) 2017 Victor Bryksin <vbryksin@virtualmind.ru>
