@@ -1,19 +1,22 @@
 import Foundation
 
-public struct SafetyValveTransferStrategyFactory<T: SafetyStrategy> : TransferStrategyFactory {
-    public typealias TransferStrategyType = SafetyValveTransferStrategy<T>
+public class SafetyValveTransferer<T: SafetyStrategy>: Transferer {
+    public typealias PulseType = T.PulseType
     
-    public init(mergeQueue: DispatchQueue, strategy: T) {
-        _mergeQueue = mergeQueue
-        _strategy = strategy
+    public init(destination: Pipeline<PulseType>, safetyStrategy: T, mergeQueue: DispatchQueue) {
+        _destination = destination
+        _safetyValve = SafetyValve(mergeQueue: mergeQueue, mergeStrategy: safetyStrategy)
     }
     
-    public func create(destination: Pipeline<TransferStrategyType.PulseType>) -> TransferStrategyType {
-        return SafetyValveTransferStrategy(destination: destination, safetyStrategy: _strategy, mergeQueue: _mergeQueue)
+    public func transfer(pulse: PulseType, on queue: DispatchQueue) {
+        let valve = _safetyValve
+        
+        valve.enqueue(pulse)
+        queue.async { valve.dequeue().map(self._destination.receive) }
     }
     
-    private let _mergeQueue: DispatchQueue
-    private let _strategy: T
+    private let _safetyValve: SafetyValve<T>
+    private let _destination: Pipeline<PulseType>
 }
 
 // Copyright (c) 2017 Victor Bryksin <vbryksin@virtualmind.ru>

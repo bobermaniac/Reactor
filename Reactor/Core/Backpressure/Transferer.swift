@@ -1,22 +1,15 @@
 import Foundation
 
-public class SafetyValveTransferStrategy<T: SafetyStrategy>: TransferStrategy {
-    public typealias PulseType = T.PulseType
+public protocol Transferer {
+    associatedtype PulseType: Pulse
     
-    public init(destination: Pipeline<PulseType>, safetyStrategy: T, mergeQueue: DispatchQueue) {
-        _destination = destination
-        _safetyValve = SafetyValve(mergeQueue: mergeQueue, mergeStrategy: safetyStrategy)
+    func transfer(pulse: PulseType, on queue: DispatchQueue)
+}
+
+public extension Transferer {
+    public func transfer<T: Signal>(from signal: T, on queue: DispatchQueue) where T.PayloadType == PulseType {
+        signal.observe { self.transfer(pulse: $0, on: queue) }
     }
-    
-    public func transfer(pulse: PulseType, on queue: DispatchQueue) {
-        let valve = _safetyValve
-        
-        valve.enqueue(pulse)
-        queue.async { valve.dequeue().map(self._destination.receive) }
-    }
-    
-    private let _safetyValve: SafetyValve<T>
-    private let _destination: Pipeline<PulseType>
 }
 
 // Copyright (c) 2017 Victor Bryksin <vbryksin@virtualmind.ru>

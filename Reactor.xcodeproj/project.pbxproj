@@ -43,12 +43,12 @@
 		E780A3401F93FA8B00D20DCF /* ContinuousSignalTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E780A33F1F93FA8B00D20DCF /* ContinuousSignalTests.swift */; };
 		E7824E5B1F93A23F00A401F7 /* SafetyValve.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7824E5A1F93A23F00A401F7 /* SafetyValve.swift */; };
 		E7824E5D1F93B67500A401F7 /* SafetyStrategy.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7824E5C1F93B67500A401F7 /* SafetyStrategy.swift */; };
-		E7824E5F1F93B6A300A401F7 /* TransferStrategy.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7824E5E1F93B6A300A401F7 /* TransferStrategy.swift */; };
-		E7824E611F93B6E100A401F7 /* DirectTransferStrategy.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7824E601F93B6E100A401F7 /* DirectTransferStrategy.swift */; };
-		E7824E631F93B70600A401F7 /* SafetyValveTransferStrategy.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7824E621F93B70600A401F7 /* SafetyValveTransferStrategy.swift */; };
-		E7824E651F93B77E00A401F7 /* TransferStrategyFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7824E641F93B77E00A401F7 /* TransferStrategyFactory.swift */; };
-		E7824E671F93B93500A401F7 /* DirectTransferStrategyFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7824E661F93B93500A401F7 /* DirectTransferStrategyFactory.swift */; };
-		E7824E691F93BAEA00A401F7 /* SafetyValveTransferStrategyFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7824E681F93BAEA00A401F7 /* SafetyValveTransferStrategyFactory.swift */; };
+		E7824E5F1F93B6A300A401F7 /* Transferer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7824E5E1F93B6A300A401F7 /* Transferer.swift */; };
+		E7824E611F93B6E100A401F7 /* DirectTransferer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7824E601F93B6E100A401F7 /* DirectTransferer.swift */; };
+		E7824E631F93B70600A401F7 /* SafetyValveTransferer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7824E621F93B70600A401F7 /* SafetyValveTransferer.swift */; };
+		E7824E651F93B77E00A401F7 /* TransfererFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7824E641F93B77E00A401F7 /* TransfererFactory.swift */; };
+		E7824E671F93B93500A401F7 /* DirectTransfererFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7824E661F93B93500A401F7 /* DirectTransfererFactory.swift */; };
+		E7824E691F93BAEA00A401F7 /* SafetyValveTransfererFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7824E681F93BAEA00A401F7 /* SafetyValveTransfererFactory.swift */; };
 		E7824E6B1F93BED000A401F7 /* MergeQueueProviding.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7824E6A1F93BED000A401F7 /* MergeQueueProviding.swift */; };
 		E7824E6E1F93C5A500A401F7 /* DropIntermediateStrategy.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7824E6D1F93C5A500A401F7 /* DropIntermediateStrategy.swift */; };
 		E78770891F8E957B000321EB /* Signal+extend.swift in Sources */ = {isa = PBXBuildFile; fileRef = E78770881F8E957B000321EB /* Signal+extend.swift */; };
@@ -127,12 +127,12 @@
 		E780A33F1F93FA8B00D20DCF /* ContinuousSignalTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContinuousSignalTests.swift; sourceTree = "<group>"; };
 		E7824E5A1F93A23F00A401F7 /* SafetyValve.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafetyValve.swift; sourceTree = "<group>"; };
 		E7824E5C1F93B67500A401F7 /* SafetyStrategy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafetyStrategy.swift; sourceTree = "<group>"; };
-		E7824E5E1F93B6A300A401F7 /* TransferStrategy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransferStrategy.swift; sourceTree = "<group>"; };
-		E7824E601F93B6E100A401F7 /* DirectTransferStrategy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DirectTransferStrategy.swift; sourceTree = "<group>"; };
-		E7824E621F93B70600A401F7 /* SafetyValveTransferStrategy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafetyValveTransferStrategy.swift; sourceTree = "<group>"; };
-		E7824E641F93B77E00A401F7 /* TransferStrategyFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransferStrategyFactory.swift; sourceTree = "<group>"; };
-		E7824E661F93B93500A401F7 /* DirectTransferStrategyFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DirectTransferStrategyFactory.swift; sourceTree = "<group>"; };
-		E7824E681F93BAEA00A401F7 /* SafetyValveTransferStrategyFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafetyValveTransferStrategyFactory.swift; sourceTree = "<group>"; };
+		E7824E5E1F93B6A300A401F7 /* Transferer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Transferer.swift; sourceTree = "<group>"; };
+		E7824E601F93B6E100A401F7 /* DirectTransferer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DirectTransferer.swift; sourceTree = "<group>"; };
+		E7824E621F93B70600A401F7 /* SafetyValveTransferer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafetyValveTransferer.swift; sourceTree = "<group>"; };
+		E7824E641F93B77E00A401F7 /* TransfererFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransfererFactory.swift; sourceTree = "<group>"; };
+		E7824E661F93B93500A401F7 /* DirectTransfererFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DirectTransfererFactory.swift; sourceTree = "<group>"; };
+		E7824E681F93BAEA00A401F7 /* SafetyValveTransfererFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafetyValveTransfererFactory.swift; sourceTree = "<group>"; };
 		E7824E6A1F93BED000A401F7 /* MergeQueueProviding.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MergeQueueProviding.swift; sourceTree = "<group>"; };
 		E7824E6D1F93C5A500A401F7 /* DropIntermediateStrategy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DropIntermediateStrategy.swift; sourceTree = "<group>"; };
 		E78770881F8E957B000321EB /* Signal+extend.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Signal+extend.swift"; sourceTree = "<group>"; };
@@ -189,15 +189,15 @@
 			isa = PBXGroup;
 			children = (
 				E7824E5C1F93B67500A401F7 /* SafetyStrategy.swift */,
-				E7824E6A1F93BED000A401F7 /* MergeQueueProviding.swift */,
-				E7824E5E1F93B6A300A401F7 /* TransferStrategy.swift */,
-				E7824E641F93B77E00A401F7 /* TransferStrategyFactory.swift */,
-				E7824E5A1F93A23F00A401F7 /* SafetyValve.swift */,
 				E7824E6D1F93C5A500A401F7 /* DropIntermediateStrategy.swift */,
-				E7824E601F93B6E100A401F7 /* DirectTransferStrategy.swift */,
-				E7824E661F93B93500A401F7 /* DirectTransferStrategyFactory.swift */,
-				E7824E621F93B70600A401F7 /* SafetyValveTransferStrategy.swift */,
-				E7824E681F93BAEA00A401F7 /* SafetyValveTransferStrategyFactory.swift */,
+				E7824E6A1F93BED000A401F7 /* MergeQueueProviding.swift */,
+				E7824E5E1F93B6A300A401F7 /* Transferer.swift */,
+				E7824E641F93B77E00A401F7 /* TransfererFactory.swift */,
+				E7824E5A1F93A23F00A401F7 /* SafetyValve.swift */,
+				E7824E601F93B6E100A401F7 /* DirectTransferer.swift */,
+				E7824E661F93B93500A401F7 /* DirectTransfererFactory.swift */,
+				E7824E621F93B70600A401F7 /* SafetyValveTransferer.swift */,
+				E7824E681F93BAEA00A401F7 /* SafetyValveTransfererFactory.swift */,
 			);
 			path = Backpressure;
 			sourceTree = "<group>";
@@ -502,7 +502,7 @@
 				E74D23D71F646A380097C543 /* CollectionEventBatch.swift in Sources */,
 				E7440E7A1F53312D00807C48 /* Signal+fmap.swift in Sources */,
 				E780A3371F93EA7F00D20DCF /* ContinuousSignalEmitter.swift in Sources */,
-				E7824E631F93B70600A401F7 /* SafetyValveTransferStrategy.swift in Sources */,
+				E7824E631F93B70600A401F7 /* SafetyValveTransferer.swift in Sources */,
 				E7440E721F52D0F100807C48 /* SignalCore.swift in Sources */,
 				E7E0C2061F607FA800A00D28 /* DiscreteSignalFactory.swift in Sources */,
 				E7E0C2021F607C5600A00D28 /* DiscreteSignal.swift in Sources */,
@@ -510,21 +510,21 @@
 				E7B4544E1F841473003DFF75 /* File.swift in Sources */,
 				E7440E6A1F52B49800807C48 /* Pulse.swift in Sources */,
 				E7BF7F601F5F2471006C1BFC /* ObservableValue.swift in Sources */,
-				E7824E611F93B6E100A401F7 /* DirectTransferStrategy.swift in Sources */,
+				E7824E611F93B6E100A401F7 /* DirectTransferer.swift in Sources */,
 				E7CEF2A91F5B56FA0098E0ED /* Event.swift in Sources */,
 				E7440E6C1F52B4CF00807C48 /* Pipeline.swift in Sources */,
 				E7481EA01F8A83BA000810A4 /* Signal+transfer.swift in Sources */,
 				E74D23DF1F6866E00097C543 /* CollectionEvent+Update.swift in Sources */,
 				E7440E6E1F52B67500807C48 /* Emitter.swift in Sources */,
-				E7824E651F93B77E00A401F7 /* TransferStrategyFactory.swift in Sources */,
+				E7824E651F93B77E00A401F7 /* TransfererFactory.swift in Sources */,
 				E7E0C2041F607C7700A00D28 /* ContinuousSignal.swift in Sources */,
-				E7824E5F1F93B6A300A401F7 /* TransferStrategy.swift in Sources */,
-				E7824E671F93B93500A401F7 /* DirectTransferStrategyFactory.swift in Sources */,
+				E7824E5F1F93B6A300A401F7 /* Transferer.swift in Sources */,
+				E7824E671F93B93500A401F7 /* DirectTransfererFactory.swift in Sources */,
 				E7CEF2A01F5B2ADC0098E0ED /* Result.swift in Sources */,
 				E71351F61F9149AC00D9D8B7 /* Future+chaining.swift in Sources */,
 				E7440E801F535C3900807C48 /* ContinuousSignal+tie.swift in Sources */,
 				E7824E5B1F93A23F00A401F7 /* SafetyValve.swift in Sources */,
-				E7824E691F93BAEA00A401F7 /* SafetyValveTransferStrategyFactory.swift in Sources */,
+				E7824E691F93BAEA00A401F7 /* SafetyValveTransfererFactory.swift in Sources */,
 				E7E0C2141F63D45400A00D28 /* Timer.swift in Sources */,
 				E7CEF2AB1F5C72130098E0ED /* Promise.swift in Sources */,
 				E7440E821F5491F300807C48 /* Signal+reduce.swift in Sources */,

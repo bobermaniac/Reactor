@@ -1,9 +1,11 @@
 import Foundation
 
-public protocol TransferStrategyFactory {
-    associatedtype TransferStrategyType: TransferStrategy
+public struct DirectTransfererFactory<T: Pulse> : TransfererFactory {
+    public typealias TransferStrategyType = DirectTransferer<T>
     
-    func create(destination: Pipeline<TransferStrategyType.PulseType>) -> TransferStrategyType
+    public func create(destination: Pipeline<T>) -> DirectTransferer<T> {
+        return DirectTransferer(destination: destination)
+    }
 }
 
 // Copyright (c) 2017 Victor Bryksin <vbryksin@virtualmind.ru>

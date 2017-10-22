@@ -1,15 +1,19 @@
 import Foundation
 
-public protocol TransferStrategy {
-    associatedtype PulseType: Pulse
+public struct SafetyValveTransfererFactory<T: SafetyStrategy> : TransfererFactory {
+    public typealias TransferStrategyType = SafetyValveTransferer<T>
     
-    func transfer(pulse: PulseType, on queue: DispatchQueue)
-}
-
-public extension TransferStrategy {
-    public func transfer<T: Signal>(from signal: T, on queue: DispatchQueue) where T.PayloadType == PulseType {
-        signal.observe { self.transfer(pulse: $0, on: queue) }
+    public init(mergeQueue: DispatchQueue, strategy: T) {
+        _mergeQueue = mergeQueue
+        _strategy = strategy
     }
+    
+    public func create(destination: Pipeline<TransferStrategyType.PulseType>) -> TransferStrategyType {
+        return SafetyValveTransferer(destination: destination, safetyStrategy: _strategy, mergeQueue: _mergeQueue)
+    }
+    
+    private let _mergeQueue: DispatchQueue
+    private let _strategy: T
 }
 
 // Copyright (c) 2017 Victor Bryksin <vbryksin@virtualmind.ru>

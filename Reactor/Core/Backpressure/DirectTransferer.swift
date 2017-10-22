@@ -1,11 +1,17 @@
 import Foundation
 
-public struct DirectTransferStrategyFactory<T: Pulse> : TransferStrategyFactory {
-    public typealias TransferStrategyType = DirectTransferStrategy<T>
+public class DirectTransferer<T: Pulse>: Transferer {
+    public typealias PulseType = T
     
-    public func create(destination: Pipeline<T>) -> DirectTransferStrategy<T> {
-        return DirectTransferStrategy(destination: destination)
+    public init(destination: Pipeline<PulseType>) {
+        _destination = destination
     }
+    
+    public func transfer(pulse: PulseType, on queue: DispatchQueue) {
+        queue.async { self._destination.receive(pulse) }
+    }
+    
+    private let _destination: Pipeline<PulseType>
 }
 
 // Copyright (c) 2017 Victor Bryksin <vbryksin@virtualmind.ru>
