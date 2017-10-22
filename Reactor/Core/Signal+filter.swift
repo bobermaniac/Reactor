@@ -2,16 +2,13 @@ import Foundation
 
 extension Signal {
     fileprivate func _filter<SF: SignalFactory>(_ predicate: @escaping (PayloadType) -> Bool, factory: SF) -> SF.SignalType where PayloadType == SF.SignalType.PayloadType {
-        func _checked(input: Pulse, condition: Bool) -> Bool {
-            guard input.obsolete => condition else { fatalError() }
-            return condition
-        }
         let (transport, signal) = factory.createBound()
         
-        self.observe { payload in
-            if _checked(input: payload, condition: predicate(payload)) {
-                transport.receive(payload)
-            }
+        self.observe { (payload, subscription) in
+            let satisfies = predicate(payload)
+            Contract.verify(payload.obsolete => satisfies, failureMessage: "Obsolete payloads should not be filtered")
+            if satisfies { transport.receive(payload) }
+            if payload.obsolete { subscription.cancel() }
         }
         
         return signal
@@ -24,7 +21,6 @@ extension Signal {
 
 extension ContinuousSignal {
     func filter(initial: PayloadType, _ predicate: @escaping (PayloadType) -> Bool) -> ContinuousSignal<PayloadType> {
-        guard predicate(initial) else { fatalError() }
         return _filter(predicate, factory: ContinuousSignalFactory(initialValue: initial))
     }
 }

@@ -30,6 +30,8 @@
 		E767CF561F97DF5A009EE48A /* DiscreteSignalReduceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E767CF551F97DF5A009EE48A /* DiscreteSignalReduceTests.swift */; };
 		E767CF581F97DFC7009EE48A /* Reducer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E767CF571F97DFC7009EE48A /* Reducer.swift */; };
 		E767CF5A1F97E699009EE48A /* ContinuousSignalReduceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E767CF591F97E699009EE48A /* ContinuousSignalReduceTests.swift */; };
+		E767CF5F1F99475E009EE48A /* DiscreteSignalFilterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E767CF5E1F99475E009EE48A /* DiscreteSignalFilterTests.swift */; };
+		E767CF611F9C8208009EE48A /* ContinuousSignalFilterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E767CF601F9C8208009EE48A /* ContinuousSignalFilterTests.swift */; };
 		E780A32C1F93E4A300D20DCF /* BoolTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E780A32B1F93E4A300D20DCF /* BoolTests.swift */; };
 		E780A32E1F93E5CF00D20DCF /* SequenceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E780A32D1F93E5CF00D20DCF /* SequenceTests.swift */; };
 		E780A3301F93E84F00D20DCF /* DiscreteSignalTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E780A32F1F93E84F00D20DCF /* DiscreteSignalTests.swift */; };
@@ -111,6 +113,8 @@
 		E767CF551F97DF5A009EE48A /* DiscreteSignalReduceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscreteSignalReduceTests.swift; sourceTree = "<group>"; };
 		E767CF571F97DFC7009EE48A /* Reducer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reducer.swift; sourceTree = "<group>"; };
 		E767CF591F97E699009EE48A /* ContinuousSignalReduceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContinuousSignalReduceTests.swift; sourceTree = "<group>"; };
+		E767CF5E1F99475E009EE48A /* DiscreteSignalFilterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiscreteSignalFilterTests.swift; sourceTree = "<group>"; };
+		E767CF601F9C8208009EE48A /* ContinuousSignalFilterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContinuousSignalFilterTests.swift; sourceTree = "<group>"; };
 		E780A32A1F93E4A200D20DCF /* ReactorTests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ReactorTests-Bridging-Header.h"; sourceTree = "<group>"; };
 		E780A32B1F93E4A300D20DCF /* BoolTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BoolTests.swift; sourceTree = "<group>"; };
 		E780A32D1F93E5CF00D20DCF /* SequenceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SequenceTests.swift; sourceTree = "<group>"; };
@@ -253,6 +257,8 @@
 				E767CF531F969EEA009EE48A /* ContinuousSignalFmapTests.swift */,
 				E767CF551F97DF5A009EE48A /* DiscreteSignalReduceTests.swift */,
 				E767CF591F97E699009EE48A /* ContinuousSignalReduceTests.swift */,
+				E767CF5E1F99475E009EE48A /* DiscreteSignalFilterTests.swift */,
+				E767CF601F9C8208009EE48A /* ContinuousSignalFilterTests.swift */,
 				E780A32A1F93E4A200D20DCF /* ReactorTests-Bridging-Header.h */,
 			);
 			path = Core;
@@ -553,10 +559,12 @@
 				E767CF561F97DF5A009EE48A /* DiscreteSignalReduceTests.swift in Sources */,
 				E767CF581F97DFC7009EE48A /* Reducer.swift in Sources */,
 				E7ABC49B1F95516400D6CBE6 /* DiscreteSignalFmapTests.swift in Sources */,
+				E767CF5F1F99475E009EE48A /* DiscreteSignalFilterTests.swift in Sources */,
 				E780A33C1F93F49C00D20DCF /* SignalObserver.swift in Sources */,
 				E780A32E1F93E5CF00D20DCF /* SequenceTests.swift in Sources */,
 				E767CF501F969E89009EE48A /* Mapper.swift in Sources */,
 				E780A3401F93FA8B00D20DCF /* ContinuousSignalTests.swift in Sources */,
+				E767CF611F9C8208009EE48A /* ContinuousSignalFilterTests.swift in Sources */,
 				E767CF541F969EEA009EE48A /* ContinuousSignalFmapTests.swift in Sources */,
 				E780A33A1F93F47F00D20DCF /* IntPulse.swift in Sources */,
 				E780A3301F93E84F00D20DCF /* DiscreteSignalTests.swift in Sources */,

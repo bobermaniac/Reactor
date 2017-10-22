@@ -6,14 +6,19 @@ public extension Signal {
     }
     
     fileprivate func extend<SF: SignalFactory>(intermediateTransform: @escaping (PayloadType) -> SF.SignalType.PayloadType, finalTransform: @escaping (PayloadType) -> SF.SignalType, factory: SF) -> SF.SignalType {
-        let (transport, signal) = factory.createBound()
-        observe { pulse in
-            if !pulse.obsolete { transport.receive(intermediateTransform(pulse)) }
+        let transport = Pipeline<SF.SignalType.PayloadType>()
+        observe { (pulse, subscription) in
+            if !pulse.obsolete {
+                if transport.muffed { return }
+                let result = intermediateTransform(pulse)
+                transport.receive(result)
+                if result.obsolete { subscription.cancel() }
+            }
             else {
                 finalTransform(pulse).observe(with: transport.receive)
             }
         }
-        return signal
+        return factory.create(on: transport)
     }
     
     public func extend<U>(intermediateTransform: @escaping (PayloadType) -> U, finalTransform: @escaping (PayloadType) -> DiscreteSignal<U>) -> DiscreteSignal<U> {
