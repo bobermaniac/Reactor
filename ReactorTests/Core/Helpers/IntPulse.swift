@@ -12,6 +12,10 @@ import Reactor
 struct IntPulse: Pulse, ExpressibleByIntegerLiteral, Equatable {
     public typealias IntegerLiteralType = Int
     
+    public init(_ value: Int) {
+        payload = value
+    }
+    
     public init(integerLiteral value: Int) {
         payload = value
     }

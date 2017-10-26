@@ -74,6 +74,9 @@
 		E7E0C2141F63D45400A00D28 /* Timer.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7E0C2131F63D45400A00D28 /* Timer.swift */; };
 		E7E0C2171F6413A900A00D28 /* MutableCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7E0C2161F6413A900A00D28 /* MutableCollection.swift */; };
 		E7E0C2191F6413B700A00D28 /* CollectionEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7E0C2181F6413B700A00D28 /* CollectionEvent.swift */; };
+		E7E0E7611F9D04DD0042FD47 /* DirectTransfererTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7E0E7601F9D04DD0042FD47 /* DirectTransfererTests.swift */; };
+		E7E0E7641F9D22D40042FD47 /* SafetyValveTransfererTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7E0E7631F9D22D40042FD47 /* SafetyValveTransfererTests.swift */; };
+		E7E0E7661F9FD1EA0042FD47 /* QueueGate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7E0E7651F9FD1EA0042FD47 /* QueueGate.swift */; };
 		E7F9102C1F1802CE00E55373 /* Reactor.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E7F910221F1802CE00E55373 /* Reactor.framework */; };
 		E7F910331F1802CE00E55373 /* Reactor.h in Headers */ = {isa = PBXBuildFile; fileRef = E7F910251F1802CE00E55373 /* Reactor.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E7FC848A1F84AA9C008449E1 /* File+ReadOperation.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7FC84891F84AA9C008449E1 /* File+ReadOperation.swift */; };
@@ -158,6 +161,9 @@
 		E7E0C2131F63D45400A00D28 /* Timer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Timer.swift; sourceTree = "<group>"; };
 		E7E0C2161F6413A900A00D28 /* MutableCollection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MutableCollection.swift; sourceTree = "<group>"; };
 		E7E0C2181F6413B700A00D28 /* CollectionEvent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionEvent.swift; sourceTree = "<group>"; };
+		E7E0E7601F9D04DD0042FD47 /* DirectTransfererTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DirectTransfererTests.swift; sourceTree = "<group>"; };
+		E7E0E7631F9D22D40042FD47 /* SafetyValveTransfererTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SafetyValveTransfererTests.swift; sourceTree = "<group>"; };
+		E7E0E7651F9FD1EA0042FD47 /* QueueGate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QueueGate.swift; sourceTree = "<group>"; };
 		E7F910221F1802CE00E55373 /* Reactor.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Reactor.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		E7F910251F1802CE00E55373 /* Reactor.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Reactor.h; sourceTree = "<group>"; };
 		E7F910261F1802CE00E55373 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -248,6 +254,7 @@
 		E780A3291F93E48800D20DCF /* Core */ = {
 			isa = PBXGroup;
 			children = (
+				E7E0E75F1F9D045D0042FD47 /* Backpressure */,
 				E780A3381F93F47100D20DCF /* Helpers */,
 				E780A32B1F93E4A300D20DCF /* BoolTests.swift */,
 				E780A32D1F93E5CF00D20DCF /* SequenceTests.swift */,
@@ -272,6 +279,7 @@
 				E767CF4D1F968D9E009EE48A /* GivenWhenThen.swift */,
 				E767CF4F1F969E89009EE48A /* Mapper.swift */,
 				E767CF571F97DFC7009EE48A /* Reducer.swift */,
+				E7E0E7651F9FD1EA0042FD47 /* QueueGate.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -339,6 +347,15 @@
 				E74D23DE1F6866E00097C543 /* CollectionEvent+Update.swift */,
 			);
 			path = ObservableCollection;
+			sourceTree = "<group>";
+		};
+		E7E0E75F1F9D045D0042FD47 /* Backpressure */ = {
+			isa = PBXGroup;
+			children = (
+				E7E0E7601F9D04DD0042FD47 /* DirectTransfererTests.swift */,
+				E7E0E7631F9D22D40042FD47 /* SafetyValveTransfererTests.swift */,
+			);
+			path = Backpressure;
 			sourceTree = "<group>";
 		};
 		E7F910181F1802CE00E55373 = {
@@ -555,6 +572,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E7E0E7611F9D04DD0042FD47 /* DirectTransfererTests.swift in Sources */,
+				E7E0E7661F9FD1EA0042FD47 /* QueueGate.swift in Sources */,
 				E767CF4E1F968D9E009EE48A /* GivenWhenThen.swift in Sources */,
 				E767CF561F97DF5A009EE48A /* DiscreteSignalReduceTests.swift in Sources */,
 				E767CF581F97DFC7009EE48A /* Reducer.swift in Sources */,
@@ -568,6 +587,7 @@
 				E767CF541F969EEA009EE48A /* ContinuousSignalFmapTests.swift in Sources */,
 				E780A33A1F93F47F00D20DCF /* IntPulse.swift in Sources */,
 				E780A3301F93E84F00D20DCF /* DiscreteSignalTests.swift in Sources */,
+				E7E0E7641F9D22D40042FD47 /* SafetyValveTransfererTests.swift in Sources */,
 				E780A32C1F93E4A300D20DCF /* BoolTests.swift in Sources */,
 				E767CF5A1F97E699009EE48A /* ContinuousSignalReduceTests.swift in Sources */,
 			);
