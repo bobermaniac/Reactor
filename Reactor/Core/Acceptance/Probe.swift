@@ -1,24 +1,38 @@
 import Foundation
 
-public extension Sequence {
-    public func any(_ predicate: (Element) throws -> Bool) rethrows -> Bool {
-        for item in self {
-            if try predicate(item) {
-                return true
-            }
-        }
-        return false
+struct Probe: Pulse, Equatable, Hashable {
+    var hashValue: Int {
+        return value
     }
     
-    public func all(_ predicate: (Element) throws -> Bool) rethrows -> Bool {
-        for item in self {
-            if try !predicate(item) {
-                return false
-            }
-        }
-        return true
+    static func ==(lhs: Probe, rhs: Probe) -> Bool {
+        return lhs.value == rhs.value
+    }
+    
+    private let value: Int
+    
+    private init(_ value: Int) {
+        self.value = value
+    }
+    
+    static var obsolete: Probe {
+        return Probe(0)
+    }
+    
+    static func signal() -> Probe {
+        return Probe(Int(arc4random()))
+    }
+    
+    static func signals(count: Int) -> [ Probe ] {
+        return (0..<count).map { _ in signal() }
+    }
+    
+    var obsolete: Bool {
+        return value == 0
     }
 }
+
+typealias Probes = [ Probe ]
 
 // Copyright (c) 2017 Victor Bryksin <vbryksin@virtualmind.ru>
 //

@@ -1,16 +1,8 @@
 import Foundation
 
-public protocol Emitting {
-    associatedtype SignalType: Signal
-    
-    func emit(_ payload: SignalType.PayloadType)
-    
-    var monitor: SignalType { get }
-}
-
-public extension Emitting {
-    func emit(_ payloads: [ SignalType.PayloadType ]) {
-        payloads.forEach(self.emit)
+struct Acceptance {
+    static func signal<T>(emitterFactory: @escaping () -> T) -> SignalAcceptance<T> {
+        return SignalAcceptance(emitterFactory: emitterFactory)
     }
 }
 

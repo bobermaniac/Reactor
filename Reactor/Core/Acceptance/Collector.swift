@@ -1,16 +1,26 @@
 import Foundation
 
-public protocol Emitting {
-    associatedtype SignalType: Signal
+class Collector<T: Pulse> {
+    private(set) public var pulses: [ T ] = []
     
-    func emit(_ payload: SignalType.PayloadType)
+    @discardableResult
+    func attach<U: Emitting>(to emitter: U) -> Subscription where U.SignalType.PayloadType == T {
+        return emitter.monitor.observe { pulse in
+            self.pulses.append(pulse)
+        }
+    }
     
-    var monitor: SignalType { get }
-}
-
-public extension Emitting {
-    func emit(_ payloads: [ SignalType.PayloadType ]) {
-        payloads.forEach(self.emit)
+    @discardableResult
+    func attach<U: Signal>(to signal: U) -> Subscription where U.PayloadType == T {
+        return signal.observe { pulse in
+            self.pulses.append(pulse)
+        }
+    }
+    
+    static func attached<U: Emitting>(to emitter: U) -> Collector<U.SignalType.PayloadType> {
+        let collector = Collector<U.SignalType.PayloadType>()
+        collector.attach(to: emitter)
+        return collector
     }
 }
 

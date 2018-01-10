@@ -1,16 +1,37 @@
 import Foundation
 
-public protocol Emitting {
-    associatedtype SignalType: Signal
-    
-    func emit(_ payload: SignalType.PayloadType)
-    
-    var monitor: SignalType { get }
+struct AcceptranceAssertion<T>: CustomStringConvertible  {
+    let expected: T
+    let actual: T
+    var description: String
 }
 
-public extension Emitting {
-    func emit(_ payloads: [ SignalType.PayloadType ]) {
-        payloads.forEach(self.emit)
+typealias AcceptanceBoolAssertion = AcceptranceAssertion<Bool>
+
+func specify<T>(_ value: T) -> SpecifiedValue<T> {
+    return SpecifiedValue(actual: value)
+}
+
+struct SpecifiedValue<T> {
+    let actual: T
+    
+    func equals(to other: T) -> SpecifiedPair<T> {
+        return SpecifiedPair(actual: actual, expected: other)
+    }
+}
+
+extension SpecifiedValue where T == Bool {
+    func isTrue() -> SpecifiedPair<T> {
+        return SpecifiedPair(actual: actual, expected: true)
+    }
+}
+
+struct SpecifiedPair<T> {
+    let actual: T
+    let expected: T
+    
+    func because(_ string: String) -> AcceptranceAssertion<T> {
+        return AcceptranceAssertion(expected: expected, actual: actual, description: string)
     }
 }
 

@@ -7,146 +7,78 @@
 //
 
 import XCTest
+
+@testable
 import Reactor
 
 class ContinuousSignalTests: XCTestCase {
-    public let initialPulse = IntPulse(integerLiteral: 10)
-    private var emitter: ContinuousSignalEmitter<IntPulse>! = nil
-    
-    override func setUp() {
-        super.setUp()
-        emitter = ContinuousSignalEmitter(initialValue: initialPulse)
-    }
-    
-    override func tearDown() {
-        emitter.emit(0)
-        super.tearDown()
-    }
-    
     func testContainsInitialPulseAtStart() {
-        XCTAssertEqual(emitter.monitor.value, initialPulse)
+        let emitter = ContinuousSignalEmitter(initialValue: initialProbe)
+        
+        XCTAssertEqual(emitter.monitor.value, initialProbe)
     }
     
     func testInitialPayloadTransfersToObserver() {
-        let observer = SignalObserver<IntPulse>()
-        given {
-
-        }
-        when {
-            observer.attach(to: emitter)
-        }
-        then {
-            XCTAssertEqual(observer.pulses, [ initialPulse ])
-        }
+        let emitter = ContinuousSignalEmitter(initialValue: initialProbe)
+        let collector = Collector<Probe>.attached(to: emitter)
+        XCTAssertEqual(collector.pulses, [ initialProbe ])
     }
     
     func testEmittedPayloadImmediatelyTransferedToObserver() {
-        let observer = SignalObserver<IntPulse>()
-        given {
-            observer.attach(to: emitter)
-        }
-        when {
-            emitter.emit(1)
-        }
-        then {
-            XCTAssertEqual(observer.pulses, [ initialPulse, 1 ])
-        }
+        let assertion = suite.emitterPayloadImmediatelyTransferedToObserver()
+        XCTAssertEqual(assertion.expected, assertion.actual, assertion.description)
     }
     
     func testSignalChangesValueAfterEmitting() {
-        given {
-            
-        }
-        when {
-            emitter.emit(1)
-        }
-        then {
-            XCTAssertEqual(emitter.monitor.value, 1)
-        }
+        let emitter = ContinuousSignalEmitter(initialValue: initialProbe)
+        let nextProbe = Probe.signal()
+        emitter.emit(nextProbe)
+        XCTAssertEqual(emitter.monitor.value, nextProbe)
     }
     
     func testAllObserversReceivesAllSamePulses() {
-        let firstObserver = SignalObserver<IntPulse>()
-        let secondObserver = SignalObserver<IntPulse>()
-        given {
-            firstObserver.attach(to: emitter)
-            secondObserver.attach(to: emitter)
-        }
-        when {
-            emitter.emit(1)
-        }
-        then {
-            XCTAssertEqual(firstObserver.pulses, secondObserver.pulses)
-        }
+        let assertion = suite.allObserversSeeSimilarPayloadSequences()
+        XCTAssertEqual(assertion.expected, assertion.actual, assertion.description)
     }
     
     func testSignalDetachItsSubscribersOnObsoletePulse() {
-        let observer = SignalObserver<IntPulse>()
-        given {
-            observer.attach(to: emitter)
-        }
-        when {
-            emitter.emit(0)
-            emitter.emit(5)
-        }
-        then {
-            XCTAssertEqual(observer.pulses, [ initialPulse, 0 ])
-        }
+        let assertion = suite.observerDetachedAfterObsoletePulseEmitted()
+        XCTAssertEqual(assertion.expected, assertion.actual, assertion.description)
     }
     
     func testSignalValueDoesNotChangeAfterObsoletePulse() {
-        given {
-            
-        }
-        when {
-            emitter.emit(0)
-            emitter.emit(5)
-        }
-        then {
-            XCTAssertEqual(emitter.monitor.value, 0)
-        }
+        let emitter = ContinuousSignalEmitter(initialValue: initialProbe)
+        emitter.emit(.obsolete)
+        emitter.emit(.signal())
+        XCTAssertEqual(emitter.monitor.value, .obsolete)
     }
     
     func testObserverReceivesObsoletePulseOnSubscription() {
-        let observer = SignalObserver<IntPulse>()
-        given {
-            emitter.emit(0)
-        }
-        when {
-            observer.attach(to: emitter)
-        }
-        then {
-            XCTAssertEqual(observer.pulses, [ 0 ])
-        }
+        let assertion = suite.observerReceiveObsoletePulseOnAttachingIfApplicable()
+        XCTAssertEqual(assertion.expected, assertion.actual, assertion.description)
     }
     
     func testObserverReceivesLastNonObsoletePulseOnSubscription() {
-        let observer = SignalObserver<IntPulse>()
-        given {
-            emitter.emit(5)
-        }
-        when {
-            observer.attach(to: emitter)
-        }
-        then {
-            XCTAssertEqual(observer.pulses, [ 5 ])
-        }
+        let emitter = ContinuousSignalEmitter(initialValue: initialProbe)
+        let nextProbe = Probe.signal()
+        emitter.emit(nextProbe)
+        let collector = Collector<Probe>.attached(to: emitter)
+        XCTAssertEqual(collector.pulses, [ nextProbe ])
     }
     
     func testCancelObservingStopsReceivingPulses() {
-        let observer = SignalObserver<IntPulse>()
-        var subscribtion: Subscription!
-        given {
-            subscribtion = observer.attach(to: emitter)
-            emitter.emit(5)
-        }
-        when {
-            subscribtion.cancel()
-            emitter.emit(10)
-        }
-        then {
-            XCTAssertEqual(observer.pulses, [ initialPulse, 5 ])
-        }
+        let assertion = suite.observationCancelingStopsReceivingEvent()
+        XCTAssertEqual(assertion.expected, assertion.actual, assertion.description)
+    }
+    
+    private var initialProbe: Probe { return state.0 }
+    private var suite: SignalAcceptance<ContinuousSignalEmitter<Probe>> { return state.1 }
+    private let state = ContinuousSignalTests.makeInitialState()
+    
+    private static func makeInitialState() -> (Probe, SignalAcceptance<ContinuousSignalEmitter<Probe>>) {
+        let probe = Probe.signal()
+        let suite = Acceptance.signal(emitterFactory: { ContinuousSignalEmitter(initialValue: probe) })
+        return (probe, suite)
     }
 }
 

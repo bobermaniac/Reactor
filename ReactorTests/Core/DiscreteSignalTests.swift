@@ -7,104 +7,49 @@
 //
 
 import XCTest
+
+@testable
 import Reactor
 
 class DiscreteSignalTests: XCTestCase {
-    private var emitter: DiscreteSignalEmitter<IntPulse>! = nil
-    
-    override func setUp() {
-        super.setUp()
-        emitter = DiscreteSignalEmitter()
-    }
-    
-    override func tearDown() {
-        emitter.emit(0)
-        super.tearDown()
-    }
-    
     func testEmittedPayloadImmediatelyTransferedToObserver() {
-        let observer = SignalObserver<IntPulse>()
-        
-        given {
-            observer.attach(to: emitter)
-        }
-        when {
-            emitter.emit(1)
-        }
-        then {
-            XCTAssertEqual(observer.pulses, [ 1 ])
-        }
+        let assertion = suite.emitterPayloadImmediatelyTransferedToObserver()
+        XCTAssertEqual(assertion.expected, assertion.actual, assertion.description)
     }
     
     func testAllObserversReceivesAllSamePulses() {
-        let firstObserver = SignalObserver<IntPulse>()
-        let secondObserver = SignalObserver<IntPulse>()
-        
-        given {
-            firstObserver.attach(to: emitter)
-            secondObserver.attach(to: emitter)
-        }
-        when {
-            emitter.emit(1)
-        }
-        then {
-            XCTAssertEqual(firstObserver.pulses, secondObserver.pulses)
-        }
+        let assertion = suite.allObserversSeeSimilarPayloadSequences()
+        XCTAssertEqual(assertion.expected, assertion.actual, assertion.description)
     }
     
     func testSignalDetachItsSubscribersOnObsoletePulse() {
-        let observer = SignalObserver<IntPulse>()
-        given {
-            observer.attach(to: emitter)
-        }
-        when {
-            emitter.emit(0)
-            emitter.emit(5)
-        }
-        then {
-            XCTAssertEqual(observer.pulses, [ 0 ])
-        }
+        let assertion = suite.observerDetachedAfterObsoletePulseEmitted()
+        XCTAssertEqual(assertion.expected, assertion.actual, assertion.description)
+    }
+    
+    func testObserverDoesntReceiveAnySignalAfterObsoletePulseEmitted() {
+        let assertion = suite.observerDoesntReceiveAnySignalAfterObsoletePulseEmitted()
+        XCTAssertEqual(assertion.expected, assertion.actual, assertion.description)
     }
     
     func testObserverReceivesObsoletePulseOnSubscription() {
-        let observer = SignalObserver<IntPulse>()
-        given {
-            emitter.emit(0)
-        }
-        when {
-            observer.attach(to: emitter)
-        }
-        then {
-            XCTAssertEqual(observer.pulses, [ 0 ])
-        }
-    }
-    
-    func testObserverDoesNotReceiveNonObsoletePulseOnSubscription() {
-        let observer = SignalObserver<IntPulse>()
-        given {
-            emitter.emit(5)
-        }
-        when {
-            observer.attach(to: emitter)
-        }
-        then {
-            XCTAssertEqual(observer.pulses.count, 0)
-        }
+        let assertion = suite.observerReceiveObsoletePulseOnAttachingIfApplicable()
+        XCTAssertEqual(assertion.expected, assertion.actual, assertion.description)
     }
     
     func testCancelObservingStopsReceivingPulses() {
-        let observer = SignalObserver<IntPulse>()
-        var subscription: Subscription!
-        given {
-            subscription = observer.attach(to: emitter)
-            emitter.emit(5)
-        }
-        when {
-            subscription.cancel()
-            emitter.emit(10)
-        }
-        then {
-            XCTAssertEqual(observer.pulses, [ 5 ])
-        }
+        let assertion = suite.observationCancelingStopsReceivingEvent()
+        XCTAssertEqual(assertion.expected, assertion.actual, assertion.description)
     }
+    
+    func testObserverDoesNotReceiveNonObsoletePulseOnSubscription() {
+        let emitter = DiscreteSignalEmitter<Probe>()
+        defer { emitter.emit(.obsolete) }
+        emitter.emit(Probe.signals(count: 3))
+        let collector = Collector<Probe>.attached(to: emitter)
+        XCTAssertEqual(collector.pulses, [],
+                       "Observer should not receive non-obsolete pulses emitted before subscription")
+    }
+    
+    private var suite = Acceptance.signal(emitterFactory: DiscreteSignalEmitter<Probe>.init)
 }

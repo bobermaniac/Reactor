@@ -1,16 +1,41 @@
 import Foundation
 
-public protocol Emitting {
-    associatedtype SignalType: Signal
+public extension Sequence {
+    public func any(_ predicate: (Element) throws -> Bool) rethrows -> Bool {
+        for item in self {
+            if try predicate(item) {
+                return true
+            }
+        }
+        return false
+    }
     
-    func emit(_ payload: SignalType.PayloadType)
+    public func all(_ predicate: (Element) throws -> Bool) rethrows -> Bool {
+        for item in self {
+            if try !predicate(item) {
+                return false
+            }
+        }
+        return true
+    }
     
-    var monitor: SignalType { get }
-}
-
-public extension Emitting {
-    func emit(_ payloads: [ SignalType.PayloadType ]) {
-        payloads.forEach(self.emit)
+    public func take(_ number: Int) -> [ Element ] {
+        var result = [] as [ Element ]
+        for item in self {
+            result.append(item)
+            if number == result.count {
+                break
+            }
+        }
+        return result
+    }
+    
+    public func takeLast(_ number: Int) -> [ Element ] {
+        var result = RingBuffer<Element>(capacity: number)
+        for item in self {
+            result.put(item)
+        }
+        return result.dump()
     }
 }
 
